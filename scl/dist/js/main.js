@@ -33,7 +33,7 @@ $(document).on('click', '#adminManageStudentsBtn', function (evnt) {
     $('#adminManageTeachersBtn, #adminManageScores, #adminManageSessionsBtn').removeClass('active');
     $(this).addClass('active');
     $('#aminPageHdTxt').text('Manage Students');
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {admnManageStu: 'admnManageStu'});
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {admnManageStu: 'admnManageStu'});
     post.jxhr.done(function (res) {
         $('#adminPageContainer').html(res);
     });
@@ -41,7 +41,7 @@ $(document).on('click', '#adminManageStudentsBtn', function (evnt) {
 // add class select section 
 $(document).on('change', '#addClassSectionTx', function () {
     var id = $(this).val();
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {gtClassesTr: id});
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {gtClassesTr: id});
         post.jxhr.done(function (res) {
         $('#classesTrContainer').html(res);
     });
@@ -53,7 +53,7 @@ $(document).on('click', '#addClassBtn', function () {
     if (classTxt === false) {
         alert('Cannot accept empty form');
     } else {
-        var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {classTxt: classTxt, SectionTx: SectionTx});
+        var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {classTxt: classTxt, SectionTx: SectionTx});
         post.jxhr.done(function (res) {
            $('#classesTrContainer').html(res);
         });
@@ -64,7 +64,7 @@ $(document).on('click', '.saveEditClassBtn', function () {
     var id = $(this).val();
     var saveEditClsId = $('#edtCls' +id).val();
     var SectionId = $('#addClassSectionTx').val();
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', 
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', 
     {saveEditClsId: saveEditClsId, saveid: id, SectionId: SectionId});
     post.jxhr.done(function (res) {
        $('#classesTrContainer').html(res);
@@ -73,7 +73,7 @@ $(document).on('click', '.saveEditClassBtn', function () {
 // del class btn   
 $(document).on('dblclick', '.deleteClassBtn', function () {
     var id = $(this).val();
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {delClasId: id});
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {delClasId: id});
     post.jxhr.done(function (res) {
        $('#classesTrContainer').html(res);
     });
@@ -82,7 +82,7 @@ $(document).on('dblclick', '.deleteClassBtn', function () {
 // $(document).on('click', '.addCourseBtn', function () {
 //     var id = $(this).val();
 //     $('#saveSubChanges').val(id);
-//     var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {addCourseModId: id});
+//     var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {addCourseModId: id});
 //     post.jxhr.done(function (res) {
 //        $('#addCoursesModalBody').html(res);
 //     });
@@ -94,7 +94,7 @@ $(document).on('click', '#saveSubChanges', function () {
 // select section classes
 $(document).on('change', '#subjectSectionTx', function () {
     var id = $(this).val();
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {slSecClss: id});
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {slSecClss: id});
     post.jxhr.done(function (res) {
         $('#subjectsTrContainer').html(res);
     });
@@ -107,7 +107,7 @@ $(document).on('click', '#addSubjectBtn', function () {
     if (subjectsTxt === false) {
         alert('Cannot accept empty form');
     } else {
-        var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', 
+        var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', 
         {subjectsTxt: subjectsTxt, subSectionTx: subSectionTx});
         post.jxhr.done(function (res) {
            $('#subjectsTrContainer').html(res);
@@ -117,7 +117,7 @@ $(document).on('click', '#addSubjectBtn', function () {
 // del subject btn
 $(document).on('dblclick', '.deleteSubjectBtn', function () {
     var id = $(this).val();
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {delSubjecId: id});
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {delSubjecId: id});
     post.jxhr.done(function (res) {
        $('#subjectsTrContainer').html(res);
     });
@@ -125,7 +125,7 @@ $(document).on('dblclick', '.deleteSubjectBtn', function () {
 // add students select class
 $(document).on('change', '#selectClassId', function () {
     var id = $(this).val();
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {getStuClass: id});
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {getStuClass: id});
     post.jxhr.done(function (res) {
         $('#studentsTrContainer').html(res);
     }); 
@@ -134,7 +134,7 @@ $(document).on('change', '#selectClassId', function () {
 $(document).on('click', '#registerStudentBtn', function () {
     var data = new formData('#regStudentsTble');
     data.selectClassId = $('#selectClassId').val();
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', data);
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', data);
     post.jxhr.done(function (res) {
         $('#studentsTrContainer').html(res);
     });
@@ -142,7 +142,7 @@ $(document).on('click', '#registerStudentBtn', function () {
 // edit Stud
 $(document).on('click', '.editStudentBtn', function () {
     var id = $(this).val();
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {editStuId: id});
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {editStuId: id});
     post.jxhr.done(function (res) {
         $('#regStuFormCont').html(res);
     });
@@ -153,10 +153,10 @@ $(document).on('click', '#saveEditChangesBtn', function (e) {
     var data = new formData('#regStudentsTble');
     data.selectClassId = $('#selectClassId').val();
     data.studentId = $(this).val();
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', data);
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', data);
     post.jxhr.done(function (res) {
         $('#studentsTrContainer').html(res);
-        var postnd = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {getEptyFrm: 'getEptyFrm'});
+        var postnd = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {getEptyFrm: 'getEptyFrm'});
         postnd.jxhr.done(function (res) {
             $('#regStuFormCont').html(res);
         })
@@ -165,7 +165,7 @@ $(document).on('click', '#saveEditChangesBtn', function (e) {
 // del student 
 $(document).on('dblclick', '.deleteStudentBtn', function () {
     var id = $(this).val();
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {delStuId: id});
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {delStuId: id});
     post.jxhr.done(function (res) {
         $('#studentsTrContainer').html(res);
     });
@@ -174,7 +174,7 @@ $(document).on('dblclick', '.deleteStudentBtn', function () {
 // $(document).on('click', '#changeClassBtn', function () {
 //     var chngFromCls = validate($('#selectClassId').val());
 //     var chngToCls = validate($('#changeToSelectClassId').val());
-//     var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', 
+//     var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', 
 //     {chngFromCls: chngFromCls, chngToCls: chngToCls});
 //     post.jxhr.done(function (res) {
 //         $('#studentsTrContainer').html(res);
@@ -186,7 +186,7 @@ $(document).on('click', '#adminManageTeachersBtn', function (evnt) {
     $('#adminManageScores, #adminManageStudentsBtn, #adminManageSessionsBtn').removeClass('active');
     $(this).addClass('active');
     $('#aminPageHdTxt').text('Manage Teachers');
-    var post = new ajxobj('/kuramiacademy/php/mstudents.php', 'POST', 'HTML', {admnManageTeach: 'admnManageTeach'});
+    var post = new ajxobj('/php/mstudents.php', 'POST', 'HTML', {admnManageTeach: 'admnManageTeach'});
     post.jxhr.done(function (res) {
         $('#adminPageContainer').html(res);
     });
@@ -197,7 +197,7 @@ $(document).on('click', '#adminManageSessionsBtn', function (evnt) {
     $('#adminManageScores, #adminManageStudentsBtn, #adminManageTeachersBtn').removeClass('active');
     $(this).addClass('active');
     $('#aminPageHdTxt').text('Manage Sessions & Terms');
-    var post = new ajxobj('/kuramiacademy/php/msesstrm.php', 'POST', 'HTML', {admnManageSessTrms: 'admnManageSessTrms'});
+    var post = new ajxobj('/php/msesstrm.php', 'POST', 'HTML', {admnManageSessTrms: 'admnManageSessTrms'});
     post.jxhr.done(function (res) {
         $('#adminPageContainer').html(res);
     });
@@ -208,7 +208,7 @@ $(document).on('click', '#addYearBtn', function () {
     if (addYearTx == false) {
         alert('Cannot accept empty form');
     } else {
-        var post = new ajxobj('/kuramiacademy/php/msesstrm.php', 'POST', 'HTML', {addYearTx: addYearTx});
+        var post = new ajxobj('/php/msesstrm.php', 'POST', 'HTML', {addYearTx: addYearTx});
         post.jxhr.done(function (res) {
             $('#yearsTrContainer').html(res);
         });
@@ -217,7 +217,7 @@ $(document).on('click', '#addYearBtn', function () {
 // del year
 $(document).on('click', '#delYearBtn', function () {
     var id = $(this).val();
-    var post = new ajxobj('/kuramiacademy/php/msesstrm.php', 'POST', 'HTML', {delYear: id});
+    var post = new ajxobj('/php/msesstrm.php', 'POST', 'HTML', {delYear: id});
     post.jxhr.done(function (res) {
         $('#yearsTrContainer').html(res);
     });
@@ -225,7 +225,7 @@ $(document).on('click', '#delYearBtn', function () {
 // select year
 $(document).on('change', '#selcYearTx', function () {
     var id = $(this).val();
-    var post = new ajxobj('/kuramiacademy/php/msesstrm.php', 'POST', 'HTML', {selectTrmYear: id});
+    var post = new ajxobj('/php/msesstrm.php', 'POST', 'HTML', {selectTrmYear: id});
     post.jxhr.done(function (res) {
         $('#termsTrContainer').html(res);
     });
@@ -236,7 +236,7 @@ $(document).on('click', '#addTermBtn', function () {
     var addTermTxt = $('#addTermTxt').val(); 
     var addNextTermStartTxt = $('#addNextTermStartTxt').val(); 
     var addNextTermEndsTxt = $('#addNextTermEndsTxt').val();
-    var post = new ajxobj('/kuramiacademy/php/msesstrm.php', 'POST', 'HTML', 
+    var post = new ajxobj('/php/msesstrm.php', 'POST', 'HTML', 
     {addTermTxt: addTermTxt, yearTxId: yearTxId, 
     addNextTermStartTxt: addNextTermStartTxt, addNextTermEndsTxt: addNextTermEndsTxt});
     post.jxhr.done(function (res) {
@@ -250,7 +250,7 @@ $(document).on('click', '#saveChangeTermBtn', function () {
     var updateTermTxt = $('#updateTermTxt').val(); 
     var updateNextTermStartTxt = $('#updateNextTermStartTxt').val(); 
     var updateNextTermEndsTxt = $('#updateNextTermEndsTxt').val();
-    var post = new ajxobj('/kuramiacademy/php/msesstrm.php', 'POST', 'HTML', 
+    var post = new ajxobj('/php/msesstrm.php', 'POST', 'HTML', 
     {updateTermTxt: updateTermTxt, updateyearTxId: yearTxId, termid: termid, 
     updateNextTermStartTxt: updateNextTermStartTxt, updateNextTermEndsTxt: updateNextTermEndsTxt});
     post.jxhr.done(function (res) {
@@ -261,7 +261,7 @@ $(document).on('click', '#saveChangeTermBtn', function () {
 $(document).on('click', '#editTermBtn', function () {
     var id = $(this).val();
     var yearTxId = $('#selcYearTx').val();
-    var post = new ajxobj('/kuramiacademy/php/msesstrm.php', 'POST', 'HTML', {editTermId: id, yearTxId: yearTxId});
+    var post = new ajxobj('/php/msesstrm.php', 'POST', 'HTML', {editTermId: id, yearTxId: yearTxId});
     post.jxhr.done(function (res) {
         $('#termsBodyCont').html(res);
     });
@@ -270,7 +270,7 @@ $(document).on('click', '#editTermBtn', function () {
 $(document).on('click', '#delTermBtn', function () {
     var id = $(this).val();
     var yearTxId = $('#selcYearTx').val();
-    var post = new ajxobj('/kuramiacademy/php/msesstrm.php', 'POST', 'HTML', {delTermId: id, yearTxId: yearTxId});
+    var post = new ajxobj('/php/msesstrm.php', 'POST', 'HTML', {delTermId: id, yearTxId: yearTxId});
     post.jxhr.done(function (res) {
         $('#termsTrContainer').html(res);
     });
@@ -281,14 +281,14 @@ $(document).on('click', '#adminManageScores', function (evnt) {
     $('#adminManageTeachersBtn, #adminManageStudentsBtn, #adminManageSessionsBtn').removeClass('active');
     $(this).addClass('active');
     $('#aminPageHdTxt').text('Manage Scores');
-    var post = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', {admnManageScores: 'admnManageScores'});
+    var post = new ajxobj('/php/mscores.php', 'POST', 'HTML', {admnManageScores: 'admnManageScores'});
     post.jxhr.done(function (res) {
         $('#adminPageContainer').html(res);
     });
 });
 // sel yrs term
 $(document).on('change', '#addScoreYearId', function () {
-    var post = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', {gtYrsTrms: $(this).val()});
+    var post = new ajxobj('/php/mscores.php', 'POST', 'HTML', {gtYrsTrms: $(this).val()});
     post.jxhr.done(function (res) {
         $('#addScoreTermId').html(res);
         $('#addScoreYearInfoTxt').text($('#addScoreYearId option:selected').text() + ' - Session');
@@ -300,12 +300,12 @@ $(document).on('change', '#addScoreTermId', function () {
 });
 // sel sec classes
 $(document).on('change', '#addScoreSectionId', function () {
-    var post = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', {gtSecClas: $(this).val()});
+    var post = new ajxobj('/php/mscores.php', 'POST', 'HTML', {gtSecClas: $(this).val()});
     post.jxhr.done(function (res) {
         $('#addScoreClassId').html(res);
         $('#addScoreSectionInfoTxt').text($('#addScoreSectionId option:selected').text() + ' - Section');
     });
-    var postSub = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', {gtSecSubjec: $(this).val()});
+    var postSub = new ajxobj('/php/mscores.php', 'POST', 'HTML', {gtSecSubjec: $(this).val()});
     postSub.jxhr.done(function (res) {
         $('#addScoreSubjectId').html(res);
     });
@@ -320,7 +320,7 @@ $(document).on('change', '#addScoreSubjectId', function () {
     if (YrId == false | TrmId == false | SecId == false | ClsId == false) {
 
     } else {
-        var post = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', 
+        var post = new ajxobj('/php/mscores.php', 'POST', 'HTML', 
         {gtClasStud: ClsId, subjId: subjId, TrmId: TrmId,  ScClsYrId: YrId});
         post.jxhr.done(function (res) {
             $('#classStudTr').html(res);
@@ -337,7 +337,7 @@ $(document).on('change', '#addScoreClassId', function () {
     if (YrId == false | TrmId == false | SecId == false | ClsId == false) {
 
     } else {
-        var post = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', 
+        var post = new ajxobj('/php/mscores.php', 'POST', 'HTML', 
         {gtClasStud: $(this).val(), subjId: subjId, TrmId: TrmId,  ScClsYrId: YrId});
         post.jxhr.done(function (res) {
             $('#classStudTr').html(res);
@@ -357,7 +357,7 @@ $(document).on('click', '.addCrStuScore', function () {
     if (YrId == false | TrmId == false | SecId == false | ClsId == false | subjId == false) {
         alert('Error: Dettected an empty field');
     } else {
-        var post = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', 
+        var post = new ajxobj('/php/mscores.php', 'POST', 'HTML', 
         {stuScorYrId: YrId, TrmId: TrmId, SecId: SecId, ClsId: ClsId, subjId: subjId, studId: id});
         post.jxhr.done(function (res) {
             $('#addStuScoresCont').html(res);
@@ -389,7 +389,7 @@ $(document).on('click', '#addScoreBtn', function () {
         alert('Dettected an empty or incorrect field');
     } else {
         
-        var post = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', 
+        var post = new ajxobj('/php/mscores.php', 'POST', 'HTML', 
         {adscrYrId: YrId, TrmId: TrmId, SecId: SecId, 
         ClsId: ClsId, subjId: subjId, addStudScoreId: id, 
         scFirstCaTxt: scFirstCaTxt, scSeconCaTxt: scSeconCaTxt,
@@ -397,7 +397,7 @@ $(document).on('click', '#addScoreBtn', function () {
 
         post.jxhr.done(function (res) {
             $('#studScoresTrContainer').html(res);
-            var postSec = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', 
+            var postSec = new ajxobj('/php/mscores.php', 'POST', 'HTML', 
             {gtClasStud: ClsId, subjId: subjId, TrmId: TrmId,  ScClsYrId: YrId});
             postSec.jxhr.done(function (res) {
                 $('#classStudTr').html(res);
@@ -409,7 +409,7 @@ $(document).on('click', '#addScoreBtn', function () {
 // admin print report
 $(document).on('click', '#adminPrintReport', function (evnt) {
     evnt.preventDefault();
-    var post = new ajxobj('/kuramiacademy/php/mprint.php', 'POST', 'HTML', {admnPrintReport: 'admnPrintReport'});
+    var post = new ajxobj('/php/mprint.php', 'POST', 'HTML', {admnPrintReport: 'admnPrintReport'});
     post.jxhr.done(function (res) {
         $('#adminPageContainer').html(res);
     });
@@ -420,7 +420,7 @@ $(document).on('click', '#adminPrintReport', function (evnt) {
 //     if (yr == '' | trm == '' | Sec == '') {
 
 //     } else {
-//         var post = new ajxobj('/kuramiacademy/php/mprint.php', 'POST', 'HTML', {prntRptBtnShow: 'prntRptBtnShow', clsId: $(this).val()});
+//         var post = new ajxobj('/php/mprint.php', 'POST', 'HTML', {prntRptBtnShow: 'prntRptBtnShow', clsId: $(this).val()});
 //         post.jxhr.done(function (res) {
 //         $('#printBtnCont').html(res);
 //         });
@@ -428,7 +428,7 @@ $(document).on('click', '#adminPrintReport', function (evnt) {
 // });
 // sel yrs term
 $(document).on('change', '#printScoreYearId', function () {
-    var post = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', {gtYrsTrms: $(this).val()});
+    var post = new ajxobj('/php/mscores.php', 'POST', 'HTML', {gtYrsTrms: $(this).val()});
     post.jxhr.done(function (res) {
         $('#printScoreTermId').html(res);
         $('#printScoreYearInfoTxt').text($('#printScoreYearId option:selected').text() + ' - Session');
@@ -440,12 +440,12 @@ $(document).on('change', '#printScoreTermId', function () {
 });
 // sel sec classes
 $(document).on('change', '#printScoreSectionId', function () {
-    var post = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', {gtSecClas: $(this).val()});
+    var post = new ajxobj('/php/mscores.php', 'POST', 'HTML', {gtSecClas: $(this).val()});
     post.jxhr.done(function (res) {
         $('#printScoreClassId').html(res);
         $('#printScoreSectionInfoTxt').text($('#printScoreSectionId option:selected').text() + ' - Section');
     });
-    var postSub = new ajxobj('/kuramiacademy/php/mscores.php', 'POST', 'HTML', {gtSecSubjec: $(this).val()});
+    var postSub = new ajxobj('/php/mscores.php', 'POST', 'HTML', {gtSecSubjec: $(this).val()});
     postSub.jxhr.done(function (res) {
         $('#printScoreSubjectId').html(res);
     });
@@ -459,7 +459,7 @@ $(document).on('change', '#printScoreClassId', function () {
     if (YrId == false | TrmId == false | SecId == false) {
         
     } else {
-        var post = new ajxobj('/kuramiacademy/php/mprint.php', 'POST', 'HTML', {prntRptBtnShow: 'prntRptBtnShow', clsId: $(this).val()});
+        var post = new ajxobj('/php/mprint.php', 'POST', 'HTML', {prntRptBtnShow: 'prntRptBtnShow', clsId: $(this).val()});
         post.jxhr.done(function (res) {
         $('#printBtnCont').html(res);
         });
@@ -472,7 +472,7 @@ $(document).on('click', '#adminPreviewReportBtn', function () {
     var SecId = validate('#printScoreSectionId');
     var clsId = $('#printScoreClassId').val();
 
-    var post = new ajxobj('/kuramiacademy/php/mprint.php', 'POST', 'HTML', 
+    var post = new ajxobj('/php/mprint.php', 'POST', 'HTML', 
     {printPreviewYrId: YrId, TrmId: TrmId, SecId: SecId, clsId: clsId});
     post.jxhr.done(function (res) {
         $('#admnReportSheetsCont').html(res);
@@ -485,7 +485,7 @@ $(document).on('click', '#adminPrintReportBtn', function () {
     var SecId = validate('#printScoreSectionId');
     var clsId = $('#printScoreClassId').val();
 
-    var post = new ajxobj('/kuramiacademy/php/mprint.php', 'POST', 'HTML', 
+    var post = new ajxobj('/php/mprint.php', 'POST', 'HTML', 
     {printYrId: YrId, TrmId: TrmId, SecId: SecId, clsId: clsId});
     post.jxhr.done(function (res) {
         var w = window.open("", "Reports", "scrollbars=yes,width=900,height=600");
@@ -499,7 +499,7 @@ $(document).on('click', '#adminPrintReportBtn', function () {
     // $.ajax({
     //     method: "POST",
     //     dataType: "html",
-    //     url: '/kuramiacademy/php/printreport.php',
+    //     url: '/php/printreport.php',
     //     data: {printYrId: YrId, TrmId: TrmId, SecId: SecId, clsId: clsId},
     //     success: function(data) {
     //       var w = window.open("", "CV", "scrollbars=yes,width=900,height=600");

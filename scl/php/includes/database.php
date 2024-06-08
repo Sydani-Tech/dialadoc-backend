@@ -1,18 +1,20 @@
 <?php
-class Database {
+class Database
+{
     //check db connection
     public $isConn;
     public $datab;
     //connetion properties
     public $host = 'localhost';
-    public $user = 'root';
-    public $password = '';
-    public $dbname = 'reportsheet';
+    public $user = 'sch_user';
+    public $password = '@sch5589';
+    public $dbname = 'sch_db';
 
     // Connect to db
-    public function __construct ($options = []) {
+    public function __construct($options = [])
+    {
         try {
-            $this->datab = new PDO("mysql:host={$this->host};dbname={$this->dbname};charset=utf8","{$this->user}","{$this->password}",$options);
+            $this->datab = new PDO("mysql:host={$this->host};dbname={$this->dbname};charset=utf8", "{$this->user}", "{$this->password}", $options);
             $this->datab->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->datab->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             $this->isConn = TRUE;
@@ -21,22 +23,25 @@ class Database {
         }
     }
     // Disconnect to db
-    public function disconnect () {
+    public function disconnect()
+    {
         $this->datab = NULL;
         $this->isConn = FALSE;
     }
     // Get row
-    public function getRow ($query, $params = []) {
+    public function getRow($query, $params = [])
+    {
         try {
             $stmt = $this->datab->prepare($query);
             $stmt->execute($params);
             return $stmt->fetch();
         } catch (PDOException $e) {
-            throw new Exception ($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
     // Get rows
-    public function getRows ($query, $params = []) {
+    public function getRows($query, $params = [])
+    {
         try {
             $stmt = $this->datab->prepare($query);
             $stmt->execute($params);
@@ -46,28 +51,32 @@ class Database {
         }
     }
     // Insert row
-    public function insertRow ($query, $params = []) {
+    public function insertRow($query, $params = [])
+    {
         try {
             $stmt = $this->datab->prepare($query);
             $stmt->execute($params);
             return TRUE;
         } catch (PDOException $e) {
-            throw new Exception ($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
     // Update row
-    public function updateRow ($query, $params = []) {
+    public function updateRow($query, $params = [])
+    {
         $this->insertRow($query, $params);
     }
     // Delete row
-    public function deleteRow ($query, $params = []) {
+    public function deleteRow($query, $params = [])
+    {
         $this->insertRow($query, $params);
     }
 
-    public function validation($data){
-		$data = trim($data);
-		$data = stripcslashes($data);
-		$data = htmlspecialchars($data);
-		return $data;
+    public function validation($data)
+    {
+        $data = trim($data);
+        $data = stripcslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 }
