@@ -229,6 +229,7 @@ class AuthController extends AppBaseController
 
         $token = $user->createToken(Str::slug(config('app.name') . '_auth_token', '_'))->plainTextToken;
         $permissions = $user->getAllPermissions();
+        $user->role = $user->roles()->first();
 
         return response()->json([
             'data' => [
