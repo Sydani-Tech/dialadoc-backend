@@ -47,4 +47,4 @@ jobs:
 
       # Push the code to the production server l
       - name: Push to Production Server
-        run: git push production
+        run: git push production main
