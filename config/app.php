@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -185,7 +184,7 @@ return [
         /*
          * Package Service Providers...
          */
-        InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class, 
+        InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
 
         /*
          * Application Service Providers...
