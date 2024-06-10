@@ -16,7 +16,12 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.DAD_SSH_PRIVATE_KEY }}
-          ssh-passphrase: ${{ secrets.DAD_SSH_PASSPHRASE }}
+          ssh-auth-sock: ${{ secrets.DAD_SSH_PASSPHRASE }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
 
       - name: Add production server as a remote
         run: |
