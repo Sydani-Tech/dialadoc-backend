@@ -50,7 +50,8 @@ class AllergyAPIController extends AppBaseController
             'Ulcer',
             'Migrane',
             'PCOS',
-            'Heart Burns'
+            'Heart Burns',
+            
         ];
         return $this->sendResponse($allergyTypes, 'Allergy Types retrieved successfully');
     }
