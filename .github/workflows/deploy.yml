@@ -30,5 +30,10 @@ jobs:
           git remote remove production || true
           git remote add production ssh://root@94.237.56.48/var/repo/dialadoc-backend
 
-      - name: Push to Production Server
-        run: git push production main
+      - name: Enable SSH debugging
+        run: |
+          echo 'LogLevel DEBUG1' >> ~/.ssh/config
+          chmod 600 ~/.ssh/config
+
+      # - name: Push to Production Server
+      #   run: git push production main
