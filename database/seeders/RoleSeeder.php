@@ -21,5 +21,7 @@ class RoleSeeder extends Seeder
 
         $doctorRole = Role::create(['name' => 'doctor']);
 
+        $facilityRole = Role::create(['name' => 'facility']);
+
     }
 }

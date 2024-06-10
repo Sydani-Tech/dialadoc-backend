@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Doctor",
@@ -30,9 +31,10 @@ use Illuminate\Database\Eloquent\Model;
  *          type="string",
  *      )
  * )
- */class Doctor extends Model
+ */ class Doctor extends Model
 {
-    use HasFactory;    public $table = 'doctors';
+    use HasFactory;
+    public $table = 'doctors';
 
     public $fillable = [
         'user_id',
@@ -75,33 +77,38 @@ use Illuminate\Database\Eloquent\Model;
         return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 
-    public function user1s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(\App\Models\User::class, 'appointments');
+        return $this->hasMany(\App\Models\Appointment::class);
     }
 
-    public function user2s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(\App\Models\User::class, 'consents');
-    }
+    // public function user1s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    // {
+    //     return $this->belongsToMany(\App\Models\User::class, 'appointments');
+    // }
 
-    public function patients(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(\App\Models\Patient::class, 'medical_records');
-    }
+    // public function user2s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    // {
+    //     return $this->belongsToMany(\App\Models\User::class, 'consents');
+    // }
 
-    public function user3s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(\App\Models\User::class, 'prescriptions');
-    }
+    // public function patients(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    // {
+    //     return $this->belongsToMany(\App\Models\Patient::class, 'medical_records');
+    // }
 
-    public function user4s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(\App\Models\User::class, 'reviews');
-    }
+    // public function user3s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    // {
+    //     return $this->belongsToMany(\App\Models\User::class, 'prescriptions');
+    // }
 
-    public function patient5s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(\App\Models\Patient::class, 'treatment_plans');
-    }
+    // public function user4s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    // {
+    //     return $this->belongsToMany(\App\Models\User::class, 'reviews');
+    // }
+
+    // public function patient5s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    // {
+    //     return $this->belongsToMany(\App\Models\Patient::class, 'treatment_plans');
+    // }
 }

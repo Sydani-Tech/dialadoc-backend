@@ -9,6 +9,41 @@ use Illuminate\Database\Eloquent\Model;
  *      schema="Appointment",
  *      required={"status"},
  *      @OA\Property(
+ *          property="doctor_id",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="integer",
+ *      ),
+ *      @OA\Property(
+ *          property="patient_id",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="integer",
+ *      ),
+ *      @OA\Property(
+ *          property="affected_body_part",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="nature_of_illness",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="type_of_appointment",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
  *          property="appointment_date",
  *          description="",
  *          readOnly=false,
@@ -25,6 +60,10 @@ use Illuminate\Database\Eloquent\Model;
         'doctor_id',
         'patient_id',
         'appointment_date',
+        'affected_body_part',
+        'nature_of_illness',
+        'type_of_appointment',
+        'description_of_illness',
         'created_by',
         'status'
     ];

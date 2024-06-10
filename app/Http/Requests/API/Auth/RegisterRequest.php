@@ -19,13 +19,13 @@ class RegisterRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array 
+    public function rules(): array
     {
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|string|in:patient,doctor',
+            'role' => 'required|string|in:patient,doctor,facility',
         ];
     }
 }

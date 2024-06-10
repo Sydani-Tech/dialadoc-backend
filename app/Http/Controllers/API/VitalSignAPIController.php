@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreatePatientAPIRequest;
-use App\Http\Requests\API\UpdatePatientAPIRequest;
-use App\Models\Patient;
+use App\Http\Requests\API\CreateVitalSignAPIRequest;
+use App\Http\Requests\API\UpdateVitalSignAPIRequest;
+use App\Models\VitalSign;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Resources\PatientResource;
+use App\Http\Resources\VitalSignResource;
 
 /**
- * Class PatientController
+ * Class VitalSignController
  */
 
-class PatientAPIController extends AppBaseController
+class VitalSignAPIController extends AppBaseController
 {
     /**
      * @OA\Get(
-     *      path="/patients",
-     *      summary="getPatientList",
-     *      tags={"Patient"},
-     *      description="Get all Patients",
-     *      security={ {"sanctum": {} }},
+     *      path="/vital-signs",
+     *      summary="getVitalSignList",
+     *      tags={"VitalSign"},
+     *      description="Get all VitalSigns",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -35,7 +34,7 @@ class PatientAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Patient")
+     *                  @OA\Items(ref="#/components/schemas/VitalSign")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -47,7 +46,7 @@ class PatientAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $query = Patient::query();
+        $query = VitalSign::query();
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -56,21 +55,20 @@ class PatientAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $patients = $query->get();
+        $vitalSigns = $query->get();
 
-        return $this->sendResponse(PatientResource::collection($patients), 'Patients retrieved successfully');
+        return $this->sendResponse(VitalSignResource::collection($vitalSigns), 'Vital Signs retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/patients",
-     *      summary="createPatient",
-     *      tags={"Patient"},
-     *      description="Create Patient",
-     *      security={ {"sanctum": {} }},
+     *      path="/vital-signs",
+     *      summary="createVitalSign",
+     *      tags={"VitalSign"},
+     *      description="Create VitalSign",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Patient")
+     *        @OA\JsonContent(ref="#/components/schemas/VitalSign")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -83,7 +81,7 @@ class PatientAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Patient"
+     *                  ref="#/components/schemas/VitalSign"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -93,26 +91,25 @@ class PatientAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreatePatientAPIRequest $request): JsonResponse
+    public function store(CreateVitalSignAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var Patient $patient */
-        $patient = Patient::create($input);
+        /** @var VitalSign $vitalSign */
+        $vitalSign = VitalSign::create($input);
 
-        return $this->sendResponse(new PatientResource($patient), 'Patient saved successfully');
+        return $this->sendResponse(new VitalSignResource($vitalSign), 'Vital Sign saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/patients/{id}",
-     *      summary="getPatientItem",
-     *      tags={"Patient"},
-     *      description="Get Patient",
-     *      security={ {"sanctum": {} }},
+     *      path="/vital-signs/{id}",
+     *      summary="getVitalSignItem",
+     *      tags={"VitalSign"},
+     *      description="Get VitalSign",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Patient",
+     *          description="id of VitalSign",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -130,7 +127,7 @@ class PatientAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Patient"
+     *                  ref="#/components/schemas/VitalSign"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -142,26 +139,25 @@ class PatientAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var Patient $patient */
-        $patient = Patient::find($id);
+        /** @var VitalSign $vitalSign */
+        $vitalSign = VitalSign::find($id);
 
-        if (empty($patient)) {
-            return $this->sendError('Patient not found');
+        if (empty($vitalSign)) {
+            return $this->sendError('Vital Sign not found');
         }
 
-        return $this->sendResponse(new PatientResource($patient), 'Patient retrieved successfully');
+        return $this->sendResponse(new VitalSignResource($vitalSign), 'Vital Sign retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/patients/{id}",
-     *      summary="updatePatient",
-     *      tags={"Patient"},
-     *      description="Update Patient",
-     *      security={ {"sanctum": {} }},
+     *      path="/vital-signs/{id}",
+     *      summary="updateVitalSign",
+     *      tags={"VitalSign"},
+     *      description="Update VitalSign",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Patient",
+     *          description="id of VitalSign",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -170,7 +166,7 @@ class PatientAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Patient")
+     *        @OA\JsonContent(ref="#/components/schemas/VitalSign")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -183,7 +179,7 @@ class PatientAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Patient"
+     *                  ref="#/components/schemas/VitalSign"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -193,31 +189,30 @@ class PatientAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdatePatientAPIRequest $request): JsonResponse
+    public function update($id, UpdateVitalSignAPIRequest $request): JsonResponse
     {
-        /** @var Patient $patient */
-        $patient = Patient::find($id);
+        /** @var VitalSign $vitalSign */
+        $vitalSign = VitalSign::find($id);
 
-        if (empty($patient)) {
-            return $this->sendError('Patient not found');
+        if (empty($vitalSign)) {
+            return $this->sendError('Vital Sign not found');
         }
 
-        $patient->fill($request->all());
-        $patient->save();
+        $vitalSign->fill($request->all());
+        $vitalSign->save();
 
-        return $this->sendResponse(new PatientResource($patient), 'Patient updated successfully');
+        return $this->sendResponse(new VitalSignResource($vitalSign), 'VitalSign updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/patients/{id}",
-     *      summary="deletePatient",
-     *      tags={"Patient"},
-     *      description="Delete Patient",
-     *      security={ {"sanctum": {} }},
+     *      path="/vital-signs/{id}",
+     *      summary="deleteVitalSign",
+     *      tags={"VitalSign"},
+     *      description="Delete VitalSign",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Patient",
+     *          description="id of VitalSign",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -247,19 +242,15 @@ class PatientAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var Patient $patient */
-        $patient = Patient::find($id);
+        /** @var VitalSign $vitalSign */
+        $vitalSign = VitalSign::find($id);
 
-        if (empty($patient)) {
-            return $this->sendError('Patient not found');
+        if (empty($vitalSign)) {
+            return $this->sendError('Vital Sign not found');
         }
 
-        if ($patient->appointments()->exists()) {
-            return $this->sendError('Cannot delete doctor because it has associated appointments.');
-        }
+        $vitalSign->delete();
 
-        $patient->delete();
-
-        return $this->sendSuccess('Patient deleted successfully');
+        return $this->sendSuccess('Vital Sign deleted successfully');
     }
 }

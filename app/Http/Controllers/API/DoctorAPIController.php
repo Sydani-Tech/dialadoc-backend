@@ -254,6 +254,10 @@ class DoctorAPIController extends AppBaseController
             return $this->sendError('Doctor not found');
         }
 
+        if ($doctor->appointments()->exists()) {
+            return $this->sendError('Cannot delete doctor because it has associated appointments.');
+        }
+
         $doctor->delete();
 
         return $this->sendSuccess('Doctor deleted successfully');
