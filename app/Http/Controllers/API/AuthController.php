@@ -161,6 +161,7 @@ class AuthController extends AppBaseController
         // Create user token
         $token = $user->createToken(Str::slug(config('app.name') . '_auth_token', '_'))->plainTextToken;
         $permissions = $user->getAllPermissions();
+        $user->role = $user->roles()->first();
 
         // TODO: send verification mail
 

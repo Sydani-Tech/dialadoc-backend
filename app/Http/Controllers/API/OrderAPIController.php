@@ -61,47 +61,6 @@ class OrderAPIController extends AppBaseController
         return $this->sendResponse(OrderResource::collection($orders), 'Orders retrieved successfully');
     }
 
-    /**
-     * @OA\Post(
-     *      path="/orders",
-     *      summary="createOrder",
-     *      tags={"Order"},
-     *      description="Create Order",
-     *      security={ {"sanctum": {} }},
-     *      @OA\RequestBody(
-     *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Order")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @OA\Property(
-     *                  property="data",
-     *                  ref="#/components/schemas/Order"
-     *              ),
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function store(CreateOrderAPIRequest $request): JsonResponse
-    {
-        $input = $request->all();
-
-        /** @var Order $order */
-        $order = Order::create($input);
-
-        return $this->sendResponse(new OrderResource($order), 'Order saved successfully');
-    }
 
     /**
      * @OA\Get(
@@ -152,110 +111,14 @@ class OrderAPIController extends AppBaseController
         return $this->sendResponse(new OrderResource($order), 'Order retrieved successfully');
     }
 
-    /**
-     * @OA\Put(
-     *      path="/orders/{id}",
-     *      summary="updateOrder",
-     *      tags={"Order"},
-     *      description="Update Order",
-     *      security={ {"sanctum": {} }},
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="id of Order",
-     *           @OA\Schema(
-     *             type="integer"
-     *          ),
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @OA\RequestBody(
-     *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Order")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @OA\Property(
-     *                  property="data",
-     *                  ref="#/components/schemas/Order"
-     *              ),
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function update($id, UpdateOrderAPIRequest $request): JsonResponse
+    public function makePayment(Request $request)
     {
-        /** @var Order $order */
-        $order = Order::find($id);
+        $request->validate([
+            'user_id' => 'required',
+            'order_type' => 'required|string|in:appointment,pharmacy',
+            'amount' => 'required|numeric'
+        ]);
 
-        if (empty($order)) {
-            return $this->sendError('Order not found');
-        }
 
-        $order->fill($request->all());
-        $order->save();
-
-        return $this->sendResponse(new OrderResource($order), 'Order updated successfully');
-    }
-
-    /**
-     * @OA\Delete(
-     *      path="/orders/{id}",
-     *      summary="deleteOrder",
-     *      tags={"Order"},
-     *      description="Delete Order",
-     *      security={ {"sanctum": {} }},
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="id of Order",
-     *           @OA\Schema(
-     *             type="integer"
-     *          ),
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @OA\Property(
-     *                  property="data",
-     *                  type="string"
-     *              ),
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function destroy($id): JsonResponse
-    {
-        /** @var Order $order */
-        $order = Order::find($id);
-
-        if (empty($order)) {
-            return $this->sendError('Order not found');
-        }
-
-        $order->delete();
-
-        return $this->sendSuccess('Order deleted successfully');
     }
 }

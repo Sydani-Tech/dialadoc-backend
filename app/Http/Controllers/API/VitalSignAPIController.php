@@ -22,6 +22,7 @@ class VitalSignAPIController extends AppBaseController
      *      summary="getVitalSignList",
      *      tags={"VitalSign"},
      *      description="Get all VitalSigns",
+     *      security={ {"sanctum": {} }},
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -66,6 +67,7 @@ class VitalSignAPIController extends AppBaseController
      *      summary="createVitalSign",
      *      tags={"VitalSign"},
      *      description="Create VitalSign",
+     *      security={ {"sanctum": {} }},
      *      @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(ref="#/components/schemas/VitalSign")
@@ -107,6 +109,7 @@ class VitalSignAPIController extends AppBaseController
      *      summary="getVitalSignItem",
      *      tags={"VitalSign"},
      *      description="Get VitalSign",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of VitalSign",
@@ -155,6 +158,7 @@ class VitalSignAPIController extends AppBaseController
      *      summary="updateVitalSign",
      *      tags={"VitalSign"},
      *      description="Update VitalSign",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of VitalSign",
@@ -210,6 +214,7 @@ class VitalSignAPIController extends AppBaseController
      *      summary="deleteVitalSign",
      *      tags={"VitalSign"},
      *      description="Delete VitalSign",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of VitalSign",

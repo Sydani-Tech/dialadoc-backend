@@ -16,12 +16,52 @@ use App\Http\Resources\AllergyResource;
 
 class AllergyAPIController extends AppBaseController
 {
+
+    /**
+     * @OA\Get(
+     *      path="/allergy-types",
+     *      summary="getAllergyTypes",
+     *      tags={"Allergy"},
+     *      description="Get Allergy Types",
+     *      security={ {"sanctum": {} }},
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getAllergyTypes(Request $request): JsonResponse
+    {
+
+        $allergyTypes = [
+            'Dust',
+            'Asthma',
+            'Ulcer',
+            'Migrane',
+            'PCOS',
+            'Heart Burns'
+        ];
+        return $this->sendResponse($allergyTypes, 'Allergy Types retrieved successfully');
+    }
+
     /**
      * @OA\Get(
      *      path="/allergies",
      *      summary="getAllergyList",
      *      tags={"Allergy"},
      *      description="Get all Allergies",
+     *      security={ {"sanctum": {} }},
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -66,6 +106,7 @@ class AllergyAPIController extends AppBaseController
      *      summary="createAllergy",
      *      tags={"Allergy"},
      *      description="Create Allergy",
+     *      security={ {"sanctum": {} }},
      *      @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(ref="#/components/schemas/Allergy")
@@ -107,6 +148,7 @@ class AllergyAPIController extends AppBaseController
      *      summary="getAllergyItem",
      *      tags={"Allergy"},
      *      description="Get Allergy",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of Allergy",
@@ -155,6 +197,7 @@ class AllergyAPIController extends AppBaseController
      *      summary="updateAllergy",
      *      tags={"Allergy"},
      *      description="Update Allergy",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of Allergy",
@@ -210,6 +253,7 @@ class AllergyAPIController extends AppBaseController
      *      summary="deleteAllergy",
      *      tags={"Allergy"},
      *      description="Delete Allergy",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of Allergy",

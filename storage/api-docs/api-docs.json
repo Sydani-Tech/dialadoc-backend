@@ -10,6 +10,41 @@
         }
     ],
     "paths": {
+        "/allergy-types": {
+            "get": {
+                "tags": [
+                    "Allergy"
+                ],
+                "summary": "getAllergyTypes",
+                "description": "Get Allergy Types",
+                "operationId": "3ec6d81e4bf4e66584e349632e607a4c",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/allergies": {
             "get": {
                 "tags": [
@@ -43,7 +78,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -84,7 +124,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/allergies/{id}": {
@@ -128,7 +173,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -180,7 +230,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -222,7 +277,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/appointments": {
@@ -3116,52 +3176,6 @@
                         "sanctum": []
                     }
                 ]
-            },
-            "post": {
-                "tags": [
-                    "Order"
-                ],
-                "summary": "createOrder",
-                "description": "Create Order",
-                "operationId": "8251788a6fc19fc50524a2dff59e801b",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Order"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/Order"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
             }
         },
         "/orders/{id}": {
@@ -3195,110 +3209,6 @@
                                         },
                                         "data": {
                                             "$ref": "#/components/schemas/Order"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Order"
-                ],
-                "summary": "updateOrder",
-                "description": "Update Order",
-                "operationId": "19c4661d9a7eef28174f9646481983d3",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Order",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Order"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/Order"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Order"
-                ],
-                "summary": "deleteOrder",
-                "description": "Delete Order",
-                "operationId": "fafc3aa6f4a00ca437632dfef32f2cde",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Order",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "type": "string"
                                         },
                                         "message": {
                                             "type": "string"
@@ -6121,7 +6031,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -6162,7 +6077,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/vital-signs/{id}": {
@@ -6206,7 +6126,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -6258,7 +6183,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -6300,7 +6230,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         }
     },
