@@ -109,4 +109,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->except(['create', 'edit']);
 
     Route::get('permissions', [App\Http\Controllers\API\PermissionAPIController::class, 'index']);
+
+    Route::resource('vital-signs', App\Http\Controllers\API\VitalSignAPIController::class)
+        ->except(['create', 'edit']);
+
+    Route::resource('allergies', App\Http\Controllers\API\AllergyAPIController::class)
+        ->except(['create', 'edit']);
 });

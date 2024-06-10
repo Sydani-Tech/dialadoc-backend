@@ -10,6 +10,221 @@
         }
     ],
     "paths": {
+        "/allergies": {
+            "get": {
+                "tags": [
+                    "Allergy"
+                ],
+                "summary": "getAllergyList",
+                "description": "Get all Allergies",
+                "operationId": "4baeabbb6c2aa767f3d06a2b10fd456e",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Allergy"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Allergy"
+                ],
+                "summary": "createAllergy",
+                "description": "Create Allergy",
+                "operationId": "5d3446bd6bd32986c5c8bf2aa5413978",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Allergy"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Allergy"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/allergies/{id}": {
+            "get": {
+                "tags": [
+                    "Allergy"
+                ],
+                "summary": "getAllergyItem",
+                "description": "Get Allergy",
+                "operationId": "b7fcb776f111a3522d41984622fcc8d1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Allergy",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Allergy"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Allergy"
+                ],
+                "summary": "updateAllergy",
+                "description": "Update Allergy",
+                "operationId": "ff36124a5277ffa83d231bc6de867035",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Allergy",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Allergy"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Allergy"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Allergy"
+                ],
+                "summary": "deleteAllergy",
+                "description": "Delete Allergy",
+                "operationId": "f33cf2bc0979620a462a4a5c1e06a880",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Allergy",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/appointments": {
             "get": {
                 "tags": [
@@ -3381,52 +3596,6 @@
                         "sanctum": []
                     }
                 ]
-            },
-            "post": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "createPayment",
-                "description": "Create Payment",
-                "operationId": "33b64415e1e822f02f3f561f7bbdffa1",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Payment"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/Payment"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
             }
         },
         "/payments/{id}": {
@@ -3460,110 +3629,6 @@
                                         },
                                         "data": {
                                             "$ref": "#/components/schemas/Payment"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "updatePayment",
-                "description": "Update Payment",
-                "operationId": "ecf88c02ff569ff490ae2e1825ec5eff",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Payment",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Payment"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/Payment"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "deletePayment",
-                "description": "Delete Payment",
-                "operationId": "35a425de2339399cda4730311905ae22",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Payment",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "type": "string"
                                         },
                                         "message": {
                                             "type": "string"
@@ -6022,6 +6087,221 @@
                     }
                 ]
             }
+        },
+        "/vital-signs": {
+            "get": {
+                "tags": [
+                    "VitalSign"
+                ],
+                "summary": "getVitalSignList",
+                "description": "Get all VitalSigns",
+                "operationId": "f1db6788733536c262c9114f986601a7",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/VitalSign"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "VitalSign"
+                ],
+                "summary": "createVitalSign",
+                "description": "Create VitalSign",
+                "operationId": "ea69f3cb1c299933b10b86eb772a2d03",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VitalSign"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/VitalSign"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vital-signs/{id}": {
+            "get": {
+                "tags": [
+                    "VitalSign"
+                ],
+                "summary": "getVitalSignItem",
+                "description": "Get VitalSign",
+                "operationId": "5d17e26892d7847419702b9a356a3237",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of VitalSign",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/VitalSign"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "VitalSign"
+                ],
+                "summary": "updateVitalSign",
+                "description": "Update VitalSign",
+                "operationId": "6cd0076cdb0d923e23145c50f452a287",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of VitalSign",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VitalSign"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/VitalSign"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "VitalSign"
+                ],
+                "summary": "deleteVitalSign",
+                "description": "Delete VitalSign",
+                "operationId": "990e81c36d7abde4d110ddd243f9796a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of VitalSign",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -6123,11 +6403,84 @@
                 },
                 "type": "object"
             },
+            "Allergy": {
+                "required": [
+                    "name",
+                    "value",
+                    "patient_id"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "patient_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
             "Appointment": {
                 "required": [
                     "status"
                 ],
                 "properties": {
+                    "doctor_id": {
+                        "description": "",
+                        "type": "integer",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "patient_id": {
+                        "description": "",
+                        "type": "integer",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "affected_body_part": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "nature_of_illness": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "type_of_appointment": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
                     "appointment_date": {
                         "description": "",
                         "type": "string",
@@ -6704,6 +7057,49 @@
                         "type": "string",
                         "readOnly": false,
                         "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "VitalSign": {
+                "required": [
+                    "name",
+                    "value",
+                    "patient_id"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "patient_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": false
                     },
                     "created_at": {
                         "description": "",

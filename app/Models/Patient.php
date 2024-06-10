@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Patient",
@@ -31,9 +32,10 @@ use Illuminate\Database\Eloquent\Model;
  *          type="string",
  *      )
  * )
- */class Patient extends Model
+ */ class Patient extends Model
 {
-    use HasFactory;    public $table = 'patients';
+    use HasFactory;
+    public $table = 'patients';
 
     public $fillable = [
         'user_id',
@@ -79,13 +81,28 @@ use Illuminate\Database\Eloquent\Model;
         return $this->hasMany(\App\Models\Insurance::class, 'patient_id');
     }
 
-    public function doctors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(\App\Models\Doctor::class, 'medical_records');
+        return $this->hasMany(\App\Models\Appointment::class);
     }
 
-    public function doctor1s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    // public function doctors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    // {
+    //     return $this->belongsToMany(\App\Models\Doctor::class, 'medical_records');
+    // }
+
+    // public function doctor1s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    // {
+    //     return $this->belongsToMany(\App\Models\Doctor::class, 'treatment_plans');
+    // }
+
+    public function allergies(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(\App\Models\Doctor::class, 'treatment_plans');
+        return $this->hasMany(\App\Models\Allergy::class, 'patient_id');
+    }
+
+    public function vitalSigns(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\VitalSign::class, 'patient_id');
     }
 }

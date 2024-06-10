@@ -18,6 +18,10 @@ class CreateAppointmentsTable extends Migration
             $table->integer('doctor_id')->nullable();
             $table->integer('patient_id')->nullable();
             $table->dateTime('appointment_date')->nullable();
+            $table->string('affected_body_part')->nullable();
+            $table->string('nature_of_illness')->nullable();
+            $table->string('type_of_appointment')->nullable();
+            $table->text('description_of_illness')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('status');
 

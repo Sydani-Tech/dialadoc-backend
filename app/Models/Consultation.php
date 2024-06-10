@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Consultation",
@@ -24,9 +25,10 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Consultation extends Model
+ */ class Consultation extends Model
 {
-    use HasFactory;    public $table = 'consultations';
+    use HasFactory;
+    public $table = 'consultations';
 
     public $fillable = [
         'appointment_id',
