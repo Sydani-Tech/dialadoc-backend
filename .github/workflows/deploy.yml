@@ -12,6 +12,8 @@ jobs:
       # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       # Set up SSH for secure access to the production server
       - name: Set up SSH
