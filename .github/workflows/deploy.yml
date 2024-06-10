@@ -16,7 +16,6 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.DAD_SSH_PRIVATE_KEY }}
-          ssh-auth-sock: ${{ secrets.DAD_SSH_PASSPHRASE }}
 
       - name: Configure Git
         run: |
