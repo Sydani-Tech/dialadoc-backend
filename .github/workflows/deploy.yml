@@ -38,7 +38,7 @@ jobs:
       - name: Add production server as a remote
         run: |
           git remote remove production || true
-          git remote add production ssh://root@94.237.56.48/var/repo/dialadoc-backend
+          git remote add production ssh://root@94.237.56.48/var/repo/dialadoc-backend.git
           git remote -v
 
       # Verify the remote has been added
