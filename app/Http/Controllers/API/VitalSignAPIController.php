@@ -102,6 +102,7 @@ class VitalSignAPIController extends AppBaseController
 
         return $this->sendResponse(new VitalSignResource($vitalSign), 'Vital Sign saved successfully');
     }
+    
 
     /**
      * @OA\Get(
