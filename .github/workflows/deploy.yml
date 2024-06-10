@@ -20,6 +20,5 @@ jobs:
 
       - name: Push to VPS Bare Repo
         run: |
-          git remote add vps ssh://user@your_vps_ip/path/to/your/bare/repo
-          ssh://root@94.237.56.48/var/repo/dialadoc-backend
+          git remote add vps ssh://root@94.237.56.48/var/repo/dialadoc-backend
           git push vps production
