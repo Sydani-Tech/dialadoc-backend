@@ -9,32 +9,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
+      # Set up SSH for secure access to the production server
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.DAD_SSH_PRIVATE_KEY }}
 
+      # Add GitHub to known hosts to prevent MITM attacks
       - name: Add GitHub.com to known hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
+      # Test SSH connection to GitHub
       - name: Test SSH connection
-        run: ssh -T git@github.com
+        run: ssh -T git@github.com || true
 
+      # Add production server as a Git remote
       - name: Add production server as a remote
         run: |
           git remote remove production || true
           git remote add production ssh://root@94.237.56.48/var/repo/dialadoc-backend
 
-      - name: Enable SSH debugging
-        run: |
-          echo 'LogLevel DEBUG1' >> ~/.ssh/config
-          chmod 600 ~/.ssh/config
-
-      # - name: Push to Production Server
-      #   run: git push production main
-      #
+      # Push the code to the production server
+      - name: Push to Production Server
+        run: git push production main
