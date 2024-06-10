@@ -1,0 +1,25 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DAD_SSH_PRIVATE_KEY }}
+
+      - name: Push to VPS Bare Repo
+        run: |
+          git remote add vps ssh://user@your_vps_ip/path/to/your/bare/repo
+          ssh://root@94.237.56.48/var/repo/dialadoc-backend
+          git push vps production
