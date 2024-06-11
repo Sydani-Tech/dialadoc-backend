@@ -16,7 +16,7 @@ class CreateDoctorsTable extends Migration
         Schema::create('doctors', function (Blueprint $table) {
             $table->bigIncrements('doctor_id'); // Primary key for the doctors table
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('specialization_id')->nullable();
+            $table->integer('specialization_id')->nullable();
             $table->unsignedBigInteger('location_id')->nullable();
             $table->integer('experience_years')->nullable();
             $table->string('mdcn_license', 100)->nullable();
