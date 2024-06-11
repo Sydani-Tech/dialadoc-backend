@@ -72,6 +72,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('messages', App\Http\Controllers\API\MessageAPIController::class)
         ->except(['create', 'edit']);
 
+    Route::get('patients/by-user/{user_id}', [App\Http\Controllers\API\PatientAPIController::class, 'getByUserId']);
+
     Route::resource('patients', App\Http\Controllers\API\PatientAPIController::class)
         ->except(['create', 'edit']);
 

@@ -55,7 +55,7 @@ class ConditionAPIController extends Controller
      * Update the specified resource in storage.
      *
      * @param  Request  $request
-     * @param  Condition  $condition
+     * @param  Condition  $condition 
      * @return JsonResponse
      */
     public function update(Request $request, Condition $condition): JsonResponse

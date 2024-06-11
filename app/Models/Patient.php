@@ -3,12 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @OA\Schema(
  *      schema="Patient",
  *      required={},
+ *      @OA\Property(
+ *          property="user_id",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *          format="integer"
+ *      ),
  *      @OA\Property(
  *          property="date_of_birth",
  *          description="",

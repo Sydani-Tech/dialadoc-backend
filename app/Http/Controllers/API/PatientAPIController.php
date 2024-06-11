@@ -152,6 +152,55 @@ class PatientAPIController extends AppBaseController
         return $this->sendResponse(new PatientResource($patient), 'Patient retrieved successfully');
     }
 
+        /**
+     * @OA\Get(
+     *      path="/patients/{user_id}",
+     *      summary="getPatientItem",
+     *      tags={"Patient"},
+     *      description="Get Patient By User ID",
+     *      security={ {"sanctum": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="id of User",
+     *           @OA\Schema(
+     *             type="integer"
+     *          ),
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/components/schemas/Patient"
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getByUserId($user_id): JsonResponse
+    {
+        /** @var Patient $patient */
+        $patient = Patient::where('user_id', $user_id)->first();
+
+        if (empty($patient)) {
+            return $this->sendError('Patient not found');
+        }
+
+        return $this->sendResponse(new PatientResource($patient), 'Patient retrieved successfully');
+    }
+
     /**
      * @OA\Put(
      *      path="/patients/{id}",
