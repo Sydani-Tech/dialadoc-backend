@@ -14,13 +14,15 @@ class CreateInsurancesTable extends Migration
     public function up()
     {
         Schema::create('insurances', function (Blueprint $table) {
-            $table->integer('insurance_id')->primary();
-            $table->integer('patient_id')->nullable();
+            $table->bigIncrements('insurance_id'); // Primary key as bigIncrements
+            $table->unsignedBigInteger('patient_id')->nullable(); // Foreign key as unsignedBigInteger
             $table->string('provider_name', 100)->nullable();
             $table->string('policy_number', 50)->nullable();
             $table->text('coverage_details')->nullable();
+            $table->timestamps(); // Add timestamps for created_at and updated_at
 
-            $table->foreign('patient_id')->references('patient_id')->on('patients');
+            // Foreign key constraint
+            $table->foreign('patient_id')->references('patient_id')->on('patients')->onDelete('cascade');
         });
     }
 

@@ -14,8 +14,8 @@ class CreateNotificationsTable extends Migration
     public function up()
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->integer('notification_id')->primary();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->bigIncrements('notification_id'); // Primary key as bigIncrements
+            $table->unsignedBigInteger('user_id')->nullable(); // Foreign key with unsignedBigInteger
             $table->text('message')->nullable();
             $table->boolean('is_read')->default(0);
             $table->timestamp('created_at')->default(now());

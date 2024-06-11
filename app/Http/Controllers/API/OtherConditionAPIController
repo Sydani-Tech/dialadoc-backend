@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Models\OtherCondition;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\OtherConditionResource;
+use Illuminate\Http\JsonResponse;
+
+class OtherConditionAPIController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        $otherConditions = OtherCondition::all();
+        return response()->json(['data' => OtherConditionResource::collection($otherConditions)], 200);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     * @return JsonResponse
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $request->validate([
+            'patient_id' => 'required|integer|exists:patients,id',
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            // Add other validation rules as needed
+        ]);
+
+        $otherCondition = OtherCondition::create($request->all());
+
+        return response()->json(['data' => new OtherConditionResource($otherCondition)], 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  OtherCondition  $otherCondition
+     * @return JsonResponse
+     */
+    public function show(OtherCondition $otherCondition): JsonResponse
+    {
+        return response()->json(['data' => new OtherConditionResource($otherCondition)], 200);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  OtherCondition  $otherCondition
+     * @return JsonResponse
+     */
+    public function update(Request $request, OtherCondition $otherCondition): JsonResponse
+    {
+        $request->validate([
+            'patient_id' => 'required|integer|exists:patients,id',
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            // Add other validation rules as needed
+        ]);
+
+        $otherCondition->update($request->all());
+
+        return response()->json(['data' => new OtherConditionResource($otherCondition)], 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  OtherCondition  $otherCondition
+     * @return JsonResponse
+     */
+    public function destroy(OtherCondition $otherCondition): JsonResponse
+    {
+        $otherCondition->delete();
+
+        return response()->json(['message' => 'Other condition deleted successfully'], 200);
+    }
+}

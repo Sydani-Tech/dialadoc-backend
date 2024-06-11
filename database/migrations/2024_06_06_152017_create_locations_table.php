@@ -14,11 +14,12 @@ class CreateLocationsTable extends Migration
     public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->integer('location_id')->primary();
+            $table->bigIncrements('location_id'); // Ensure bigIncrements
             $table->string('city', 100);
             $table->string('state', 100);
             $table->string('country', 100);
             $table->string('postal_code', 20)->nullable();
+            $table->timestamps();
         });
     }
 

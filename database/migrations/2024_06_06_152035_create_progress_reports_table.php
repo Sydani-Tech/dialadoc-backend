@@ -14,9 +14,9 @@ class CreateProgressReportsTable extends Migration
     public function up()
     {
         Schema::create('progress_reports', function (Blueprint $table) {
-            $table->integer('report_id')->primary();
-            $table->integer('plan_id')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->bigIncrements('report_id'); // Changed to bigIncrements for primary key
+            $table->unsignedBigInteger('plan_id')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->date('report_date')->nullable();
             $table->text('progress_description')->nullable();
 

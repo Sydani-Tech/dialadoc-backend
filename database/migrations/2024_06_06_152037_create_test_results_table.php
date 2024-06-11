@@ -14,12 +14,12 @@ class CreateTestResultsTable extends Migration
     public function up()
     {
         Schema::create('test_results', function (Blueprint $table) {
-            $table->integer('test_result_id')->primary();
-            $table->integer('record_id')->nullable();
+            $table->bigIncrements('test_result_id'); // Changed to bigIncrements for primary key
+            $table->unsignedBigInteger('record_id')->nullable();
             $table->string('test_name', 100)->nullable();
             $table->text('result')->nullable();
             $table->date('date_performed')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
 
             $table->foreign('record_id')->references('record_id')->on('medical_records');
         });

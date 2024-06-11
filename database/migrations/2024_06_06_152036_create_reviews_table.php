@@ -14,9 +14,9 @@ class CreateReviewsTable extends Migration
     public function up()
     {
         Schema::create('reviews', function (Blueprint $table) {
-            $table->integer('review_id')->primary();
-            $table->integer('doctor_id')->nullable();
-            $table->integer('patient_id')->nullable();
+            $table->bigIncrements('review_id'); // Changed to bigIncrements for primary key
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->unsignedBigInteger('patient_id')->nullable();
             $table->integer('rating')->nullable();
             $table->text('review_text')->nullable();
             $table->timestamp('review_date')->default(now());

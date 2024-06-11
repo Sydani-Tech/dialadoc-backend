@@ -51,18 +51,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */ class Allergy extends Model
 {
     use HasFactory;
+
     public $table = 'allergies';
 
     public $fillable = [
         'name',
         'value',
-        'patient_id'
+        'patient_id',
+        'other_allergies'
     ];
 
     protected $casts = [
         'name' => 'string',
         'value' => 'string',
-        'patient_id' => 'integer'
+        'patient_id' => 'integer',
+        'other_allergies' => 'json' // Assuming other_allergies is stored as JSON
     ];
 
     public static array $rules = [
@@ -70,4 +73,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'value' => 'required',
         'patient_id' => 'required'
     ];
+
+    public function patient(): BelongsTo
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
+    /**
+     * Define the relationship with OtherAllergy model if exists
+     */
+    public function otherAllergies()
+    {
+        return $this->hasMany(OtherAllergy::class);
+    }
 }

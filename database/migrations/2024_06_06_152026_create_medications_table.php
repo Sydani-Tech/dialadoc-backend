@@ -14,9 +14,10 @@ class CreateMedicationsTable extends Migration
     public function up()
     {
         Schema::create('medications', function (Blueprint $table) {
-            $table->integer('medication_id')->primary();
+            $table->bigIncrements('medication_id'); // Primary key as bigIncrements
             $table->string('name', 100);
             $table->text('description')->nullable();
+            $table->timestamps(); // Add timestamps for created_at and updated_at
         });
     }
 

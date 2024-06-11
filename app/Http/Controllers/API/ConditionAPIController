@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Models\Condition;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ConditionResource;
+use Illuminate\Http\JsonResponse;
+
+class ConditionAPIController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        $conditions = Condition::all();
+        return response()->json(['data' => ConditionResource::collection($conditions)], 200);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     * @return JsonResponse
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $request->validate([
+            'patient_id' => 'required|integer|exists:patients,id',
+            'condition_name' => 'required|string',
+            // Add other validation rules as needed
+        ]);
+
+        $condition = Condition::create($request->all());
+
+        return response()->json(['data' => new ConditionResource($condition)], 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  Condition  $condition
+     * @return JsonResponse
+     */
+    public function show(Condition $condition): JsonResponse
+    {
+        return response()->json(['data' => new ConditionResource($condition)], 200);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  Condition  $condition
+     * @return JsonResponse
+     */
+    public function update(Request $request, Condition $condition): JsonResponse
+    {
+        $request->validate([
+            'patient_id' => 'required|integer|exists:patients,id',
+            'condition_name' => 'required|string',
+            // Add other validation rules as needed
+        ]);
+
+        $condition->update($request->all());
+
+        return response()->json(['data' => new ConditionResource($condition)], 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Condition  $condition
+     * @return JsonResponse
+     */
+    public function destroy(Condition $condition): JsonResponse
+    {
+        $condition->delete();
+
+        return response()->json(['message' => 'Condition deleted successfully'], 200);
+    }
+}

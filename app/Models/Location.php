@@ -39,7 +39,9 @@ use Illuminate\Database\Eloquent\Model;
  * )
  */class Location extends Model
 {
-    use HasFactory;    public $table = 'locations';
+    use HasFactory;    
+    
+    public $table = 'locations';
 
     public $fillable = [
         'city',
@@ -47,6 +49,8 @@ use Illuminate\Database\Eloquent\Model;
         'country',
         'postal_code'
     ];
+
+    protected $primaryKey = 'location_id'; // Specify the primary key
 
     protected $casts = [
         'city' => 'string',

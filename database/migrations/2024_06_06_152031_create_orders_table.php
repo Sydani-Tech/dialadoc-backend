@@ -14,14 +14,14 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->integer('order_id')->primary();
-            $table->integer('prescription_id')->nullable();
-            $table->integer('pharmacy_id')->nullable();
-            $table->integer('consultation_id')->nullable();
+            $table->bigIncrements('order_id'); // Change to bigIncrements for primary key
+            $table->unsignedBigInteger('prescription_id')->nullable();
+            $table->unsignedBigInteger('pharmacy_id')->nullable();
+            $table->unsignedBigInteger('consultation_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamp('order_date')->default(now());
-            $table->integer('order_type');
-            $table->integer('status');
+            $table->enum('order_type', ['consultation', 'prescription']); // Assuming it's ENUM
+            $table->enum('status', ['pending', 'completed', 'cancelled']); // Assuming it's ENUM
 
             $table->foreign('prescription_id')->references('prescription_id')->on('prescriptions');
             $table->foreign('pharmacy_id')->references('pharmacy_id')->on('pharmacies');

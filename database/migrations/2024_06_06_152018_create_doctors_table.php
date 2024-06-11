@@ -14,14 +14,15 @@ class CreateDoctorsTable extends Migration
     public function up()
     {
         Schema::create('doctors', function (Blueprint $table) {
-            $table->integer('doctor_id')->primary();
+            $table->bigIncrements('doctor_id'); // Primary key for the doctors table
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->integer('specialization_id')->nullable();
-            $table->integer('location_id')->nullable();
+            $table->unsignedBigInteger('specialization_id')->nullable();
+            $table->unsignedBigInteger('location_id')->nullable();
             $table->integer('experience_years')->nullable();
             $table->string('mdcn_license', 100)->nullable();
             $table->string('cpd_annual_license', 100)->nullable();
             $table->string('bank_details')->nullable();
+            $table->timestamps(); // Adds created_at and updated_at columns
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('specialization_id')->references('specialization_id')->on('specializations');

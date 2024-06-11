@@ -14,13 +14,13 @@ class CreateTreatmentPlansTable extends Migration
     public function up()
     {
         Schema::create('treatment_plans', function (Blueprint $table) {
-            $table->integer('plan_id')->primary();
-            $table->integer('patient_id')->nullable();
-            $table->integer('doctor_id')->nullable();
+            $table->bigIncrements('plan_id'); // Changed to bigIncrements for primary key
+            $table->unsignedBigInteger('patient_id')->nullable();
+            $table->unsignedBigInteger('doctor_id')->nullable();
             $table->text('description')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
 
             $table->foreign('patient_id')->references('patient_id')->on('patients');
             $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
