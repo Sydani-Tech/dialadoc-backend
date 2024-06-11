@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Models\OtherAllergy;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\OtherAllergyResource;
+use Illuminate\Http\JsonResponse;
+
+class ApiOtherAllergyController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        $otherAllergies = OtherAllergy::all();
+        return response()->json(['data' => OtherAllergyResource::collection($otherAllergies)], 200);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     * @return JsonResponse
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'value' => 'nullable|string',
+            'patient_id' => 'required|integer|exists:patients,id',
+            // Add other validation rules as needed
+        ]);
+
+        $otherAllergy = OtherAllergy::create($request->all());
+
+        return response()->json(['data' => new OtherAllergyResource($otherAllergy)], 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  OtherAllergy  $otherAllergy
+     * @return JsonResponse
+     */
+    public function show(OtherAllergy $otherAllergy): JsonResponse
+    {
+        return response()->json(['data' => new OtherAllergyResource($otherAllergy)], 200);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  OtherAllergy  $otherAllergy
+     * @return JsonResponse
+     */
+    public function update(Request $request, OtherAllergy $otherAllergy): JsonResponse
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'value' => 'nullable|string',
+            'patient_id' => 'required|integer|exists:patients,id',
+            // Add other validation rules as needed
+        ]);
+
+        $otherAllergy->update($request->all());
+
+        return response()->json(['data' => new OtherAllergyResource($otherAllergy)], 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  OtherAllergy  $otherAllergy
+     * @return JsonResponse
+     */
+    public function destroy(OtherAllergy $otherAllergy): JsonResponse
+    {
+        $otherAllergy->delete();
+
+        return response()->json(['message' => 'Other allergy deleted successfully'], 200);
+    }
+}
