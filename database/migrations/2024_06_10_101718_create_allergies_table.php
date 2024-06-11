@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateAllergiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('allergies', function (Blueprint $table) {
-            $table->id('id');
+            $table->id(); 
             $table->string('name');
             $table->string('value');
-            $table->integer('patient_id');
+            $table->unsignedBigInteger('patient_id'); 
             $table->timestamps();
 
-            $table->foreign('patient_id')->references('patient_id')->on('patients');
+            $table->foreign('patient_id')->references('patient_id')->on('patients')->onDelete('cascade'); // Ensure this matches the data type in the patients table and add onDelete cascade
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('allergies');
+        Schema::dropIfExists('allergies');
     }
-};
+}

@@ -14,14 +14,17 @@ class CreateHealthMetricsTable extends Migration
     public function up()
     {
         Schema::create('health_metrics', function (Blueprint $table) {
-            $table->morphs('metric');
-            $table->integer('patient_id')->nullable();
+            $table->bigIncrements('metric_id'); // Using bigIncrements to auto-increment
+            $table->unsignedBigInteger('patient_id')->nullable(); // Ensure this matches the type in 'patients' table
             $table->string('value', 100)->nullable();
             $table->date('measurement_date')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable(); // Assuming it references 'id' in 'users' table
 
-            $table->primary(['metric_id']);
-            $table->foreign('patient_id')->references('patient_id')->on('patients');
+            // Foreign key constraints
+            $table->foreign('patient_id')->references('patient_id')->on('patients')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 

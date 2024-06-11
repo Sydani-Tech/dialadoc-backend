@@ -14,16 +14,19 @@ class CreateMedicalRecordsTable extends Migration
     public function up()
     {
         Schema::create('medical_records', function (Blueprint $table) {
-            $table->integer('record_id')->primary();
-            $table->integer('patient_id')->nullable();
-            $table->integer('doctor_id')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->bigIncrements('record_id'); // Primary key as bigIncrements
+            $table->unsignedBigInteger('patient_id')->nullable(); // Foreign key as unsignedBigInteger
+            $table->unsignedBigInteger('doctor_id')->nullable(); // Foreign key as unsignedBigInteger
+            $table->unsignedBigInteger('created_by')->nullable(); // Foreign key as unsignedBigInteger
             $table->integer('record_type')->nullable();
             $table->text('description')->nullable();
             $table->timestamp('date_created')->default(now());
+            $table->timestamps(); // Add timestamps for created_at and updated_at
 
-            $table->foreign('patient_id')->references('patient_id')->on('patients');
-            $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
+            // Foreign key constraints
+            $table->foreign('patient_id')->references('patient_id')->on('patients')->onDelete('cascade');
+            $table->foreign('doctor_id')->references('doctor_id')->on('doctors')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade'); // Ensure this matches the data type in the users table
         });
     }
 

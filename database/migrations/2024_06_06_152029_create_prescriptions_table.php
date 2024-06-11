@@ -14,11 +14,11 @@ class CreatePrescriptionsTable extends Migration
     public function up()
     {
         Schema::create('prescriptions', function (Blueprint $table) {
-            $table->integer('prescription_id')->primary();
-            $table->integer('doctor_id')->nullable();
-            $table->integer('patient_id')->nullable();
+            $table->bigIncrements('prescription_id'); // Use bigIncrements for primary key
+            $table->unsignedBigInteger('doctor_id')->nullable(); // Use unsignedBigInteger for foreign keys
+            $table->unsignedBigInteger('patient_id')->nullable(); // Use unsignedBigInteger for foreign keys
             $table->date('date_issued')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable(); // Use unsignedBigInteger for foreign keys
 
             $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
             $table->foreign('patient_id')->references('patient_id')->on('patients');

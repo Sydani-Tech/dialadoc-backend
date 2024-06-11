@@ -14,9 +14,9 @@ class CreatePharmaciesTable extends Migration
     public function up()
     {
         Schema::create('pharmacies', function (Blueprint $table) {
-            $table->integer('pharmacy_id')->primary();
+            $table->bigIncrements('pharmacy_id'); // Change to bigIncrements for primary key
             $table->string('name', 100);
-            $table->integer('location_id')->nullable();
+            $table->unsignedBigInteger('location_id')->nullable(); // Use unsignedBigInteger for foreign keys
 
             $table->foreign('location_id')->references('location_id')->on('locations');
         });

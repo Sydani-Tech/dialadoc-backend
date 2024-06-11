@@ -14,15 +14,18 @@ class CreateConsentsTable extends Migration
     public function up()
     {
         Schema::create('consents', function (Blueprint $table) {
-            $table->integer('consent_id')->primary();
+            $table->bigIncrements('consent_id'); // Primary key
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->integer('doctor_id')->nullable();
+            $table->unsignedBigInteger('doctor_id')->nullable();
             $table->integer('consent_type')->nullable();
             $table->boolean('granted')->default(0);
-            $table->timestamp('consent_date')->default(now());
+            $table->timestamp('consent_date')->default(DB::raw('CURRENT_TIMESTAMP'));
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
+            $table->timestamps(); // Add created_at and updated_at columns
+
+            // Foreign key constraints
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('doctor_id')->references('doctor_id')->on('doctors')->onDelete('cascade');
         });
     }
 

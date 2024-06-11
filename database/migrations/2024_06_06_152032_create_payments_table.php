@@ -14,13 +14,13 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->integer('payment_id')->primary();
+            $table->bigIncrements('payment_id'); // Changed to bigIncrements for primary key
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->integer('order_id')->nullable();
+            $table->unsignedBigInteger('order_id')->nullable();
             $table->decimal('amount', 10, 2)->nullable();
             $table->string('currency', 10)->nullable();
             $table->timestamp('payment_date')->default(now());
-            $table->integer('status');
+            $table->enum('status', ['pending', 'completed', 'failed'])->default('pending'); // Assuming it's ENUM with default value
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('order_id')->references('order_id')->on('orders');

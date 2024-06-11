@@ -14,9 +14,9 @@ class CreatePrescriptionMedicationsTable extends Migration
     public function up()
     {
         Schema::create('prescription_medications', function (Blueprint $table) {
-            $table->integer('prescription_medication_id')->primary();
-            $table->integer('prescription_id')->nullable();
-            $table->integer('medication_id')->nullable();
+            $table->bigIncrements('prescription_medication_id'); // Changed to bigIncrements for primary key
+            $table->unsignedBigInteger('prescription_id')->nullable();
+            $table->unsignedBigInteger('medication_id')->nullable();
             $table->string('dosage', 100)->nullable();
             $table->string('frequency', 100)->nullable();
 
