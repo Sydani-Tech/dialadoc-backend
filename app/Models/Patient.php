@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */ class Patient extends Model
 {
     use HasFactory;
+
     public $table = 'patients';
 
     public $fillable = [
@@ -43,22 +44,47 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'gender',
         'blood_group',
         'genotype',
-        'location_id'
+        'location_id',
+        'image',
+        'country',
+        'state',
+        'lga',
+        'phone_number',
+        'weight',
+        'height',
+        'surgical_history',
+        'allergies_1',
+        'allergies_2',
+        'condition_1',
+        'condition_2'
     ];
 
     protected $casts = [
         'date_of_birth' => 'date',
-        'blood_group' => 'string',
-        'genotype' => 'string'
+        'gender' => 'integer',
+        'weight' => 'decimal:2',
+        'height' => 'decimal:2'
     ];
 
     public static array $rules = [
         'user_id' => 'nullable',
-        'date_of_birth' => 'nullable',
-        'gender' => 'nullable',
+        'date_of_birth' => 'nullable|date',
+        'gender' => 'nullable|integer',
         'blood_group' => 'nullable|string|max:10',
         'genotype' => 'nullable|string|max:10',
-        'location_id' => 'nullable'
+        'location_id' => 'nullable|integer',
+        'image' => 'nullable|string',
+        'country' => 'nullable|string',
+        'state' => 'nullable|string',
+        'lga' => 'nullable|string',
+        'phone_number' => 'nullable|string',
+        'weight' => 'nullable|numeric',
+        'height' => 'nullable|numeric',
+        'surgical_history' => 'nullable|string',
+        'allergies_1' => 'nullable|string',
+        'allergies_2' => 'nullable|string',
+        'condition_1' => 'nullable|string',
+        'condition_2' => 'nullable|string',
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
