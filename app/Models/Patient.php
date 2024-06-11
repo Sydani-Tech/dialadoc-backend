@@ -87,6 +87,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'condition_2' => 'nullable|string',
     ];
 
+    public function conditions(): HasMany
+    {
+        return $this->hasMany(Condition::class);
+    }
+
+    /**
+     * Get the other conditions for the patient.
+     */
+    public function otherConditions(): HasMany
+    {
+        return $this->hasMany(OtherCondition::class);
+    }
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id');
@@ -121,6 +134,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     // {
     //     return $this->belongsToMany(\App\Models\Doctor::class, 'treatment_plans');
     // }
+
+    /**
+     * Get the other allergies for the patient.
+     */
+    public function otherAllergies(): HasMany
+    {
+        return $this->hasMany(OtherAllergy::class);
+    }
 
     public function allergies(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

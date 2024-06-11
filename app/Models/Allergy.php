@@ -74,6 +74,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'patient_id' => 'required'
     ];
 
+    public function patient(): BelongsTo
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
     /**
      * Define the relationship with OtherAllergy model if exists
      */
