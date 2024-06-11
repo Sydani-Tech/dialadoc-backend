@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="string",
+ *          type="integer",
  *          format="integer"
  *      ),
  *      @OA\Property(
