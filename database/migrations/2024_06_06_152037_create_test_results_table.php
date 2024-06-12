@@ -20,6 +20,7 @@ class CreateTestResultsTable extends Migration
             $table->text('result')->nullable();
             $table->date('date_performed')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
+            $table->timestamps();
 
             $table->foreign('record_id')->references('record_id')->on('medical_records');
         });

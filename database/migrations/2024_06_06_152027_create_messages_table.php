@@ -20,6 +20,7 @@ class CreateMessagesTable extends Migration
             $table->unsignedBigInteger('receiver_id')->nullable();
             $table->text('message_text')->nullable();
             $table->timestamp('sent_at')->default(now());
+            $table->timestamps();
 
             $table->foreign('consultation_id')->references('consultation_id')->on('consultations');
             $table->foreign('sender_id')->references('id')->on('users');

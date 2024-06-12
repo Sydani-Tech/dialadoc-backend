@@ -19,7 +19,8 @@ class CreatePrescriptionsTable extends Migration
             $table->unsignedBigInteger('patient_id')->nullable(); // Use unsignedBigInteger for foreign keys
             $table->date('date_issued')->nullable();
             $table->unsignedBigInteger('created_by')->nullable(); // Use unsignedBigInteger for foreign keys
-
+            $table->timestamps();
+            
             $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
             $table->foreign('patient_id')->references('patient_id')->on('patients');
             $table->foreign('created_by')->references('id')->on('users');

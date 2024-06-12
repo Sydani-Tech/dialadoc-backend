@@ -18,6 +18,8 @@ class CreatePharmaciesTable extends Migration
             $table->string('name', 100);
             $table->unsignedBigInteger('location_id')->nullable(); // Use unsignedBigInteger for foreign keys
 
+            $table->timestamps();
+            
             $table->foreign('location_id')->references('location_id')->on('locations');
         });
     }

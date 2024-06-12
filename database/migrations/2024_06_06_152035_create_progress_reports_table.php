@@ -19,6 +19,7 @@ class CreateProgressReportsTable extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->date('report_date')->nullable();
             $table->text('progress_description')->nullable();
+            $table->timestamps();
 
             $table->foreign('plan_id')->references('plan_id')->on('treatment_plans');
         });

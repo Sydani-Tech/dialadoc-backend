@@ -19,6 +19,7 @@ class CreatePrescriptionMedicationsTable extends Migration
             $table->unsignedBigInteger('medication_id')->nullable();
             $table->string('dosage', 100)->nullable();
             $table->string('frequency', 100)->nullable();
+            $table->timestamps();
 
             $table->foreign('prescription_id')->references('prescription_id')->on('prescriptions');
             $table->foreign('medication_id')->references('medication_id')->on('medications');

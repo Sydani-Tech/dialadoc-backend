@@ -23,6 +23,8 @@ class CreateOrdersTable extends Migration
             $table->enum('order_type', ['consultation', 'prescription']); // Assuming it's ENUM
             $table->enum('status', ['pending', 'completed', 'cancelled']); // Assuming it's ENUM
 
+            $table->timestamps();
+            
             $table->foreign('prescription_id')->references('prescription_id')->on('prescriptions');
             $table->foreign('pharmacy_id')->references('pharmacy_id')->on('pharmacies');
             $table->foreign('user_id')->references('id')->on('users');

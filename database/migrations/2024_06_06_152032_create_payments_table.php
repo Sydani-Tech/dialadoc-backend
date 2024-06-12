@@ -22,6 +22,8 @@ class CreatePaymentsTable extends Migration
             $table->timestamp('payment_date')->default(now());
             $table->enum('status', ['pending', 'completed', 'failed'])->default('pending'); // Assuming it's ENUM with default value
 
+            $table->timestamps();
+            
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('order_id')->references('order_id')->on('orders');
         });

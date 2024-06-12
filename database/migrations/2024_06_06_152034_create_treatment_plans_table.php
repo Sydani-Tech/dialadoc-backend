@@ -21,6 +21,7 @@ class CreateTreatmentPlansTable extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
+            $table->timestamps();
 
             $table->foreign('patient_id')->references('patient_id')->on('patients');
             $table->foreign('doctor_id')->references('doctor_id')->on('doctors');

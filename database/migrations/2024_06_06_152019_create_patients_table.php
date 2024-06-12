@@ -34,6 +34,7 @@ class CreatePatientsTable extends Migration
             $table->string('allergies_2')->nullable();
             $table->string('condition_1')->nullable();
             $table->string('condition_2')->nullable();
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('location_id')->references('location_id')->on('locations');

@@ -18,7 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable(); // Foreign key with unsignedBigInteger
             $table->text('message')->nullable();
             $table->boolean('is_read')->default(0);
-            $table->timestamp('created_at')->default(now());
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
         });

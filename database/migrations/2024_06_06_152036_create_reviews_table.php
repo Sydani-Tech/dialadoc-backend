@@ -20,6 +20,7 @@ class CreateReviewsTable extends Migration
             $table->integer('rating')->nullable();
             $table->text('review_text')->nullable();
             $table->timestamp('review_date')->default(now());
+            $table->timestamps();
 
             $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
             $table->foreign('patient_id')->references('patient_id')->on('patients');
