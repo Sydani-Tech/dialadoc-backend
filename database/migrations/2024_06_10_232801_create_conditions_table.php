@@ -13,6 +13,8 @@ class CreateConditionsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('conditions');
+
         Schema::create('conditions', function (Blueprint $table) {
             $table->bigIncrements('condition_id'); // Primary key for the conditions table
             $table->unsignedBigInteger('patient_id'); // Foreign key referencing the patients table
