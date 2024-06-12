@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\Consultation;
 use App\Models\User;
-use App\Models\User;
 
 class MessageFactory extends Factory
 {
@@ -25,7 +24,7 @@ class MessageFactory extends Factory
      */
     public function definition()
     {
-        
+
         $user = User::first();
         if (!$user) {
             $user = User::factory()->create();
