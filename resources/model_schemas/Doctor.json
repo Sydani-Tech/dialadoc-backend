@@ -1,7 +1,7 @@
 [
     {
         "name": "doctor_id",
-        "dbType": "integer,true",
+        "dbType": "bigInteger,true,true",
         "htmlType": "number",
         "validations": "",
         "searchable": false,
@@ -13,7 +13,7 @@
     },
     {
         "name": "user_id",
-        "dbType": "integer,false",
+        "dbType": "bigInteger,false,true",
         "htmlType": "number",
         "validations": "nullable|nullable",
         "searchable": true,
@@ -25,18 +25,6 @@
     },
     {
         "name": "specialization_id",
-        "dbType": "integer,false",
-        "htmlType": "number",
-        "validations": "nullable|nullable",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "location_id",
         "dbType": "integer,false",
         "htmlType": "number",
         "validations": "nullable|nullable",
@@ -84,10 +72,94 @@
         "inView": true
     },
     {
-        "name": "bank_details",
+        "name": "created_at",
+        "dbType": "datetime",
+        "htmlType": "date",
+        "validations": "nullable|nullable",
+        "searchable": false,
+        "fillable": false,
+        "primary": false,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
+    },
+    {
+        "name": "updated_at",
+        "dbType": "datetime",
+        "htmlType": "date",
+        "validations": "nullable|nullable",
+        "searchable": false,
+        "fillable": false,
+        "primary": false,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
+    },
+    {
+        "name": "bank_name",
         "dbType": "string",
         "htmlType": "text",
         "validations": "nullable|string|max:255|nullable|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "bank_account_number",
+        "dbType": "string",
+        "htmlType": "text",
+        "validations": "nullable|string|max:255|nullable|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "country",
+        "dbType": "string",
+        "htmlType": "text",
+        "validations": "nullable|string|max:255|nullable|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "state",
+        "dbType": "string",
+        "htmlType": "text",
+        "validations": "nullable|string|max:255|nullable|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "lga",
+        "dbType": "string",
+        "htmlType": "text",
+        "validations": "nullable|string|max:255|nullable|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "bio",
+        "dbType": "text",
+        "htmlType": "textarea",
+        "validations": "nullable|string|max:65535|nullable|string|max:65535",
         "searchable": true,
         "fillable": true,
         "primary": false,
@@ -101,15 +173,11 @@
     },
     {
         "type": "relation",
-        "relation": "mt1,Location,location_id"
-    },
-    {
-        "type": "relation",
         "relation": "mt1,User,user_id"
     },
     {
         "type": "relation",
-        "relation": "mtm,User,appointments"
+        "relation": "1tm,Appointment,doctor_id"
     },
     {
         "type": "relation",
@@ -117,15 +185,15 @@
     },
     {
         "type": "relation",
-        "relation": "mtm,Patient,medical_records"
+        "relation": "1tm,MedicalRecord,doctor_id"
     },
     {
         "type": "relation",
-        "relation": "mtm,User,prescriptions"
+        "relation": "1tm,Prescription,doctor_id"
     },
     {
         "type": "relation",
-        "relation": "mtm,User,reviews"
+        "relation": "mtm,Patient,reviews"
     },
     {
         "type": "relation",
