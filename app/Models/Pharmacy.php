@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Pharmacy",
@@ -16,9 +17,11 @@ use Illuminate\Database\Eloquent\Model;
  *          type="string",
  *      )
  * )
- */class Pharmacy extends Model
+ */ class Pharmacy extends Model
 {
-    use HasFactory;    public $table = 'pharmacies';
+    use HasFactory;
+    public $table = 'pharmacies';
+    protected $primaryKey = 'pharmacy_id';
 
     public $fillable = [
         'name',

@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Payment",
@@ -32,9 +33,11 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Payment extends Model
+ */ class Payment extends Model
 {
-    use HasFactory;    public $table = 'payments';
+    use HasFactory;
+    public $table = 'payments';
+    protected $primaryKey = 'payment_id';
 
     public $fillable = [
         'user_id',

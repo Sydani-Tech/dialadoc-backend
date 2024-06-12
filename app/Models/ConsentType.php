@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="ConsentType",
@@ -24,9 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class ConsentType extends Model
+ */ class ConsentType extends Model
 {
-    use HasFactory;    public $table = 'consents';
+    use HasFactory;
+    public $table = 'consents';
+
+    protected $primaryKey = 'consent_id';
 
     public $fillable = [
         'user_id',

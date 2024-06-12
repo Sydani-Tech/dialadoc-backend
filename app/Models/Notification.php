@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Notification",
@@ -31,9 +32,12 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Notification extends Model
+ */ class Notification extends Model
 {
-    use HasFactory;    public $table = 'notifications';
+    use HasFactory;
+    public $table = 'notifications';
+
+    protected $primaryKey = 'notification_id';
 
     public $fillable = [
         'user_id',

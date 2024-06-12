@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="VitalSign",
@@ -47,9 +48,10 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class VitalSign extends Model
+ */ class VitalSign extends Model
 {
-    use HasFactory;    public $table = 'vital_signs';
+    use HasFactory;
+    public $table = 'vital_signs';
 
     public $fillable = [
         'name',
@@ -68,6 +70,4 @@ use Illuminate\Database\Eloquent\Model;
         'value' => 'required',
         'patient_id' => 'required'
     ];
-
-    
 }

@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="TreatmentPlan",
@@ -32,9 +33,11 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date"
  *      )
  * )
- */class TreatmentPlan extends Model
+ */ class TreatmentPlan extends Model
 {
-    use HasFactory;    public $table = 'treatment_plans';
+    use HasFactory;
+    public $table = 'treatment_plans';
+    protected $primaryKey = 'plan_id';
 
     public $fillable = [
         'patient_id',

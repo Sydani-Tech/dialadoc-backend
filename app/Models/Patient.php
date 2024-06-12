@@ -125,6 +125,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
     public $table = 'patients';
 
+    protected $primaryKey = 'patient_id';
+
     public $fillable = [
         'user_id',
         'date_of_birth',

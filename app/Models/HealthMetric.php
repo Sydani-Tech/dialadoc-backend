@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="HealthMetric",
@@ -31,9 +32,11 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date"
  *      )
  * )
- */class HealthMetric extends Model
+ */ class HealthMetric extends Model
 {
-    use HasFactory;    public $table = 'health_metrics';
+    use HasFactory;
+    public $table = 'health_metrics';
+    protected $primaryKey = 'metric_id';
 
     public $fillable = [
         'patient_id',

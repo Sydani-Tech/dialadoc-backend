@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="ProgressReport",
@@ -24,9 +25,11 @@ use Illuminate\Database\Eloquent\Model;
  *          type="string",
  *      )
  * )
- */class ProgressReport extends Model
+ */ class ProgressReport extends Model
 {
-    use HasFactory;    public $table = 'progress_reports';
+    use HasFactory;
+    public $table = 'progress_reports';
+    protected $primaryKey = 'report_id';
 
     public $fillable = [
         'plan_id',

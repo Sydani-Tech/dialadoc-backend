@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Specialization",
@@ -16,9 +17,11 @@ use Illuminate\Database\Eloquent\Model;
  *          type="string",
  *      )
  * )
- */class Specialization extends Model
+ */ class Specialization extends Model
 {
-    use HasFactory;    public $table = 'specializations';
+    use HasFactory;
+    public $table = 'specializations';
+    protected $primaryKey = 'specialization_id';
 
     public $fillable = [
         'name'

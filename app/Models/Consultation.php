@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 {
     use HasFactory;
     public $table = 'consultations';
+    protected $primaryKey = 'consultation_id';
 
     public $fillable = [
         'appointment_id',

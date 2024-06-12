@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="TestResult",
@@ -31,9 +32,11 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date"
  *      )
  * )
- */class TestResult extends Model
+ */ class TestResult extends Model
 {
-    use HasFactory;    public $table = 'test_results';
+    use HasFactory;
+    public $table = 'test_results';
+    protected $primaryKey = 'test_result_id';
 
     public $fillable = [
         'record_id',

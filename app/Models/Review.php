@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Review",
@@ -24,9 +25,11 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Review extends Model
+ */ class Review extends Model
 {
-    use HasFactory;    public $table = 'reviews';
+    use HasFactory;
+    public $table = 'reviews';
+    protected $primaryKey = 'review_id';
 
     public $fillable = [
         'doctor_id',

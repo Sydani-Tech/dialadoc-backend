@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Order",
@@ -17,9 +18,11 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Order extends Model
+ */ class Order extends Model
 {
-    use HasFactory;    public $table = 'orders';
+    use HasFactory;
+    public $table = 'orders';
+    protected $primaryKey = 'order_id';
 
     public $fillable = [
         'prescription_id',
