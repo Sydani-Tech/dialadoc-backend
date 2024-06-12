@@ -120,3 +120,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('allergy-types', [App\Http\Controllers\API\AllergyAPIController::class, 'getAllergyTypes'])->name('allergy-types');
 });
+
+
+Route::get('countries', [App\Http\Controllers\API\CommonAPIController::class, 'getCountries']);
+Route::get('states', [App\Http\Controllers\API\CommonAPIController::class, 'getStates']);
+Route::get('nigerian-states', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianStates']);
+Route::get('nigerian-lgas', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianLGAs']);
+Route::get('nigerian-geo-political-zones', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianGeopoliticalZones']);
+Route::get('nigerian-senatorial-zones', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianSenatorialZones']);
+
