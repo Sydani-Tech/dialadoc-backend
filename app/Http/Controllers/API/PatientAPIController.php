@@ -154,7 +154,7 @@ class PatientAPIController extends AppBaseController
 
         /**
      * @OA\Get(
-     *      path="/patients/{user_id}",
+     *      path="/patients/by-user/{user_id}",
      *      summary="getPatientItem",
      *      tags={"Patient"},
      *      description="Get Patient By User ID",
