@@ -73,14 +73,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="string",
+ *          type="integer",
  *      ),
  *      @OA\Property(
  *          property="height",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="string",
+ *          type="integer",
  *      ),
  *      @OA\Property(
  *          property="surgical_history",
