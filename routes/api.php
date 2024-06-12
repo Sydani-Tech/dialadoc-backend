@@ -129,3 +129,7 @@ Route::get('nigerian-lgas', [App\Http\Controllers\API\CommonAPIController::class
 Route::get('nigerian-geo-political-zones', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianGeopoliticalZones']);
 Route::get('nigerian-senatorial-zones', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianSenatorialZones']);
 
+
+
+Route::resource('doctors', App\Http\Controllers\API\DoctorAPIController::class)
+    ->except(['create', 'edit']);
