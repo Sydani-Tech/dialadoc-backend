@@ -21,7 +21,7 @@ class CreateConditionsTable extends Migration
             $table->string('condition_name'); // Name of the condition
             $table->timestamps();
 
-            $table->foreign('patient_id')->references('patient_id')->on('patients')->onDelete('cascade'); // Ensure this matches the data type in the patients table
+            // $table->foreign('patient_id')->references('patient_id')->on('patients')->onDelete('cascade'); // Ensure this matches the data type in the patients table
         });
     }
 
