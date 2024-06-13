@@ -267,6 +267,7 @@ class AuthController extends AppBaseController
         if (empty($user)) {
             return response()->json([
                 'status' => false,
+                'status_code' => 401,
                 'message' => 'Logout was not successful'
             ]);
         }
@@ -275,6 +276,7 @@ class AuthController extends AppBaseController
 
         return response()->json([
             'status' => true,
+            'status_code' => 200,
             'message' => 'Logout successful'
         ]);
     }
@@ -353,6 +355,7 @@ class AuthController extends AppBaseController
         if (empty($user)) {
             return response()->json([
                 'status' => false,
+                'status_code' => 401,
                 'message' => 'User not authenticated'
             ]);
         }
@@ -376,6 +379,7 @@ class AuthController extends AppBaseController
         if (empty($user)) {
             return response()->json([
                 'status' => false,
+                'status_code' => 404,
                 'message' => 'User not found'
             ]);
         }
@@ -385,6 +389,7 @@ class AuthController extends AppBaseController
 
         return response()->json([
             'status' => true,
+            'status_code' => 200,
             'message' => 'Password reset successfully'
         ]);
     }
@@ -415,6 +420,7 @@ class AuthController extends AppBaseController
         if (empty($user)) {
             return response()->json([
                 'status' => false,
+                'status_code' => 404,
                 'message' => 'User not found'
             ]);
         }
@@ -424,12 +430,14 @@ class AuthController extends AppBaseController
         if (!$result) {
             return response()->json([
                 'status' => false,
+                'status_code' => 500,
                 'message' => 'Unable to send mail'
             ]);
         }
 
         return response()->json([
             'status' => true,
+            'status_code' => 200,
             'message' => 'OTP sent successfully to your mail for password reset'
         ]);
     }
@@ -461,6 +469,7 @@ class AuthController extends AppBaseController
         if (!$passwordResetService->verifyResetToken($email, $otp)) {
             return response()->json([
                 'status' => true,
+                'status_code' => 400,
                 'message' => 'Invalid OTP',
             ], 400);
         }
@@ -470,6 +479,7 @@ class AuthController extends AppBaseController
         if (empty($user)) {
             return response()->json([
                 'status' => false,
+                'status_code' => 404,
                 'message' => 'User not found'
             ]);
         }
@@ -479,6 +489,7 @@ class AuthController extends AppBaseController
 
         return response()->json([
             'status' => true,
+            'status_code' => 200,
             'message' => 'Password reset successfully'
         ]);
     }
