@@ -6591,6 +6591,18 @@
                         "readOnly": false,
                         "nullable": false
                     },
+                    "specialization_id": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "experience_years": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
                     "mdcn_license": {
                         "description": "",
                         "type": "string",
