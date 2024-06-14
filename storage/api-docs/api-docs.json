@@ -6585,6 +6585,12 @@
             "Doctor": {
                 "required": [],
                 "properties": {
+                    "user_id": {
+                        "description": "User ID",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
                     "mdcn_license": {
                         "description": "",
                         "type": "string",
