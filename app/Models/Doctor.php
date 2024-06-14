@@ -97,9 +97,9 @@ class Doctor extends Model
         'cpd_annual_license',
         'bank_name',
         'bank_account_number',
-        'country_id',
-        'state_id',
-        'lga_id',
+        'country',
+        'state',
+        'lga',
         'bio'
     ];
 
