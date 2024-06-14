@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
+use App\Models\Doctor;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\DoctorResource;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateDoctorAPIRequest;
 use App\Http\Requests\API\UpdateDoctorAPIRequest;
-use App\Models\Doctor;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Resources\DoctorResource;
 
 /**
  * Class DoctorController
@@ -200,6 +201,13 @@ class DoctorAPIController extends AppBaseController
 
         $doctor->fill($request->all());
         $doctor->save();
+
+        $user = User::find($doctor->user_id);
+
+        if(!empty($user)) {
+            $user->is_profile_updated == 1;
+            $user->save();
+        }
 
         return $this->sendResponse(new DoctorResource($doctor), 'Doctor updated successfully');
     }

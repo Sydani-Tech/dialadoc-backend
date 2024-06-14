@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\AppBaseController;
 use App\Models\User;
+use App\Models\Doctor;
+use App\Models\Patient;
 use Illuminate\Support\Str;
 use App\Services\OTPService;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\PasswordResetService;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Auth\LoginRequest;
 use App\Http\Requests\API\Auth\RegisterRequest;
 use App\Http\Requests\API\Auth\VerifyEmailRequest;
@@ -145,35 +149,53 @@ class AuthController extends AppBaseController
     {
         $input = $request->all();
 
-        // Create user
-        $user = User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password'])
-        ]);
+        try {
+            DB::beginTransaction();
+            // Create user
+            $user = User::create([
+                'name' => $input['name'],
+                'email' => $input['email'],
+                'password' => Hash::make($input['password'])
+            ]);
 
-        // Assign role
-        $role = Role::where('name', '=', $input['role'])->first();
-        if (!empty($role)) {
-            $user->assignRole($role);
+            // Assign role
+            $role = Role::where('name', '=', $input['role'])->first();
+            if (!empty($role)) {
+                $user->assignRole($role);
+            }
+
+            if ($role->name == "patient") {
+                $patient = Patient::create([
+                    'user_id' => $user->id
+                ]);
+            } else if ($role->name == "doctor") {
+                $doctor = Doctor::create([
+                    'user_id' => $user->id
+                ]);
+            }
+
+            // Create user token
+            $token = $user->createToken(Str::slug(config('app.name') . '_auth_token', '_'))->plainTextToken;
+            $permissions = $user->getAllPermissions();
+            $user->role = $user->roles()->first();
+
+            // TODO: send verification mail
+
+            DB::commit();
+
+            // Send response
+            return response()->json([
+                'data' => [
+                    'user' => new UserResource($user),
+                    'token' => $token
+                ],
+                'status' => true,
+                'message' => 'User registered successfully'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError('An error occured');
         }
-
-        // Create user token
-        $token = $user->createToken(Str::slug(config('app.name') . '_auth_token', '_'))->plainTextToken;
-        $permissions = $user->getAllPermissions();
-        $user->role = $user->roles()->first();
-
-        // TODO: send verification mail
-
-        // Send response
-        return response()->json([
-            'data' => [
-                'user' => $user->toArray(),
-                'token' => $token
-            ],
-            'status' => true,
-            'message' => 'User registered successfully'
-        ]);
     }
 
     /**
@@ -234,7 +256,7 @@ class AuthController extends AppBaseController
 
         return response()->json([
             'data' => [
-                'user' => $user->toArray(),
+                'user' => new UserResource($user),
                 'token' => $token,
                 // 'permissions' => $permissions
             ],

@@ -22,7 +22,10 @@ class UserResource extends JsonResource
             'password' => $this->password,
             'remember_token' => $this->remember_token,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
+            'is_profile_updated' => $this->is_profile_updated,
+            'patient_profile' => $this->patientProfile,
+            'doctor_profile' => $this->doctorProfile
         ];
     }
 }

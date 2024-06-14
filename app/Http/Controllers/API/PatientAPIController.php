@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
+use App\Models\Patient;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\PatientResource;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreatePatientAPIRequest;
 use App\Http\Requests\API\UpdatePatientAPIRequest;
-use App\Models\Patient;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Resources\PatientResource;
 
 /**
  * Class PatientController
@@ -251,8 +252,15 @@ class PatientAPIController extends AppBaseController
             return $this->sendError('Patient not found');
         }
 
+        $user = User::find($patient->user_id);
+
         $patient->fill($request->all());
         $patient->save();
+
+        if(!empty($user)) {
+            $user->is_profile_updated == 1;
+            $user->save();
+        }
 
         return $this->sendResponse(new PatientResource($patient), 'Patient updated successfully');
     }
