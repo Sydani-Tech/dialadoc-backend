@@ -24,7 +24,7 @@ class UserResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'is_profile_updated' => $this->is_profile_updated,
-            'patient_profile' => $this->patientProfile,
+            'patient_profile' => new PatientResource($this->patientProfile),
             'doctor_profile' => $this->doctorProfile
         ];
     }
