@@ -15,7 +15,8 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "spatie/laravel-permission": "*"
+        "spatie/laravel-permission": "*",
+        "unicodeveloper/laravel-paystack": "^1.2"
     },
     "require-dev": {
         "bennett-treptow/laravel-migration-generator": "^4.4",

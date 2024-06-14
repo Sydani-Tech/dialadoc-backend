@@ -1340,12 +1340,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             },
             "post": {
                 "tags": [
@@ -1386,12 +1381,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             }
         },
         "/doctors/{id}": {
@@ -1435,12 +1425,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             },
             "put": {
                 "tags": [
@@ -1492,12 +1477,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             },
             "delete": {
                 "tags": [
@@ -1539,12 +1519,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             }
         },
         "/health-metrics": {
@@ -3557,14 +3532,14 @@
                 ]
             }
         },
-        "/patients/{user_id}": {
+        "/patients/by-user/{user_id}": {
             "get": {
                 "tags": [
                     "Patient"
                 ],
                 "summary": "getPatientItem",
                 "description": "Get Patient By User ID",
-                "operationId": "5f4c8db7fe992e019635f0b85e03cc98",
+                "operationId": "4cb138b803ec6618897a2ec14a02d1ed",
                 "parameters": [
                     {
                         "name": "id",
@@ -6610,6 +6585,24 @@
             "Doctor": {
                 "required": [],
                 "properties": {
+                    "user_id": {
+                        "description": "User ID",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "specialization_id": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "experience_years": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
                     "mdcn_license": {
                         "description": "",
                         "type": "string",
@@ -6622,7 +6615,51 @@
                         "readOnly": false,
                         "nullable": true
                     },
-                    "bank_details": {
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "bank_name": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "bank_account_number": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "country": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "state": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "lga": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "bio": {
                         "description": "",
                         "type": "string",
                         "readOnly": false,
@@ -6945,13 +6982,13 @@
                     },
                     "weight": {
                         "description": "",
-                        "type": "string",
+                        "type": "integer",
                         "readOnly": false,
                         "nullable": true
                     },
                     "height": {
                         "description": "",
-                        "type": "string",
+                        "type": "integer",
                         "readOnly": false,
                         "nullable": true
                     },

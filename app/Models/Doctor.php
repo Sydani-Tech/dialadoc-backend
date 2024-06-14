@@ -82,7 +82,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          type="string",
  *      )
  * )
- */ class Doctor extends Model
+ */
+class Doctor extends Model
 {
     use HasFactory;
     public $table = 'doctors';
@@ -103,6 +104,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     ];
 
     protected $casts = [
+        'user_id' => 'string',
+        'specialization_id' => 'string',
+        'experience_years' => 'string',
         'mdcn_license' => 'string',
         'cpd_annual_license' => 'string',
         'bank_name' => 'string',
