@@ -249,7 +249,7 @@ class AuthController extends AppBaseController
                 'status' => false,
                 'status_code' => 401,
                 'message' => 'Password does not match'
-            ]);
+            ], 401);
         }
 
         $token = $user->createToken(Str::slug(config('app.name') . '_auth_token', '_'))->plainTextToken;
@@ -290,7 +290,7 @@ class AuthController extends AppBaseController
                 'status' => false,
                 'status_code' => 401,
                 'message' => 'Logout was not successful'
-            ]);
+            ], 401);
         }
 
         $user->tokens()->delete();
@@ -332,7 +332,7 @@ class AuthController extends AppBaseController
             return response()->json([
                 'status' => true,
                 'message' => 'Email has already been verified!',
-            ]);
+            ], 403);
         }
 
         $result = $otpService->generateOTP($user);
@@ -341,7 +341,7 @@ class AuthController extends AppBaseController
             return response()->json([
                 'status' => false,
                 'message' => 'Unable to send mail'
-            ]);
+            ], 500);
         }
 
         return response()->json([
@@ -378,14 +378,14 @@ class AuthController extends AppBaseController
                 'status' => false,
                 'status_code' => 401,
                 'message' => 'User not authenticated'
-            ]);
+            ], 401);
         }
 
         if ($user->hasVerifiedEmail()) {
             return response()->json([
                 'status' => true,
                 'message' => 'Email has already been verified!',
-            ]);
+            ], 403);
         }
 
         if (!$otpService->verifyOTP($user, $request->otp)) {
@@ -402,7 +402,7 @@ class AuthController extends AppBaseController
                 'status' => false,
                 'status_code' => 404,
                 'message' => 'User not found'
-            ]);
+            ], 404);
         }
 
         $user->markEmailAsVerified();
@@ -443,7 +443,7 @@ class AuthController extends AppBaseController
                 'status' => false,
                 'status_code' => 404,
                 'message' => 'User not found'
-            ]);
+            ], 404);
         }
 
         $result = $passwordResetService->sendResetToken($email);
@@ -453,7 +453,7 @@ class AuthController extends AppBaseController
                 'status' => false,
                 'status_code' => 500,
                 'message' => 'Unable to send mail'
-            ]);
+            ], 500);
         }
 
         return response()->json([
@@ -502,7 +502,7 @@ class AuthController extends AppBaseController
                 'status' => false,
                 'status_code' => 404,
                 'message' => 'User not found'
-            ]);
+            ], 404);
         }
 
         $user->password = Hash::make($password);
