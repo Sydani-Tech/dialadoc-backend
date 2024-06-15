@@ -241,7 +241,7 @@ class AuthController extends AppBaseController
                 'status' => false,
                 'status_code' => 401,
                 'message' => 'Invalid login details'
-            ]);
+            ], 401);
         }
 
         if (!Hash::check($input['password'], $user->password)) {
