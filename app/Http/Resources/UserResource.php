@@ -23,6 +23,8 @@ class UserResource extends JsonResource
             'remember_token' => $this->remember_token,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'role' => $this->roles()->first(),
+            'permissions' => $this->getAllPermissions(),
             'is_profile_updated' => $this->is_profile_updated,
             'patient_profile' => new PatientResource($this->patientProfile),
             'doctor_profile' => $this->doctorProfile
