@@ -159,15 +159,15 @@ class DoctorAPIController extends AppBaseController
      *      @OA\Parameter(
      *          name="id",
      *          description="id of Doctor",
-     *           @OA\Schema(
+     *          @OA\Schema(
      *             type="integer"
      *          ),
      *          required=true,
      *          in="path"
      *      ),
      *      @OA\RequestBody(
-     *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Doctor")
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/Doctor")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -192,20 +192,19 @@ class DoctorAPIController extends AppBaseController
      */
     public function update($id, UpdateDoctorAPIRequest $request): JsonResponse
     {
-        /** @var Doctor $doctor */
-        $doctor = Doctor::find($id);
+        $doctor = Doctor::where('id', $id)->first();
 
-        if (empty($doctor)) {
+        if (!$doctor) {
             return $this->sendError('Doctor not found');
         }
 
-        $doctor->fill($request->all());
+        $doctor->fill($request->validated());
         $doctor->save();
 
-        $user = User::find($doctor->user_id);
+        $user = $doctor->user;
 
-        if(!empty($user)) {
-            $user->is_profile_updated == 1;
+        if ($user) {
+            $user->is_profile_updated = 1;
             $user->save();
         }
 
