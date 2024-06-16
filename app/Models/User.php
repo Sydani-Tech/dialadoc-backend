@@ -43,6 +43,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *          type="string",
  *      ),
  *      @OA\Property(
+ *          property="role",
+ *          type="string"
+ *      ),
+ *      @OA\Property(
  *          property="remember_token",
  *          description="",
  *          readOnly=false,

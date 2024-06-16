@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
+use App\Models\Doctor;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Spatie\Permission\Models\Role;
@@ -102,9 +104,21 @@ class UserAPIController extends AppBaseController
         /** @var User $user */
         $user = User::create($input);
 
-        // Assign role to new user
-        $role = Role::where('name', $request->role)->first();
-        $user->assignRole($role);
+        // Assign role
+        $role = Role::where('name', '=', $input['role'])->first();
+        if (!empty($role)) {
+            $user->assignRole($role);
+        }
+
+        if ($role->name == "patient") {
+            $patient = Patient::create([
+                'user_id' => $user->id
+            ]);
+        } else if ($role->name == "doctor") {
+            $doctor = Doctor::create([
+                'user_id' => $user->id
+            ]);
+        }
 
         return $this->sendResponse(new UserResource($user), 'User saved successfully');
     }
@@ -265,6 +279,14 @@ class UserAPIController extends AppBaseController
 
         if (empty($user)) {
             return $this->sendError('User not found');
+        }
+
+        $role = $user->roles()->first();
+
+        if ($role->name == "patient") {
+            $patient = Patient::where('user_id', $user->id)->delete();
+        } else if ($role->name == "doctor") {
+            $doctor = Doctor::where('user_id', $user->id)->delete();
         }
 
         $user->delete();

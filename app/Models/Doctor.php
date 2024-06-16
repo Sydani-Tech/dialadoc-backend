@@ -104,8 +104,8 @@ class Doctor extends Model
     ];
 
     protected $casts = [
-        'user_id' => 'string',
-        'specialization_id' => 'string',
+        'user_id' => 'integer',
+        'specialization_id' => 'integer',
         'experience_years' => 'string',
         'mdcn_license' => 'string',
         'cpd_annual_license' => 'string',
