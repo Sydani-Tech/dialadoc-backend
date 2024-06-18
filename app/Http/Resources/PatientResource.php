@@ -22,8 +22,21 @@ class PatientResource extends JsonResource
             'blood_group' => $this->blood_group,
             'genotype' => $this->genotype,
             'location_id' => $this->location_id,
-            'vital_signs' => $this->vitalSigns,
-            'allergies' => $this->allergies
+            'image' => $this->image,
+            'country' => $this->country,
+            'state' => $this->state,
+            'lga' => $this->lga,
+            'phone_number' => $this->phone_number,
+            'weight' => $this->weight,
+            'height' => $this->height,
+            'surgical_history' => $this->surgical_history,
+            'average_heart_rate' => $this->average_heart_rate,
+            'allergies_1' => $this->allergies_1,
+            'allergies_2' => $this->allergies_2,
+            'other_allergies' => $this->other_allergies,
+            'condition_1' => $this->condition_1,
+            'condition_2' => $this->condition_2,
+            'other_conditions' => $this->other_conditions,
         ];
     }
 }
