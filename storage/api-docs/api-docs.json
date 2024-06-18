@@ -7054,7 +7054,6 @@
                         "readOnly": false,
                         "nullable": true
                     },
-                    
                     "payment_date": {
                         "description": "",
                         "type": "string",
