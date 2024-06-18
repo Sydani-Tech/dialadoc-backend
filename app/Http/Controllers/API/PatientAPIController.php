@@ -257,7 +257,7 @@ class PatientAPIController extends AppBaseController
             return $this->sendError('Patient not found');
         }
 
-        $user = User::find($patient->user_id);
+        $user = $patient->user;
 
         $patient->fill($request->all());
         $patient->save();
