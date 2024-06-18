@@ -7008,6 +7008,12 @@
                         "readOnly": false,
                         "nullable": true
                     },
+                    "average_heart_rate": {
+                        "description": "",
+                        "type": "integer",
+                        "readOnly": false,
+                        "nullable": true
+                    },
                     "allergies_1": {
                         "description": "",
                         "type": "string",
@@ -7015,6 +7021,12 @@
                         "nullable": true
                     },
                     "allergies_2": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "other_allergies": {
                         "description": "",
                         "type": "string",
                         "readOnly": false,
@@ -7031,7 +7043,13 @@
                         "type": "string",
                         "readOnly": false,
                         "nullable": true
-                    }
+                    },
+                    "other_condition": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    }   
                 },
                 "type": "object"
             },

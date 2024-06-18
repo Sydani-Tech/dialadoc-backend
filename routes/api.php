@@ -131,6 +131,7 @@ Route::get('nigerian-geo-political-zones', [App\Http\Controllers\API\CommonAPICo
 Route::get('nigerian-senatorial-zones', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianSenatorialZones']);
 
 
+// Why is this endpoint open? That's without Authentication.
 
-Route::resource('doctors', App\Http\Controllers\API\DoctorAPIController::class)
-    ->except(['create', 'edit']);
+// Route::resource('doctors', App\Http\Controllers\API\DoctorAPIController::class)
+//     ->except(['create', 'edit']);

@@ -10,6 +10,7 @@ use App\Http\Resources\DoctorResource;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateDoctorAPIRequest;
 use App\Http\Requests\API\UpdateDoctorAPIRequest;
+use illuminate\Support\Facades\Auth;
 
 /**
  * Class DoctorController
@@ -95,7 +96,8 @@ class DoctorAPIController extends AppBaseController
     public function store(CreateDoctorAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-
+        $user = Auth::user();
+        $input['user_id'] = $user->id;
         /** @var Doctor $doctor */
         $doctor = Doctor::create($input);
 

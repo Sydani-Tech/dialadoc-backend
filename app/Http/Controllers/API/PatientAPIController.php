@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PatientResource;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreatePatientAPIRequest;
@@ -97,10 +98,14 @@ class PatientAPIController extends AppBaseController
     public function store(CreatePatientAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+        $user = Auth::user();
+        $input['user_id'] = $user->id;
 
         /** @var Patient $patient */
         $patient = Patient::create($input);
-
+        if ($patient) {
+            $user->update(['is_profile_updated' => 1]);
+        }
         return $this->sendResponse(new PatientResource($patient), 'Patient saved successfully');
     }
 
@@ -153,7 +158,7 @@ class PatientAPIController extends AppBaseController
         return $this->sendResponse(new PatientResource($patient), 'Patient retrieved successfully');
     }
 
-        /**
+    /**
      * @OA\Get(
      *      path="/patients/by-user/{user_id}",
      *      summary="getPatientItem",
@@ -257,7 +262,7 @@ class PatientAPIController extends AppBaseController
         $patient->fill($request->all());
         $patient->save();
 
-        if(!empty($user)) {
+        if (!empty($user)) {
             $user->is_profile_updated == 1;
             $user->save();
         }

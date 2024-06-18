@@ -111,7 +111,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *      ),
  *
  * )
- */ class Patient extends Model
+ */
+class Patient extends Model
 {
     use HasFactory;
 
@@ -134,10 +135,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'weight',
         'height',
         'surgical_history',
+        'average_heart_rate',
         'allergies_1',
         'allergies_2',
+        'other_allergies',
         'condition_1',
-        'condition_2'
+        'condition_2',
+        'other_conditions'
     ];
 
     protected $casts = [
@@ -161,11 +165,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'phone_number' => 'nullable|string',
         'weight' => 'nullable|numeric',
         'height' => 'nullable|numeric',
-        'surgical_history' => 'nullable|string',
+        'surgical_history' => 'nullable|bool',
+        'average_heart_rate' => 'nullable|integer',
         'allergies_1' => 'nullable|string',
         'allergies_2' => 'nullable|string',
+        'other_allergies' => 'nullable|string',
         'condition_1' => 'nullable|string',
         'condition_2' => 'nullable|string',
+        'other_condition' => 'nullable|string',
     ];
 
     public function conditions(): HasMany
