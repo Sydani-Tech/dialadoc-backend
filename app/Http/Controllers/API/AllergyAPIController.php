@@ -46,12 +46,15 @@ class AllergyAPIController extends AppBaseController
 
         $allergyTypes = [
             'Dust',
-            'Asthma',
-            'Ulcer',
-            'Migrane',
-            'PCOS',
-            'Heart Burns',
-            
+            'Mold',
+            'Dust Mite',
+            'Pollen',
+            'Hay fever',
+            'Food',
+            'Lactose',
+            'Latex',
+            'Animals'
+
         ];
         return $this->sendResponse($allergyTypes, 'Allergy Types retrieved successfully');
     }

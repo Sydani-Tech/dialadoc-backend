@@ -119,6 +119,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->except(['create', 'edit']);
 
     Route::get('allergy-types', [App\Http\Controllers\API\AllergyAPIController::class, 'getAllergyTypes'])->name('allergy-types');
+    Route::get('vital-sign-types', [App\Http\Controllers\API\VitalSignAPIController::class, 'getVitalSignsTypes'])->name('vital-sign-types');
 });
 
 

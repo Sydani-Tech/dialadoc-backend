@@ -16,6 +16,48 @@ use App\Http\Resources\VitalSignResource;
 
 class VitalSignAPIController extends AppBaseController
 {
+        /**
+     * @OA\Get(
+     *      path="/vital-sign-types",
+     *      summary="getVitalSignTypes",
+     *      tags={"VitalSign"},
+     *      description="Get Vital Signs Types",
+     *      security={ {"sanctum": {} }},
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getVitalSignsTypes(Request $request): JsonResponse
+    {
+
+        $vitalSignTypes = [
+            'Hypertension',
+            'Asthma',
+            'Ulcer',
+            'Arthritis',
+            'Rheumatism',
+            'Chronic Kidney Disease',
+            'Diabetes',
+            'Epilepsy',
+            'Cerebral Palsy Syndrome',
+            'Heart Disease'
+        ];
+        return $this->sendResponse($vitalSignTypes, 'Vital Sign Types retrieved successfully');
+    }
+
     /**
      * @OA\Get(
      *      path="/vital-signs",
@@ -102,7 +144,7 @@ class VitalSignAPIController extends AppBaseController
 
         return $this->sendResponse(new VitalSignResource($vitalSign), 'Vital Sign saved successfully');
     }
-    
+
 
     /**
      * @OA\Get(
