@@ -7031,6 +7031,24 @@
                         "type": "string",
                         "readOnly": false,
                         "nullable": true
+                    },
+                    "average_heart_rate": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "other_allergies": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "other_condition": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
                     }
                 },
                 "type": "object"
