@@ -11,14 +11,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *      schema="Patient",
  *      required={},
  *      @OA\Property(
- *          property="user_id",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="integer",
- *          format="integer"
- *      ),
- *      @OA\Property(
  *          property="date_of_birth",
  *          description="",
  *          readOnly=false,

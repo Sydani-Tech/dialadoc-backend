@@ -1384,19 +1384,19 @@
                 }
             }
         },
-        "/doctors/{id}": {
+        "/doctors/{user_id}": {
             "get": {
                 "tags": [
                     "Doctor"
                 ],
                 "summary": "getDoctorItem",
                 "description": "Get Doctor",
-                "operationId": "bdb51f48bfd8bee09e3e65e8c640e977",
+                "operationId": "d8a41395763da78473ce5937394e22f7",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "user_id",
                         "in": "path",
-                        "description": "id of Doctor",
+                        "description": "id of User",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1433,12 +1433,12 @@
                 ],
                 "summary": "updateDoctor",
                 "description": "Update Doctor",
-                "operationId": "34347415d45dae037a77bdac2b6d7440",
+                "operationId": "4c94c898bb5cfe8cb594b973c90c3808",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "user_id",
                         "in": "path",
-                        "description": "id of Doctor",
+                        "description": "id of User",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1485,12 +1485,12 @@
                 ],
                 "summary": "deleteDoctor",
                 "description": "Delete Doctor",
-                "operationId": "20f9c1edd73884cc0e70239fe2710089",
+                "operationId": "e24999c328a78fb4132d13a5d484c0dc",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "user_id",
                         "in": "path",
-                        "description": "id of Doctor",
+                        "description": "id of User",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -3379,19 +3379,19 @@
                 ]
             }
         },
-        "/patients/{id}": {
+        "/patients/{user_id}": {
             "get": {
                 "tags": [
                     "Patient"
                 ],
                 "summary": "getPatientItem",
                 "description": "Get Patient",
-                "operationId": "8518d135ea97aa54a887ea59f85b6b1c",
+                "operationId": "561d11290e49b2ac1e7fd855c549114f",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "user_id",
                         "in": "path",
-                        "description": "id of Patient",
+                        "description": "id of User",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -3433,12 +3433,12 @@
                 ],
                 "summary": "updatePatient",
                 "description": "Update Patient",
-                "operationId": "ad7cb8f57d1c7948bc4ec26f4ab7dafa",
+                "operationId": "8c68ec978b78dfb5e1fa1a5d17e7fe93",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "user_id",
                         "in": "path",
-                        "description": "id of Patient",
+                        "description": "id of User",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -3490,12 +3490,12 @@
                 ],
                 "summary": "deletePatient",
                 "description": "Delete Patient",
-                "operationId": "02c43fd8e096a7b927bee106bf32550c",
+                "operationId": "e73a75955dfc9e418871c1c71c55e217",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "user_id",
                         "in": "path",
-                        "description": "id of Patient",
+                        "description": "id of User",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -3542,7 +3542,7 @@
                 "operationId": "4cb138b803ec6618897a2ec14a02d1ed",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "user_id",
                         "in": "path",
                         "description": "id of User",
                         "required": true,
@@ -6112,6 +6112,41 @@
                 ]
             }
         },
+        "/vital-sign-types": {
+            "get": {
+                "tags": [
+                    "VitalSign"
+                ],
+                "summary": "getVitalSignTypes",
+                "description": "Get Vital Signs Types",
+                "operationId": "9436b91b0703835c0b84a18907f897de",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/vital-signs": {
             "get": {
                 "tags": [
@@ -6912,13 +6947,6 @@
             "Patient": {
                 "required": [],
                 "properties": {
-                    "user_id": {
-                        "description": "",
-                        "type": "integer",
-                        "format": "integer",
-                        "readOnly": false,
-                        "nullable": true
-                    },
                     "date_of_birth": {
                         "description": "",
                         "type": "string",
