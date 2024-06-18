@@ -79,7 +79,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="string",
+ *          type="bool",
  *      ),
  *     @OA\Property(
  *          property="allergies_1",
@@ -114,7 +114,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="string",
+ *          type="integer",
  *      ),
  *     @OA\Property(
  *          property="other_allergies",

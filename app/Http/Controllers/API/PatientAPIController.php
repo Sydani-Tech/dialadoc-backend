@@ -263,7 +263,7 @@ class PatientAPIController extends AppBaseController
         $patient->save();
 
         if (!empty($user)) {
-            $user->is_profile_updated == 1;
+            $user->is_profile_updated = 1;
             $user->save();
         }
 
