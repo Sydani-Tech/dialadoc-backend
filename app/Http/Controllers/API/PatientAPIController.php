@@ -106,14 +106,14 @@ class PatientAPIController extends AppBaseController
 
     /**
      * @OA\Get(
-     *      path="/patients/{id}",
+     *      path="/patients/{user_id}",
      *      summary="getPatientItem",
      *      tags={"Patient"},
      *      description="Get Patient",
      *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
-     *          name="id",
-     *          description="id of Patient",
+     *          name="user_id",
+     *          description="id of User",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -141,10 +141,10 @@ class PatientAPIController extends AppBaseController
      *      )
      * )
      */
-    public function show($id): JsonResponse
+    public function show($user_id): JsonResponse
     {
         /** @var Patient $patient */
-        $patient = Patient::find($id);
+        $patient = Patient::where('user_id', $user_id)->first();
 
         if (empty($patient)) {
             return $this->sendError('Patient not found');
@@ -161,7 +161,7 @@ class PatientAPIController extends AppBaseController
      *      description="Get Patient By User ID",
      *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
-     *          name="id",
+     *          name="user_id",
      *          description="id of User",
      *           @OA\Schema(
      *             type="integer"
@@ -204,14 +204,14 @@ class PatientAPIController extends AppBaseController
 
     /**
      * @OA\Put(
-     *      path="/patients/{id}",
+     *      path="/patients/{user_id}",
      *      summary="updatePatient",
      *      tags={"Patient"},
      *      description="Update Patient",
      *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
-     *          name="id",
-     *          description="id of Patient",
+     *          name="user_id",
+     *          description="id of User",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -243,10 +243,10 @@ class PatientAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdatePatientAPIRequest $request): JsonResponse
+    public function update($user_id, UpdatePatientAPIRequest $request): JsonResponse
     {
         /** @var Patient $patient */
-        $patient = Patient::find($id);
+        $patient = Patient::where('user_id', $user_id)->first();
 
         if (empty($patient)) {
             return $this->sendError('Patient not found');
@@ -267,14 +267,14 @@ class PatientAPIController extends AppBaseController
 
     /**
      * @OA\Delete(
-     *      path="/patients/{id}",
+     *      path="/patients/{user_id}",
      *      summary="deletePatient",
      *      tags={"Patient"},
      *      description="Delete Patient",
      *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
-     *          name="id",
-     *          description="id of Patient",
+     *          name="user_id",
+     *          description="id of User",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -302,10 +302,10 @@ class PatientAPIController extends AppBaseController
      *      )
      * )
      */
-    public function destroy($id): JsonResponse
+    public function destroy($user_id): JsonResponse
     {
         /** @var Patient $patient */
-        $patient = Patient::find($id);
+        $patient = Patient::where('user_id', $user_id)->first();
 
         if (empty($patient)) {
             return $this->sendError('Patient not found');

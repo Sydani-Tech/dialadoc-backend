@@ -104,13 +104,13 @@ class DoctorAPIController extends AppBaseController
 
     /**
      * @OA\Get(
-     *      path="/doctors/{id}",
+     *      path="/doctors/{user_id}",
      *      summary="getDoctorItem",
      *      tags={"Doctor"},
      *      description="Get Doctor",
      *      @OA\Parameter(
-     *          name="id",
-     *          description="id of Doctor",
+     *          name="user_id",
+     *          description="id of User",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -138,10 +138,10 @@ class DoctorAPIController extends AppBaseController
      *      )
      * )
      */
-    public function show($id): JsonResponse
+    public function show($user_id): JsonResponse
     {
         /** @var Doctor $doctor */
-        $doctor = Doctor::find($id);
+        $doctor = Doctor::where('user_id', $user_id)->first();
 
         if (empty($doctor)) {
             return $this->sendError('Doctor not found');
@@ -152,13 +152,13 @@ class DoctorAPIController extends AppBaseController
 
     /**
      * @OA\Put(
-     *      path="/doctors/{id}",
+     *      path="/doctors/{user_id}",
      *      summary="updateDoctor",
      *      tags={"Doctor"},
      *      description="Update Doctor",
      *      @OA\Parameter(
-     *          name="id",
-     *          description="id of Doctor",
+     *          name="user_id",
+     *          description="id of User",
      *          @OA\Schema(
      *             type="integer"
      *          ),
@@ -190,9 +190,9 @@ class DoctorAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateDoctorAPIRequest $request): JsonResponse
+    public function update($user_id, UpdateDoctorAPIRequest $request): JsonResponse
     {
-        $doctor = Doctor::where('id', $id)->first();
+        $doctor = Doctor::where('user_id', $user_id)->first();
 
         if (!$doctor) {
             return $this->sendError('Doctor not found');
@@ -213,13 +213,13 @@ class DoctorAPIController extends AppBaseController
 
     /**
      * @OA\Delete(
-     *      path="/doctors/{id}",
+     *      path="/doctors/{user_id}",
      *      summary="deleteDoctor",
      *      tags={"Doctor"},
      *      description="Delete Doctor",
      *      @OA\Parameter(
-     *          name="id",
-     *          description="id of Doctor",
+     *          name="user_id",
+     *          description="id of User",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -247,10 +247,10 @@ class DoctorAPIController extends AppBaseController
      *      )
      * )
      */
-    public function destroy($id): JsonResponse
+    public function destroy($user_id): JsonResponse
     {
         /** @var Doctor $doctor */
-        $doctor = Doctor::find($id);
+        $doctor = Doctor::where('user_id', $user_id)->first();
 
         if (empty($doctor)) {
             return $this->sendError('Doctor not found');
