@@ -109,7 +109,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          nullable=true,
  *          type="string",
  *      ),
- *
+ *     @OA\Property(
+ *          property="average_heart_rate",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *     @OA\Property(
+ *          property="other_allergies",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *     @OA\Property(
+ *          property="other_condition",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
  * )
  */
 class Patient extends Model
