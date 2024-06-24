@@ -323,6 +323,19 @@ class DoctorAPIController extends AppBaseController
             return $this->sendError('Doctor not found');
         }
 
+        $path_folder = public_path('storage/doctors-profile/');
+        $cpdAnnualLicense = $path_folder . '/' . $doctor->cpd_annual_license;
+
+        if (File::exists($cpdAnnualLicense)) {
+            File::delete($cpdAnnualLicense);
+        }
+
+        $mdcnLicense = $path_folder . '/' . $doctor->mdcn_license;
+
+        if (File::exists($mdcnLicense)) {
+            File::delete($mdcnLicense);
+        }
+
         $doctor->delete();
 
         return $this->sendSuccess('Doctor deleted successfully');
