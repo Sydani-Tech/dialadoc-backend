@@ -108,7 +108,26 @@ use App\Http\Requests\API\Auth\ResetPasswordRequest;
  *                 type="string",
  *                 format="password"
  *             )
- *         )
+ *         ),
+ *         @OA\Schema(
+ *             schema="DoctorUploadDocument",
+ *             type="object",
+ *             required={},
+ *             @OA\Property(
+ *                  property="mdcn_license",
+ *                  description="",
+ *                  readOnly=false,
+ *                  nullable=true,
+ *                  type="binary",
+ *             ),
+ *             @OA\Property(
+ *                  property="cpd_annual_license",
+ *                  description="",
+ *                  readOnly=false,
+ *                  nullable=true,
+ *                  type="binary",
+ *             ),
+ *        ),
  *     )
  */
 class AuthController extends AppBaseController

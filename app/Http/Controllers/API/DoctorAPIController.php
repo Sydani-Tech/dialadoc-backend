@@ -17,6 +17,7 @@ use App\Http\Requests\API\UpdateDoctorAPIRequest;
  * Class DoctorController
  */
 
+
 class DoctorAPIController extends AppBaseController
 {
     /**
@@ -275,6 +276,93 @@ class DoctorAPIController extends AppBaseController
             return $this->sendResponse(new DoctorResource($doctor), 'Doctor updated successfully');
         } catch (\Throwable $th) {
             return $this->sendError('An error occured while trying to update profile');
+        }
+    }
+
+
+    /**
+     * @OA\Post(
+     *      path="/doctors/upload-documents",
+     *      summary="Upload documents",
+     *      tags={"Doctor"},
+     *      description="Upload Doctor's documents",
+     *      @OA\RequestBody(
+     *        required=true,
+     *        @OA\JsonContent(ref="#/components/schemas/DoctorUploadDocument")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/DoctorUploadDocument")
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function uploadDocuments($user_id, Request $request): JsonResponse
+    {
+        $request->validate([
+            'mdcn_license' => 'nullable|mimetypes:pdf|max:1000',
+            'cpd_annual_license' => 'nullable|mimetypes:pdf|max:1000',
+        ]);
+
+        try {
+            $doctor = Doctor::where('user_id', $user_id)->first();
+
+            if (!$doctor) {
+                return $this->sendError('Doctor not found');
+            }
+
+            // Save MDCN License
+            $mdcnLicense = $request->file('mdcn_license');
+
+            if ($mdcnLicense) {
+                $path_folder = public_path('storage/doctors-profile/');
+                $oldMdcnLicense = $path_folder . '/' . $doctor->mdcn_license;
+
+                if (File::exists($oldMdcnLicense)) {
+                    File::delete($oldMdcnLicense);
+                }
+
+                $mdcnName = rand() . '.' . $mdcnLicense->getClientOriginalExtension();
+                $mdcnLicense->move($path_folder, $mdcnName);
+                $doctor->mdcn_license = $mdcnName;
+            }
+
+            // Save CPD Annual License
+            $cpdAnnualLicense = $request->file('cpd_annual_license');
+
+            if ($cpdAnnualLicense) {
+                $path_folder = public_path('storage/doctors-profile/');
+                $oldCpdAnnualLicense = $path_folder . '/' . $doctor->cpd_annual_license;
+
+                if (File::exists($oldCpdAnnualLicense)) {
+                    File::delete($oldCpdAnnualLicense);
+                }
+
+                $cpdName = rand() . '.' . $cpdAnnualLicense->getClientOriginalExtension();
+                $cpdAnnualLicense->move($path_folder, $cpdName);
+                $doctor->cpd_annual_license = $cpdName;
+            }
+
+            $doctor->save();
+
+            return $this->sendResponse(new DoctorResource($doctor), 'Documents uploaded successfully');
+        } catch (\Throwable $th) {
+            return $this->sendError('An error occured while trying to upload documents');
         }
     }
 

@@ -44,6 +44,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('doctors', App\Http\Controllers\API\DoctorAPIController::class)
         ->except(['create', 'edit']);
+    Route::post('doctors/upload-documents', [App\Http\Controllers\API\DoctorAPIController::class, 'uploadDocuments'])->name('doctors.upload-documents');
 
     Route::resource('reviews', App\Http\Controllers\API\ReviewAPIController::class)
         ->except(['create', 'edit']);

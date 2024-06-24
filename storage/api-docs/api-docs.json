@@ -1522,6 +1522,52 @@
                 }
             }
         },
+        "/doctors/upload-documents": {
+            "post": {
+                "tags": [
+                    "Doctor"
+                ],
+                "summary": "Upload documents",
+                "description": "Upload Doctor's documents",
+                "operationId": "12412b170ead9653926535323b477108",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DoctorUploadDocument"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/DoctorUploadDocument"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/health-metrics": {
             "get": {
                 "tags": [
@@ -6487,6 +6533,24 @@
                 },
                 "type": "object"
             },
+            "DoctorUploadDocument": {
+                "required": [],
+                "properties": {
+                    "mdcn_license": {
+                        "description": "",
+                        "type": "binary",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "cpd_annual_license": {
+                        "description": "",
+                        "type": "binary",
+                        "readOnly": false,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
             "Allergy": {
                 "required": [
                     "name",
@@ -6622,13 +6686,13 @@
                 "properties": {
                     "mdcn_license": {
                         "description": "",
-                        "type": "string",
+                        "type": "binary",
                         "readOnly": false,
                         "nullable": true
                     },
                     "cpd_annual_license": {
                         "description": "",
-                        "type": "string",
+                        "type": "binary",
                         "readOnly": false,
                         "nullable": true
                     },
@@ -7004,7 +7068,7 @@
                     },
                     "surgical_history": {
                         "description": "",
-                        "type": "string",
+                        "type": "boolean",
                         "readOnly": false,
                         "nullable": true
                     },
@@ -7034,7 +7098,7 @@
                     },
                     "average_heart_rate": {
                         "description": "",
-                        "type": "string",
+                        "type": "integer",
                         "readOnly": false,
                         "nullable": true
                     },
