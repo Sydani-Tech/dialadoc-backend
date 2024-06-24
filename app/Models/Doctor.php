@@ -80,6 +80,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="healthcare_practitioner_type",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="role_in_facility",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="years_practising",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="integer",
  *      )
  * )
  */
@@ -100,7 +121,10 @@ class Doctor extends Model
         'country',
         'state',
         'lga',
-        'bio'
+        'bio',
+        'healthcare_practitioner_type',
+        'role_in_facility',
+        'years_practising'
     ];
 
     protected $casts = [
@@ -114,7 +138,10 @@ class Doctor extends Model
         'country' => 'string',
         'state' => 'string',
         'lga' => 'string',
-        'bio' => 'string'
+        'bio' => 'string',
+        'healthcare_practitioner_type' => 'string',
+        'role_in_facility' => 'string',
+        'years_practising' => 'integer'
     ];
 
     public static array $rules = [
@@ -130,7 +157,10 @@ class Doctor extends Model
         'country' => 'nullable|string|max:255',
         'state' => 'nullable|string|max:255',
         'lga' => 'nullable|string|max:255',
-        'bio' => 'nullable|string|max:65535'
+        'bio' => 'nullable|string|max:65535',
+        'healthcare_practitioner_type' => 'nullable|string|max:255',
+        'role_in_facility' => 'nullable|string|max:255',
+        'years_practising' => 'nullable|integer|min:0'
     ];
 
     public function specialization(): \Illuminate\Database\Eloquent\Relations\BelongsTo
