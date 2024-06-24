@@ -6,11 +6,12 @@ use App\Models\User;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Http\Resources\DoctorResource;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateDoctorAPIRequest;
 use App\Http\Requests\API\UpdateDoctorAPIRequest;
-use illuminate\Support\Facades\Auth;
 
 /**
  * Class DoctorController
@@ -95,13 +96,39 @@ class DoctorAPIController extends AppBaseController
      */
     public function store(CreateDoctorAPIRequest $request): JsonResponse
     {
-        $input = $request->all();
-        $user = Auth::user();
-        $input['user_id'] = $user->id;
-        /** @var Doctor $doctor */
-        $doctor = Doctor::create($input);
+        try {
+            $input = $request->all();
+            $user = Auth::user();
+            $input['user_id'] = $user->id;
+            /** @var Doctor $doctor */
+            $doctor = Doctor::create($input);
 
-        return $this->sendResponse(new DoctorResource($doctor), 'Doctor saved successfully');
+            // Save MDCN License
+            $mdcnLicense = $request->file('mdcn_license');
+
+            if ($mdcnLicense) {
+                $path_folder = public_path('storage/doctors-profile/');
+                $mdcnName = rand() . '.' . $mdcnLicense->getClientOriginalExtension();
+                $mdcnLicense->move($path_folder, $mdcnName);
+                $doctor->mdcn_license = $mdcnName;
+            }
+
+            // Save CPD Annual License
+            $cpdAnnualLicense = $request->file('cpd_annual_license');
+
+            if ($cpdAnnualLicense) {
+                $path_folder = public_path('storage/doctors-profile/');
+                $cpdName = rand() . '.' . $cpdAnnualLicense->getClientOriginalExtension();
+                $cpdAnnualLicense->move($path_folder, $cpdName);
+                $doctor->cpd_annual_license = $cpdName;
+            }
+
+            $doctor->save();
+
+            return $this->sendResponse(new DoctorResource($doctor), 'Doctor saved successfully');
+        } catch (\Throwable $th) {
+            return $this->sendError('An error occured while trying to save profile');
+        }
     }
 
     /**
@@ -194,23 +221,61 @@ class DoctorAPIController extends AppBaseController
      */
     public function update($user_id, UpdateDoctorAPIRequest $request): JsonResponse
     {
-        $doctor = Doctor::where('user_id', $user_id)->first();
+        try {
+            $doctor = Doctor::where('user_id', $user_id)->first();
 
-        if (!$doctor) {
-            return $this->sendError('Doctor not found');
+            if (!$doctor) {
+                return $this->sendError('Doctor not found');
+            }
+
+            $doctor->fill($request->validated());
+            $doctor->save();
+
+            $user = $doctor->user;
+
+            if ($user) {
+                $user->is_profile_updated = 1;
+                $user->save();
+            }
+
+            // Save MDCN License
+            $mdcnLicense = $request->file('mdcn_license');
+
+            if ($mdcnLicense) {
+                $path_folder = public_path('storage/doctors-profile/');
+                $oldMdcnLicense = $path_folder . '/' . $doctor->mdcn_license;
+
+                if (File::exists($oldMdcnLicense)) {
+                    File::delete($oldMdcnLicense);
+                }
+
+                $mdcnName = rand() . '.' . $mdcnLicense->getClientOriginalExtension();
+                $mdcnLicense->move($path_folder, $mdcnName);
+                $doctor->mdcn_license = $mdcnName;
+            }
+
+            // Save CPD Annual License
+            $cpdAnnualLicense = $request->file('cpd_annual_license');
+
+            if ($cpdAnnualLicense) {
+                $path_folder = public_path('storage/doctors-profile/');
+                $oldCpdAnnualLicense = $path_folder . '/' . $doctor->cpd_annual_license;
+
+                if (File::exists($oldCpdAnnualLicense)) {
+                    File::delete($oldCpdAnnualLicense);
+                }
+
+                $cpdName = rand() . '.' . $cpdAnnualLicense->getClientOriginalExtension();
+                $cpdAnnualLicense->move($path_folder, $cpdName);
+                $doctor->cpd_annual_license = $cpdName;
+            }
+
+            $doctor->save();
+
+            return $this->sendResponse(new DoctorResource($doctor), 'Doctor updated successfully');
+        } catch (\Throwable $th) {
+            return $this->sendError('An error occured while trying to update profile');
         }
-
-        $doctor->fill($request->validated());
-        $doctor->save();
-
-        $user = $doctor->user;
-
-        if ($user) {
-            $user->is_profile_updated = 1;
-            $user->save();
-        }
-
-        return $this->sendResponse(new DoctorResource($doctor), 'Doctor updated successfully');
     }
 
     /**
