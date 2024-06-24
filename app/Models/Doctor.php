@@ -14,14 +14,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="file",
+ *          type="binary",
  *      ),
  *      @OA\Property(
  *          property="cpd_annual_license",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="file",
+ *          type="binary",
  *      ),
  *      @OA\Property(
  *          property="created_at",
