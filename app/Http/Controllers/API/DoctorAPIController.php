@@ -26,6 +26,7 @@ class DoctorAPIController extends AppBaseController
      *      summary="getDoctorList",
      *      tags={"Doctor"},
      *      description="Get all Doctors",
+     *      security={ {"sanctum": {} }},
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -70,6 +71,7 @@ class DoctorAPIController extends AppBaseController
      *      summary="createDoctor",
      *      tags={"Doctor"},
      *      description="Create Doctor",
+     *      security={ {"sanctum": {} }},
      *      @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(ref="#/components/schemas/Doctor")
@@ -138,6 +140,7 @@ class DoctorAPIController extends AppBaseController
      *      summary="getDoctorItem",
      *      tags={"Doctor"},
      *      description="Get Doctor",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="user_id",
      *          description="id of User",
@@ -186,6 +189,7 @@ class DoctorAPIController extends AppBaseController
      *      summary="updateDoctor",
      *      tags={"Doctor"},
      *      description="Update Doctor",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="user_id",
      *          description="id of User",
@@ -286,6 +290,7 @@ class DoctorAPIController extends AppBaseController
      *      summary="Upload documents",
      *      tags={"Doctor"},
      *      description="Upload Doctor's documents",
+     *      security={ {"sanctum": {} }},
      *      @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(ref="#/components/schemas/DoctorUploadDocument")
@@ -372,6 +377,7 @@ class DoctorAPIController extends AppBaseController
      *      summary="deleteDoctor",
      *      tags={"Doctor"},
      *      description="Delete Doctor",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="user_id",
      *          description="id of User",
