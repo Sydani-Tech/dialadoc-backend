@@ -4213,6 +4213,50 @@
                 }
             }
         },
+        "/patient-records/appointment-patient-records/{appointment_id}": {
+            "get": {
+                "tags": [
+                    "PatientRecord"
+                ],
+                "summary": "getPatientRecordItem",
+                "description": "Get PatientRecord By Appointment",
+                "operationId": "31bbfa87d711952796b03bedf823f4e5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Appointment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/PatientRecord"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/payments": {
             "get": {
                 "tags": [

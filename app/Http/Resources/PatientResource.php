@@ -37,6 +37,8 @@ class PatientResource extends JsonResource
             'condition_1' => $this->condition_1,
             'condition_2' => $this->condition_2,
             'other_conditions' => $this->other_conditions,
+            'appointment' => new AppointmentResource($this->appointment),
+            'recommended_facility' => new FacilityResource($this->facility),
         ];
     }
 }

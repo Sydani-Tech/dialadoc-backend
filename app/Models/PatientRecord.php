@@ -108,4 +108,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'recommended_facility' => 'required|integer|exists:facilities,id',
         'appointment_id' => 'required|integer|exists:appointments,id'
     ];
+
+    public function appointment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Appointment::class, 'appointment_id');
+    }
+
+    public function facility(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Facility::class, 'recommended_facility');
+    }
 }

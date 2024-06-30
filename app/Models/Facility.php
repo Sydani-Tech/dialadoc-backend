@@ -186,4 +186,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
+
+    public function patientRecords(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\PatientRecord::class, 'recommended_facility');
+    }
 }

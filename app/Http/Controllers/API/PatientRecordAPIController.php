@@ -194,6 +194,54 @@ class PatientRecordAPIController extends AppBaseController
         return $this->sendResponse(new PatientRecordResource($patientRecord), 'Patient Record retrieved successfully');
     }
 
+        /**
+     * @OA\Get(
+     *      path="/patient-records/appointment-patient-records/{appointment_id}",
+     *      summary="getPatientRecordItem",
+     *      tags={"PatientRecord"},
+     *      description="Get PatientRecord By Appointment",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="id of Appointment",
+     *           @OA\Schema(
+     *             type="integer"
+     *          ),
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/components/schemas/PatientRecord"
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function patientRecordByAppointment($appointment_id): JsonResponse
+    {
+        /** @var PatientRecord $patientRecord */
+        $patientRecord = PatientRecord::where('appointment_id', $appointment_id)->first();
+
+        if (empty($patientRecord)) {
+            return $this->sendError('Patient Record not found');
+        }
+
+        return $this->sendResponse(new PatientRecordResource($patientRecord), 'Patient Record retrieved successfully');
+    }
+
     /**
      * @OA\Put(
      *      path="/patient-records/{id}",

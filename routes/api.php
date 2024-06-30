@@ -127,6 +127,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('patient-records', App\Http\Controllers\API\PatientRecordAPIController::class)
         ->except(['create', 'edit']);
     Route::get('patient-records/by-facility/{facility_id}', [App\Http\Controllers\API\PatientRecordAPIController::class, 'referredPatientRecordsForFacility']);
+    Route::get('appointments/appointment-patient-record/{appointment_id}', [App\Http\Controllers\API\PatientRecordAPIController::class, 'patientRecordByAppointment']);
 
     Route::resource('facilities', App\Http\Controllers\API\FacilityAPIController::class)
         ->except(['create', 'edit']);
