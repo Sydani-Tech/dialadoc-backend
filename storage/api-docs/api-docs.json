@@ -525,6 +525,55 @@
                 ]
             }
         },
+        "/appointments/consultation-appointment/{consultation_id}": {
+            "get": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "getAppointmentItem",
+                "description": "Get Consultation's Appointment",
+                "operationId": "1bac95d50865a8980bfc9cd7cc3d17a8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Consultation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Appointment"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/auth/register": {
             "post": {
                 "tags": [
@@ -1136,6 +1185,47 @@
                                         },
                                         "data": {
                                             "$ref": "#/components/schemas/Consultation"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/consultations/by-doctor/{doctor_id}": {
+            "get": {
+                "tags": [
+                    "Consultation"
+                ],
+                "summary": "getConsultationListByDoctor",
+                "description": "Get all Doctor's Consultations",
+                "operationId": "b49fc70ece13ccccececfe39b3eed0aa",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Consultation"
+                                            }
                                         },
                                         "message": {
                                             "type": "string"
@@ -6626,45 +6716,30 @@
             },
             "Appointment": {
                 "required": [
-                    "status"
+                    "consultation_id",
+                    "appointment_date",
+                    "appointment_time"
                 ],
                 "properties": {
-                    "doctor_id": {
+                    "consultation_id": {
                         "description": "",
                         "type": "integer",
                         "readOnly": false,
-                        "nullable": true
-                    },
-                    "patient_id": {
-                        "description": "",
-                        "type": "integer",
-                        "readOnly": false,
-                        "nullable": true
-                    },
-                    "affected_body_part": {
-                        "description": "",
-                        "type": "string",
-                        "readOnly": false,
-                        "nullable": true
-                    },
-                    "nature_of_illness": {
-                        "description": "",
-                        "type": "string",
-                        "readOnly": false,
-                        "nullable": true
-                    },
-                    "type_of_appointment": {
-                        "description": "",
-                        "type": "string",
-                        "readOnly": false,
-                        "nullable": true
+                        "nullable": false
                     },
                     "appointment_date": {
                         "description": "",
                         "type": "string",
-                        "format": "date-time",
+                        "format": "date",
                         "readOnly": false,
-                        "nullable": true
+                        "nullable": false
+                    },
+                    "appointment_time": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": false,
+                        "nullable": false
                     }
                 },
                 "type": "object"
@@ -6692,19 +6767,56 @@
             },
             "Consultation": {
                 "required": [
-                    "consultation_date"
+                    "created_at"
                 ],
                 "properties": {
-                    "notes": {
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "patient_id": {
+                        "description": "",
+                        "type": "integer",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "doctor_id": {
+                        "description": "",
+                        "type": "integer",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "affected_body_part": {
                         "description": "",
                         "type": "string",
                         "readOnly": false,
-                        "nullable": true
+                        "nullable": false
                     },
-                    "consultation_date": {
+                    "nature_of_illness": {
                         "description": "",
                         "type": "string",
-                        "format": "date-time",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "type_of_appointment": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string",
                         "readOnly": false,
                         "nullable": false
                     }

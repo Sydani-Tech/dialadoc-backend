@@ -152,6 +152,55 @@ class AppointmentAPIController extends AppBaseController
         return $this->sendResponse(new AppointmentResource($appointment), 'Appointment retrieved successfully');
     }
 
+        /**
+     * @OA\Get(
+     *      path="/appointments/consultation-appointment/{consultation_id}",
+     *      summary="getAppointmentItem",
+     *      tags={"Appointment"},
+     *      description="Get Consultation's Appointment",
+     *      security={ {"sanctum": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="id of Consultation",
+     *           @OA\Schema(
+     *             type="integer"
+     *          ),
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/components/schemas/Appointment"
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function appointmentByConsultation($consultation_id): JsonResponse
+    {
+        /** @var Appointment $appointment */
+        $appointment = Appointment::where('consultation_id', $consultation_id)->first();
+
+        if (empty($appointment)) {
+            return $this->sendError('Appointment not found');
+        }
+
+        return $this->sendResponse(new AppointmentResource($appointment), 'Appointment retrieved successfully');
+    }
+
     /**
      * @OA\Put(
      *      path="/appointments/{id}",

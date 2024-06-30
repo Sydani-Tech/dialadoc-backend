@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateConsultationAPIRequest;
-use App\Http\Requests\API\UpdateConsultationAPIRequest;
-use App\Models\Consultation;
+use App\Http\Requests\API\CreatePatientRecordAPIRequest;
+use App\Http\Requests\API\UpdatePatientRecordAPIRequest;
+use App\Models\PatientRecord;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Resources\ConsultationResource;
+use App\Http\Resources\PatientRecordResource;
 
 /**
- * Class ConsultationController
+ * Class PatientRecordController
  */
 
-class ConsultationAPIController extends AppBaseController
+class PatientRecordAPIController extends AppBaseController
 {
     /**
      * @OA\Get(
-     *      path="/consultations",
-     *      summary="getConsultationList",
-     *      tags={"Consultation"},
-     *      description="Get all Consultations",
-     *      security={ {"sanctum": {} }},
+     *      path="/patient-records",
+     *      summary="getPatientRecordList",
+     *      tags={"PatientRecord"},
+     *      description="Get all PatientRecords",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -35,7 +34,7 @@ class ConsultationAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Consultation")
+     *                  @OA\Items(ref="#/components/schemas/PatientRecord")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -47,7 +46,7 @@ class ConsultationAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $query = Consultation::query();
+        $query = PatientRecord::query();
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -56,18 +55,17 @@ class ConsultationAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $consultations = $query->get();
+        $patientRecords = $query->get();
 
-        return $this->sendResponse(ConsultationResource::collection($consultations), 'Consultations retrieved successfully');
+        return $this->sendResponse(PatientRecordResource::collection($patientRecords), 'Patient Records retrieved successfully');
     }
 
         /**
      * @OA\Get(
-     *      path="/consultations/by-doctor/{doctor_id}",
-     *      summary="getConsultationListByDoctor",
-     *      tags={"Consultation"},
-     *      description="Get all Doctor's Consultations",
-     *      security={ {"sanctum": {} }},
+     *      path="/patient-records/by-facility/{facility_id}",
+     *      summary="getPatientRecordList",
+     *      tags={"PatientRecord"},
+     *      description="Get all PatientRecords referred to facility",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -80,7 +78,7 @@ class ConsultationAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Consultation")
+     *                  @OA\Items(ref="#/components/schemas/PatientRecord")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -90,10 +88,10 @@ class ConsultationAPIController extends AppBaseController
      *      )
      * )
      */
-    public function getConsultationsByDoctor(Request $request, $doctorId): JsonResponse
+    public function referredPatientRecordsForFacility(Request $request, $facilityId): JsonResponse
     {
-        $query = Consultation::query();
-        $query->where('doctor_id', $doctorId);
+        $query = PatientRecord::query();
+        $query->where('recommended_facility', $facilityId);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -102,21 +100,20 @@ class ConsultationAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $consultations = $query->get();
+        $patientRecords = $query->get();
 
-        return $this->sendResponse(ConsultationResource::collection($consultations), 'Consultations retrieved successfully');
+        return $this->sendResponse(PatientRecordResource::collection($patientRecords), 'Patient Records retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/consultations",
-     *      summary="createConsultation",
-     *      tags={"Consultation"},
-     *      description="Create Consultation",
-     *      security={ {"sanctum": {} }},
+     *      path="/patient-records",
+     *      summary="createPatientRecord",
+     *      tags={"PatientRecord"},
+     *      description="Create PatientRecord",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Consultation")
+     *        @OA\JsonContent(ref="#/components/schemas/PatientRecord")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -129,7 +126,7 @@ class ConsultationAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Consultation"
+     *                  ref="#/components/schemas/PatientRecord"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -139,26 +136,25 @@ class ConsultationAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateConsultationAPIRequest $request): JsonResponse
+    public function store(CreatePatientRecordAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var Consultation $consultation */
-        $consultation = Consultation::create($input);
+        /** @var PatientRecord $patientRecord */
+        $patientRecord = PatientRecord::create($input);
 
-        return $this->sendResponse(new ConsultationResource($consultation), 'Consultation saved successfully');
+        return $this->sendResponse(new PatientRecordResource($patientRecord), 'Patient Record saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/consultations/{id}",
-     *      summary="getConsultationItem",
-     *      tags={"Consultation"},
-     *      description="Get Consultation",
-     *      security={ {"sanctum": {} }},
+     *      path="/patient-records/{id}",
+     *      summary="getPatientRecordItem",
+     *      tags={"PatientRecord"},
+     *      description="Get PatientRecord",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Consultation",
+     *          description="id of PatientRecord",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -176,7 +172,7 @@ class ConsultationAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Consultation"
+     *                  ref="#/components/schemas/PatientRecord"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -188,26 +184,25 @@ class ConsultationAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var Consultation $consultation */
-        $consultation = Consultation::find($id);
+        /** @var PatientRecord $patientRecord */
+        $patientRecord = PatientRecord::find($id);
 
-        if (empty($consultation)) {
-            return $this->sendError('Consultation not found');
+        if (empty($patientRecord)) {
+            return $this->sendError('Patient Record not found');
         }
 
-        return $this->sendResponse(new ConsultationResource($consultation), 'Consultation retrieved successfully');
+        return $this->sendResponse(new PatientRecordResource($patientRecord), 'Patient Record retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/consultations/{id}",
-     *      summary="updateConsultation",
-     *      tags={"Consultation"},
-     *      description="Update Consultation",
-     *      security={ {"sanctum": {} }},
+     *      path="/patient-records/{id}",
+     *      summary="updatePatientRecord",
+     *      tags={"PatientRecord"},
+     *      description="Update PatientRecord",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Consultation",
+     *          description="id of PatientRecord",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -216,7 +211,7 @@ class ConsultationAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Consultation")
+     *        @OA\JsonContent(ref="#/components/schemas/PatientRecord")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -229,7 +224,7 @@ class ConsultationAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Consultation"
+     *                  ref="#/components/schemas/PatientRecord"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -239,31 +234,30 @@ class ConsultationAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateConsultationAPIRequest $request): JsonResponse
+    public function update($id, UpdatePatientRecordAPIRequest $request): JsonResponse
     {
-        /** @var Consultation $consultation */
-        $consultation = Consultation::find($id);
+        /** @var PatientRecord $patientRecord */
+        $patientRecord = PatientRecord::find($id);
 
-        if (empty($consultation)) {
-            return $this->sendError('Consultation not found');
+        if (empty($patientRecord)) {
+            return $this->sendError('Patient Record not found');
         }
 
-        $consultation->fill($request->all());
-        $consultation->save();
+        $patientRecord->fill($request->all());
+        $patientRecord->save();
 
-        return $this->sendResponse(new ConsultationResource($consultation), 'Consultation updated successfully');
+        return $this->sendResponse(new PatientRecordResource($patientRecord), 'PatientRecord updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/consultations/{id}",
-     *      summary="deleteConsultation",
-     *      tags={"Consultation"},
-     *      description="Delete Consultation",
-     *      security={ {"sanctum": {} }},
+     *      path="/patient-records/{id}",
+     *      summary="deletePatientRecord",
+     *      tags={"PatientRecord"},
+     *      description="Delete PatientRecord",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Consultation",
+     *          description="id of PatientRecord",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -293,15 +287,15 @@ class ConsultationAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var Consultation $consultation */
-        $consultation = Consultation::find($id);
+        /** @var PatientRecord $patientRecord */
+        $patientRecord = PatientRecord::find($id);
 
-        if (empty($consultation)) {
-            return $this->sendError('Consultation not found');
+        if (empty($patientRecord)) {
+            return $this->sendError('Patient Record not found');
         }
 
-        $consultation->delete();
+        $patientRecord->delete();
 
-        return $this->sendSuccess('Consultation deleted successfully');
+        return $this->sendSuccess('Patient Record deleted successfully');
     }
 }

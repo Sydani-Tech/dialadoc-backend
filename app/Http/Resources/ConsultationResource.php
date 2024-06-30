@@ -16,10 +16,13 @@ class ConsultationResource extends JsonResource
     {
         return [
             'consultation_id' => $this->consultation_id,
-            'appointment_id' => $this->appointment_id,
-            'notes' => $this->notes,
-            'created_by' => $this->created_by,
-            'consultation_date' => $this->consultation_date
+            'patient_id' => $this->patient_id,
+            'doctor_id' => $this->doctor_id,
+            'affected_body_part' => $this->affected_body_part,
+            'nature_of_illness' => $this->nature_of_illness,
+            'type_of_appointment' => $this->type_of_appointment,
+            'description' => $this->description,
+            'status' => $this->patient_id,
         ];
     }
 }

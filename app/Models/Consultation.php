@@ -8,22 +8,63 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
  *      schema="Consultation",
- *      required={"consultation_date"},
+ *      required={"created_at"},
  *      @OA\Property(
- *          property="notes",
+ *          property="created_at",
  *          description="",
- *          readOnly=false,
+ *          readOnly=true,
  *          nullable=true,
- *          type="string",
+ *          type="date",
  *      ),
  *      @OA\Property(
- *          property="consultation_date",
+ *          property="updated_at",
+ *          description="",
+ *          readOnly=true,
+ *          nullable=true,
+ *          type="date",
+ *      ),
+ *      @OA\Property(
+ *          property="patient_id",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=false,
+ *          type="integer",
+ *      ),
+ *      @OA\Property(
+ *          property="doctor_id",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=false,
+ *          type="integer",
+ *      ),
+ *      @OA\Property(
+ *          property="affected_body_part",
  *          description="",
  *          readOnly=false,
  *          nullable=false,
  *          type="string",
- *          format="date-time"
- *      )
+ *      ),
+ *      @OA\Property(
+ *          property="nature_of_illness",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=false,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="type_of_appointment",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=false,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="description",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=false,
+ *          type="string",
+ *      ),
  * )
  */ class Consultation extends Model
 {
@@ -32,31 +73,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     protected $primaryKey = 'consultation_id';
 
     public $fillable = [
-        'appointment_id',
-        'notes',
+        'patient_id',
+        'doctor_id',
+        'affected_body_part',
+        'nature_of_illness',
+        'type_of_appointment',
+        'description',
+        'status',
         'created_by',
-        'consultation_date'
     ];
 
     protected $casts = [
-        'notes' => 'string',
-        'consultation_date' => 'datetime'
+
     ];
 
     public static array $rules = [
-        'appointment_id' => 'nullable',
-        'notes' => 'nullable|string|max:65535',
-        'created_by' => 'nullable',
-        'consultation_date' => 'required'
+        'patient_id' => 'required|exists:patients,patient_id',
+        'doctor_id' => 'required|exists:doctors,doctor_id',
+        'affected_body_part' => 'required|string',
+        'nature_of_illness' => 'required|string',
+        'type_of_appointment' => 'required|string',
+        'description' => 'required|string',
     ];
-
-    public function appointment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(\App\Models\Appointment::class, 'appointment_id');
-    }
-
-    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(\App\Models\Message::class, 'consultation_id');
-    }
 }

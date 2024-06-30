@@ -20,6 +20,7 @@ use App\Http\Requests\API\Auth\RegisterRequest;
 use App\Http\Requests\API\Auth\VerifyEmailRequest;
 use App\Http\Requests\API\Auth\PasswordResetRequest;
 use App\Http\Requests\API\Auth\ResetPasswordRequest;
+use App\Models\Facility;
 
 /**     @OA\Components(
  *         @OA\Schema(
@@ -189,6 +190,10 @@ class AuthController extends AppBaseController
                 ]);
             } else if ($role->name == "doctor") {
                 $doctor = Doctor::create([
+                    'user_id' => $user->id
+                ]);
+            } else if ($role->name == "facility") {
+                $facility = Facility::create([
                     'user_id' => $user->id
                 ]);
             }

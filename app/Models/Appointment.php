@@ -8,50 +8,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
  *      schema="Appointment",
- *      required={"status"},
+ *      required={"consultation_id", "appointment_date", "appointment_time"},
  *      @OA\Property(
- *          property="doctor_id",
+ *          property="consultation_id",
  *          description="",
  *          readOnly=false,
- *          nullable=true,
+ *          nullable=false,
  *          type="integer",
- *      ),
- *      @OA\Property(
- *          property="patient_id",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="integer",
- *      ),
- *      @OA\Property(
- *          property="affected_body_part",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="nature_of_illness",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="type_of_appointment",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
  *      ),
  *      @OA\Property(
  *          property="appointment_date",
  *          description="",
  *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *          format="date-time"
- *      )
+ *          nullable=false,
+ *          type="date",
+ *          format="date"
+ *      ),
+ *      @OA\Property(
+ *          property="appointment_time",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=false,
+ *          type="date",
+ *          format="date"
+ *      ),
  * )
  */ class Appointment extends Model
 {
@@ -63,10 +43,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'doctor_id',
         'patient_id',
         'appointment_date',
-        'affected_body_part',
-        'nature_of_illness',
-        'type_of_appointment',
-        'description_of_illness',
+        'appointment_time',
         'created_by',
         'status'
     ];
@@ -76,25 +53,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     ];
 
     public static array $rules = [
-        'doctor_id' => 'nullable',
+        'consultation_id' => 'required|integer|exists:consultations,consultation_id',
         'patient_id' => 'nullable',
-        'appointment_date' => 'nullable',
-        'created_by' => 'nullable',
-        'status' => 'required'
+        'appointment_date' => 'required|date',
+        'appointment_time' => 'required',
     ];
 
-    public function doctor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function consultation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Doctor::class, 'doctor_id');
-    }
-
-    public function patient(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(\App\Models\User::class, 'patient_id');
-    }
-
-    public function consultations(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(\App\Models\Consultation::class, 'appointment_id');
+        return $this->belongsTo(\App\Models\Consultation::class, 'consultation_id');
     }
 }
