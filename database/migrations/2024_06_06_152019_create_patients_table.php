@@ -16,6 +16,7 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->bigIncrements('patient_id');
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('doctor_id')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->integer('gender')->nullable();
             $table->string('blood_group', 10)->nullable();
@@ -37,6 +38,7 @@ class CreatePatientsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('doctor_id')->references('doctor_id')->on('doctors');
             $table->foreign('location_id')->references('location_id')->on('locations');
         });
     }
