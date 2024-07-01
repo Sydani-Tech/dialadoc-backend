@@ -107,10 +107,10 @@ class PatientAPIController extends AppBaseController
 
         $doctor = Doctor::where('state', $patient->state)->first();
 
-        $patient->doctor_id = $doctor->id;
-        $patient->save();
-
         if ($patient) {
+            $patient->doctor_id = $doctor->id;
+            $patient->save();
+
             $user->update(['is_profile_updated' => 1]);
         }
         return $this->sendResponse(new PatientResource($patient), 'Patient saved successfully');
