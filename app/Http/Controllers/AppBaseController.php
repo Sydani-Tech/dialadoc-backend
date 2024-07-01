@@ -32,4 +32,15 @@ class AppBaseController extends Controller
             'message' => $message
         ], 200);
     }
+
+    public function uploadFiles($file, $path)
+    {
+        if ($file) {
+            $fName = rand() . '.' . $file->getClientOriginalExtension();
+            $file->move($path, $fName);
+            return $fName;
+        }
+
+        return null;
+    }
 }

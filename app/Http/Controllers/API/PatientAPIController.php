@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
+use App\Models\Doctor;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -103,6 +104,12 @@ class PatientAPIController extends AppBaseController
 
         /** @var Patient $patient */
         $patient = Patient::create($input);
+
+        $doctor = Doctor::where('state', $patient->state)->first();
+
+        $patient->doctor_id = $doctor->id;
+        $patient->save();
+
         if ($patient) {
             $user->update(['is_profile_updated' => 1]);
         }
