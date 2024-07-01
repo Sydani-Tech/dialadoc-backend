@@ -16,7 +16,7 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->bigIncrements('patient_id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('doctor_id')->nullable();
+            $table->unsignedBigInteger('doctor_id')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->integer('gender')->nullable();
             $table->string('blood_group', 10)->nullable();
