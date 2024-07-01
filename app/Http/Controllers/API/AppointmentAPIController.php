@@ -152,7 +152,7 @@ class AppointmentAPIController extends AppBaseController
         return $this->sendResponse(new AppointmentResource($appointment), 'Appointment retrieved successfully');
     }
 
-        /**
+    /**
      * @OA\Get(
      *      path="/appointments/consultation-appointment/{consultation_id}",
      *      summary="getAppointmentItem",

@@ -161,7 +161,8 @@ class Patient extends Model
         'other_allergies',
         'condition_1',
         'condition_2',
-        'other_conditions'
+        'other_conditions',
+        'doctor_id'
     ];
 
     protected $casts = [
@@ -193,6 +194,7 @@ class Patient extends Model
         'condition_1' => 'nullable|string',
         'condition_2' => 'nullable|string',
         'other_condition' => 'nullable|string',
+        'doctor_id' => 'nullable|integer',
     ];
 
     public function conditions(): HasMany
