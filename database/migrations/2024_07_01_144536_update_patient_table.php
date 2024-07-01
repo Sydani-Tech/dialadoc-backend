@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::table('patients', function (Blueprint $table) {
             $table->string('doctor_id')->nullable();
+            $table->foreign('doctor_id')->references('id')->on('doctors');
         });
     }
 
@@ -22,6 +23,7 @@ return new class extends Migration {
     {
         Schema::table('patients', function (Blueprint $table) {
             $table->string('doctor_id')->nullable();
+            $table->foreign('doctor_id')->references('id')->on('doctors');
         });
     }
 };
