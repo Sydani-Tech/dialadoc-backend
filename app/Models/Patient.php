@@ -235,6 +235,11 @@ class Patient extends Model
         return $this->hasMany(\App\Models\Appointment::class);
     }
 
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class, 'doctor_id');
+    }
+
     // public function doctors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     // {
     //     return $this->belongsToMany(\App\Models\Doctor::class, 'medical_records');
