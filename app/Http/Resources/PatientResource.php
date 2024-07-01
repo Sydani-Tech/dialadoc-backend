@@ -20,6 +20,7 @@ class PatientResource extends JsonResource
         return [
             'patient_id' => $this->patient_id,
             'user_id' => $this->user_id,
+            'doctor_id' => $this->doctor_id,
             'date_of_birth' => $this->date_of_birth,
             'gender' => $this->gender,
             'blood_group' => $this->blood_group,
@@ -40,7 +41,7 @@ class PatientResource extends JsonResource
             'condition_1' => $this->condition_1,
             'condition_2' => $this->condition_2,
             'other_conditions' => $this->other_conditions,
-            'doctor' => $this->doctor(),
+            'doctor' => new DoctorResource($this->doctor),
             'appointment' => new AppointmentResource($this->appointment),
             'recommended_facility' => new FacilityResource($this->facility),
         ];
