@@ -44,6 +44,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('doctors', App\Http\Controllers\API\DoctorAPIController::class)
         ->except(['create', 'edit']);
+    Route::post('doctors/upload-documents', [App\Http\Controllers\API\DoctorAPIController::class, 'uploadDocuments'])->name('doctors.upload-documents');
 
     Route::resource('reviews', App\Http\Controllers\API\ReviewAPIController::class)
         ->except(['create', 'edit']);
@@ -65,9 +66,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('appointments', App\Http\Controllers\API\AppointmentAPIController::class)
         ->except(['create', 'edit']);
+    Route::get('appointments/consultation-appointment/{consultation_id}', [App\Http\Controllers\API\AppointmentAPIController::class, 'appointmentByConsultation']);
 
     Route::resource('consultations', App\Http\Controllers\API\ConsultationAPIController::class)
         ->except(['create', 'edit']);
+    Route::get('consultations/by-doctor/{doctor_id}', [App\Http\Controllers\API\ConsultationAPIController::class, 'getConsultationsByDoctor']);
 
     Route::resource('messages', App\Http\Controllers\API\MessageAPIController::class)
         ->except(['create', 'edit']);
@@ -120,6 +123,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('allergy-types', [App\Http\Controllers\API\AllergyAPIController::class, 'getAllergyTypes'])->name('allergy-types');
     Route::get('vital-sign-types', [App\Http\Controllers\API\VitalSignAPIController::class, 'getVitalSignsTypes'])->name('vital-sign-types');
+
+    Route::resource('patient-records', App\Http\Controllers\API\PatientRecordAPIController::class)
+        ->except(['create', 'edit']);
+    Route::get('patient-records/by-facility/{facility_id}', [App\Http\Controllers\API\PatientRecordAPIController::class, 'referredPatientRecordsForFacility']);
+    Route::get('appointments/appointment-patient-record/{appointment_id}', [App\Http\Controllers\API\PatientRecordAPIController::class, 'patientRecordByAppointment']);
+
+    Route::resource('facilities', App\Http\Controllers\API\FacilityAPIController::class)
+        ->except(['create', 'edit']);
 });
 
 
@@ -130,8 +141,3 @@ Route::get('nigerian-lgas', [App\Http\Controllers\API\CommonAPIController::class
 Route::get('nigerian-geo-political-zones', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianGeopoliticalZones']);
 Route::get('nigerian-senatorial-zones', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianSenatorialZones']);
 
-
-// Why is this endpoint open? That's without Authentication.
-
-// Route::resource('doctors', App\Http\Controllers\API\DoctorAPIController::class)
-//     ->except(['create', 'edit']);
