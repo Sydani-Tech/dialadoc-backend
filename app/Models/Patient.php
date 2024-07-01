@@ -161,7 +161,8 @@ class Patient extends Model
         'other_allergies',
         'condition_1',
         'condition_2',
-        'other_conditions'
+        'other_conditions',
+        'doctor_id'
     ];
 
     protected $casts = [
@@ -207,11 +208,6 @@ class Patient extends Model
     public function otherConditions(): HasMany
     {
         return $this->hasMany(OtherCondition::class);
-    }
-
-    public function doctor()
-    {
-        return $this->hasOne(Doctor::class, 'doctor_id');
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
