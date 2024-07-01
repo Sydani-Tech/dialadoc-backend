@@ -22,6 +22,7 @@ class FacilityAPIController extends AppBaseController
      *      summary="getFacilityList",
      *      tags={"Facility"},
      *      description="Get all Facilities",
+     *      security={ {"sanctum": {} }},
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -66,6 +67,7 @@ class FacilityAPIController extends AppBaseController
      *      summary="createFacility",
      *      tags={"Facility"},
      *      description="Create Facility",
+     *      security={ {"sanctum": {} }},
      *      @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(ref="#/components/schemas/Facility")
@@ -107,6 +109,7 @@ class FacilityAPIController extends AppBaseController
      *      summary="getFacilityItem",
      *      tags={"Facility"},
      *      description="Get Facility By User",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="user_id",
      *          description="id of User",
@@ -155,6 +158,7 @@ class FacilityAPIController extends AppBaseController
      *      summary="updateFacility",
      *      tags={"Facility"},
      *      description="Update Facility",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="user_id",
      *          description="id of User",
@@ -217,6 +221,7 @@ class FacilityAPIController extends AppBaseController
      *      summary="deleteFacility",
      *      tags={"Facility"},
      *      description="Delete Facility",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="user_id",
      *          description="id of User",
