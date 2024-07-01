@@ -113,6 +113,7 @@ class PatientAPIController extends AppBaseController
 
             $user->update(['is_profile_updated' => 1]);
         }
+
         return $this->sendResponse(new PatientResource($patient), 'Patient saved successfully');
     }
 

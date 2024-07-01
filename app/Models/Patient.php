@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Doctor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -237,7 +238,7 @@ class Patient extends Model
 
     public function doctor()
     {
-        return $this->hasOne(Doctor::class, 'doctor_id');
+        return $this->hasOne(Doctor::class, 'doctor_id', 'doctor_id');
     }
 
     // public function doctors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
