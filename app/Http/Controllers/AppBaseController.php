@@ -47,13 +47,20 @@ class AppBaseController extends Controller
 
     public function match_patient_with_doc($patient)
     {
-        return Doctor::where('state', $patient->state)
+        $doctor = Doctor::where('state', $patient->state)
             ->where('lga', $patient->lga)
-            ->firstOrFail()
-            ?? Doctor::where('state', $patient->state)
-                ->firstOrFail()
-            ?? Doctor::whereNotNull('state')
-                ->firstOrFail();
+            ->first();
 
+        if (!$doctor) {
+            $doctor = Doctor::where('state', $patient->state)
+                ->first();
+        }
+
+        if (!$doctor) {
+            $doctor = Doctor::whereNotNull('state')
+                ->first();
+        }
+
+        return $doctor;
     }
 }
