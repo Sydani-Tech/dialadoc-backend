@@ -102,10 +102,10 @@ class DoctorAPIController extends AppBaseController
         try {
             $input = $request->all();
             $user = Auth::user();
-            $input['user_id'] = $user->id;
             /** @var Doctor $doctor */
-            $doctor = Doctor::create($input);
-
+            // $doctor = Doctor::create($input);
+            $doctor = Doctor::where('user_id', $user->id)->first();
+            $doctor->fill($input);
             // Save MDCN License
             $mdcnLicense = $request->file('mdcn_license');
 

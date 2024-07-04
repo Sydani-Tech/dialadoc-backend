@@ -98,21 +98,25 @@ class PatientAPIController extends AppBaseController
      */
     public function store(CreatePatientAPIRequest $request): JsonResponse
     {
+
         $input = $request->all();
         $user = Auth::user();
-        $input['user_id'] = $user->id;
+        $patient = Patient::where('user_id', $user->id)->first();
 
-        /** @var Patient $patient */
-        $patient = Patient::create($input);
+        if (empty($patient)) {
+            return $this->sendError('Patient not found');
+        }
+
+        $patient->fill($input);
 
         $doctor = $this->match_patient_with_doc($patient);
 
         if ($doctor) {
-            $patient->update(['doctor_id' => $doctor->doctor_id]);
+            $patient->doctor_id = $doctor->doctor_id;
         }
 
+        $patient->save();
         $user->update(['is_profile_updated' => 1]);
-
         return $this->sendResponse(new PatientResource($patient), 'Patient saved successfully');
     }
 
