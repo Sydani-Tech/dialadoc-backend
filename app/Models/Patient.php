@@ -232,11 +232,16 @@ class Patient extends Model
         return $this->hasMany(\App\Models\Insurance::class, 'patient_id');
     }
 
-    public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function consultation(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        // these foreign local key should change accordingly
-        return $this->hasMany(\App\Models\Appointment::class, 'consultation_id');
+        return $this->hasMany(\App\Models\Consultation::class, 'patient_id');
     }
+
+    // public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    // {
+    //     // these foreign local key should change accordingly
+    //     return $this->hasMany(\App\Models\Appointment::class, 'consultation_id');
+    // }
 
     public function facility()
     {
