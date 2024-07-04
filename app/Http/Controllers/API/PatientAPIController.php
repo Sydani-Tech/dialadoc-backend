@@ -271,6 +271,13 @@ class PatientAPIController extends AppBaseController
         $user = $patient->user;
 
         $patient->fill($request->all());
+
+        $doctor = $this->match_patient_with_doc($patient);
+
+        if ($doctor) {
+            $patient->doctor_id = $doctor->doctor_id;
+        }
+
         $patient->save();
 
         if (!empty($user)) {
