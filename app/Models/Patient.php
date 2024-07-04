@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Doctor;
 use App\Models\Facility;
+use App\Models\Consultation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -232,10 +233,10 @@ class Patient extends Model
         return $this->hasMany(\App\Models\Insurance::class, 'patient_id');
     }
 
-    public function consultation(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(\App\Models\Consultation::class, 'patient_id', 'patient_id');
-    }
+    // public function consultation(): \Illuminate\Database\Eloquent\Relations\HasMany
+    // {
+    //     return $this->hasMany(Consultation::class, 'patient_id', 'patient_id');
+    // }
 
     // public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
     // {
