@@ -270,6 +270,7 @@ class PatientAPIController extends AppBaseController
 
         $user = $patient->user;
 
+
         $patient->fill($request->all());
 
         $doctor = $this->match_patient_with_doc($patient);
