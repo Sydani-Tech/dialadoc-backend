@@ -234,7 +234,7 @@ class Patient extends Model
 
     public function consultation(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\Consultation::class, 'patient_id');
+        return $this->hasMany(\App\Models\Consultation::class, 'patient_id', 'patient_id');
     }
 
     // public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
