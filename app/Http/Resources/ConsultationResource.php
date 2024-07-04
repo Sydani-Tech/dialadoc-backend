@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\AppointmentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ConsultationResource extends JsonResource
@@ -23,6 +24,7 @@ class ConsultationResource extends JsonResource
             'type_of_appointment' => $this->type_of_appointment,
             'description' => $this->description,
             'status' => $this->patient_id,
+            'appointment' => new AppointmentResource($this->appointment)
         ];
     }
 }

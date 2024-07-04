@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Doctor;
+use App\Models\Patient;
+use App\Models\Appointment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -66,7 +69,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          type="string",
  *      ),
  * )
- */ class Consultation extends Model
+ */
+class Consultation extends Model
 {
     use HasFactory;
     public $table = 'consultations';
@@ -95,4 +99,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'type_of_appointment' => 'required|string',
         'description' => 'required|string',
     ];
+
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
+    }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'doctor_id');
+    }
+
+    public function appointment()
+    {
+        return $this->hasOne(Appointment::class, 'consultation_id', 'consultation_id');
+    }
 }

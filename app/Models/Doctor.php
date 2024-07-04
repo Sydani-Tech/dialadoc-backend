@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Consultation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -176,6 +177,11 @@ class Doctor extends Model
     public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\Models\Appointment::class, 'doctor_id');
+    }
+
+    public function consultations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Consultation::class, 'doctor_id', 'doctor_id');
     }
 
     public function user1s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

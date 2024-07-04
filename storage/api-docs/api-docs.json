@@ -7898,6 +7898,7 @@
             },
             "PatientRecord": {
                 "required": [
+                    "patient_id",
                     "update_type",
                     "suspected_illness",
                     "findings",
@@ -7906,6 +7907,13 @@
                     "prescriptions"
                 ],
                 "properties": {
+                    "patient_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": false
+                    },
                     "update_type": {
                         "description": "",
                         "type": "string",

@@ -33,15 +33,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date"
  *      ),
  * )
- */ class Appointment extends Model
+ */
+class Appointment extends Model
 {
     use HasFactory;
     public $table = 'appointments';
     protected $primaryKey = 'appointment_id';
 
     public $fillable = [
-        'doctor_id',
-        'patient_id',
+        'consultation_id',
         'appointment_date',
         'appointment_time',
         'created_by',
@@ -54,7 +54,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
     public static array $rules = [
         'consultation_id' => 'required|integer|exists:consultations,consultation_id',
-        'patient_id' => 'nullable',
         'appointment_date' => 'required|date',
         'appointment_time' => 'required',
     ];

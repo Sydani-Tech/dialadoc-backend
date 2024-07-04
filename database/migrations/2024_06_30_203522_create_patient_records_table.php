@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -14,7 +13,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('patient_records', function (Blueprint $table) {
-            $table->id('id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('appointment_id');
             $table->string('update_type');
             $table->string('suspected_illness');
             $table->text('findings');
@@ -22,6 +23,10 @@ return new class extends Migration
             $table->unsignedBigInteger('recommended_facility')->nullable();
             $table->text('prescriptions');
             $table->timestamps();
+
+            $table->foreign('patient_id')->references('patient_id')->on('patients');
+            $table->foreign('recommended_facility')->references('id')->on('facilities');
+            $table->foreign('appointment_id')->references('appointment_id')->on('appointments');
         });
     }
 

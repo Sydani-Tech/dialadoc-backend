@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\ConsultationResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DoctorResource extends JsonResource
@@ -28,7 +29,8 @@ class DoctorResource extends JsonResource
             'country' => $this->country,
             'state' => $this->state,
             'lga' => $this->lga,
-            'bio' => $this->bio
+            'bio' => $this->bio,
+            'consultations' => ConsultationResource::collection($this->consultations)
         ];
     }
 }

@@ -218,6 +218,7 @@ class AuthController extends AppBaseController
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
+            return $th;
             return $this->sendError('An error occured');
         }
     }

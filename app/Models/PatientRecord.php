@@ -77,12 +77,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */ class PatientRecord extends Model
+ */
+class PatientRecord extends Model
 {
     use HasFactory;
     public $table = 'patient_records';
 
     public $fillable = [
+        'patient_id',
         'update_type',
         'suspected_illness',
         'findings',
@@ -92,6 +94,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     ];
 
     protected $casts = [
+        'id' => 'integer',
+        'patient_id' => 'integer',
         'update_type' => 'string',
         'suspected_illness' => 'string',
         'findings' => 'string',
@@ -101,6 +105,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     ];
 
     public static array $rules = [
+        'patient_id' => 'required|integer',
         'update_type' => 'required',
         'suspected_illness' => 'required',
         'findings' => 'required',
@@ -116,6 +121,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
     public function facility(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Facility::class, 'recommended_facility');
+        return $this->belongsTo(\App\Models\Facility::class, 'recommended_facility', 'id');
     }
 }

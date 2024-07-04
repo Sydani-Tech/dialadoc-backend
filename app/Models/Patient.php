@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Doctor;
 use App\Models\Facility;
 use App\Models\Consultation;
+use App\Models\PatientRecord;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -233,10 +234,15 @@ class Patient extends Model
         return $this->hasMany(\App\Models\Insurance::class, 'patient_id');
     }
 
-    // public function consultation(): \Illuminate\Database\Eloquent\Relations\HasMany
-    // {
-    //     return $this->hasMany(Consultation::class, 'patient_id', 'patient_id');
-    // }
+    public function patient_records()
+    {
+        return $this->hasMany(PatientRecord::class, 'patient_id', 'patient_id');
+    }
+
+    public function consultations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Consultation::class, 'patient_id', 'patient_id');
+    }
 
     // public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
     // {
@@ -244,11 +250,11 @@ class Patient extends Model
     //     return $this->hasMany(\App\Models\Appointment::class, 'consultation_id');
     // }
 
-    public function facility()
-    {
-        // these foreign local key should change accordingly
-        return $this->hasOne(Facility::class, 'facility_id', 'doctor_id');
-    }
+    // public function facility()
+    // {
+    //     // these foreign local key should change accordingly
+    //     return $this->hasOne(Facility::class, 'facility_id', 'doctor_id');
+    // }
 
     public function doctor()
     {
