@@ -91,6 +91,7 @@ class PatientRecord extends Model
         'recommended_tests',
         'recommended_facility',
         'appointment_id',
+        'prescriptions'
     ];
 
     protected $casts = [
@@ -101,7 +102,8 @@ class PatientRecord extends Model
         'findings' => 'string',
         'recommended_tests' => 'string',
         'recommended_facility' => 'integer',
-        'appointment_id' => 'integer'
+        'appointment_id' => 'integer',
+        'prescriptions' => 'string',
     ];
 
     public static array $rules = [

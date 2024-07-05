@@ -174,9 +174,9 @@ class Doctor extends Model
         return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 
-    public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function appointments()
     {
-        return $this->hasMany(\App\Models\Appointment::class, 'doctor_id');
+        return $this->hasManyThrough(Appointment::class, Consultation::class);
     }
 
     public function consultations(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -202,10 +202,5 @@ class Doctor extends Model
     public function patients(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(\App\Models\Patient::class, 'reviews');
-    }
-
-    public function patient2s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(\App\Models\Patient::class, 'treatment_plans');
     }
 }

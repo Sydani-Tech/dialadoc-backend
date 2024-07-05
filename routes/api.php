@@ -67,6 +67,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('appointments', App\Http\Controllers\API\AppointmentAPIController::class)
         ->except(['create', 'edit']);
     Route::get('appointments/consultation-appointment/{consultation_id}', [App\Http\Controllers\API\AppointmentAPIController::class, 'appointmentByConsultation']);
+    Route::get('appointments/by-patient/{patient_id}', [App\Http\Controllers\API\AppointmentAPIController::class, 'appointmentsByPatient']);
 
     Route::resource('consultations', App\Http\Controllers\API\ConsultationAPIController::class)
         ->except(['create', 'edit']);
@@ -131,6 +132,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('facilities', App\Http\Controllers\API\FacilityAPIController::class)
         ->except(['create', 'edit']);
+
+    Route::resource('facility-appointments', App\Http\Controllers\API\FacilityAppointmentAPIController::class)
+        ->except(['create', 'edit']);
+    Route::get('facility-appointments/by-facility/{facility_id}', [App\Http\Controllers\API\FacilityAppointmentAPIController::class, 'appointmentByFacility']);
+    Route::get('facility-appointments/by-patient/{patient_id}', [App\Http\Controllers\API\FacilityAppointmentAPIController::class, 'appointmentByPatient']);
 });
 
 
@@ -140,4 +146,3 @@ Route::get('nigerian-states', [App\Http\Controllers\API\CommonAPIController::cla
 Route::get('nigerian-lgas', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianLGAs']);
 Route::get('nigerian-geo-political-zones', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianGeopoliticalZones']);
 Route::get('nigerian-senatorial-zones', [App\Http\Controllers\API\CommonAPIController::class, 'getNigerianSenatorialZones']);
-

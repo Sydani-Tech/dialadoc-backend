@@ -288,4 +288,14 @@ class Patient extends Model
     {
         return $this->hasMany(\App\Models\VitalSign::class, 'patient_id');
     }
+
+    public function appointments()
+    {
+        return $this->hasManyThrough(Appointment::class, Consultation::class);
+    }
+
+    public function facilityAppointments()
+    {
+        return $this->hasManyThrough(FacilityAppointment::class, PatientRecord::class);
+    }
 }

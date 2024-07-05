@@ -372,6 +372,47 @@
                 ]
             }
         },
+        "/appointments/by-patient": {
+            "get": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "getAppointmentList for a patient",
+                "description": "Get all Appointments for a specific patient",
+                "operationId": "fe2c84843bf47677b5215762152fc1b0",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Appointment"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/appointments/{id}": {
             "get": {
                 "tags": [
@@ -1721,7 +1762,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -1762,7 +1808,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/facilities/{user_id}": {
@@ -1806,7 +1857,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -1858,7 +1914,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -1872,6 +1933,298 @@
                         "name": "user_id",
                         "in": "path",
                         "description": "id of User",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/facility-appointments": {
+            "get": {
+                "tags": [
+                    "FacilityAppointment"
+                ],
+                "summary": "getFacilityAppointmentList",
+                "description": "Get all FacilityAppointments",
+                "operationId": "b83c12bc92f7bb02eb4c9a47ab4f32b0",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/FacilityAppointment"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "FacilityAppointment"
+                ],
+                "summary": "createFacilityAppointment",
+                "description": "Create FacilityAppointment",
+                "operationId": "a418602a2df9592b9cf5c42372a5f240",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FacilityAppointment"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/FacilityAppointment"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/facility-appointments/by-facility/{facility_id}": {
+            "get": {
+                "tags": [
+                    "FacilityAppointment"
+                ],
+                "summary": "getFacilityAppointmentList Belonging to a specific facility",
+                "description": "Get all FacilityAppointments belonging to a specific facility",
+                "operationId": "f9d25874a831ce4f384fe21caa281b88",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/FacilityAppointment"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/facility-appointments/by-patient/{facility_id}": {
+            "get": {
+                "tags": [
+                    "FacilityAppointment"
+                ],
+                "summary": "getFacilityAppointmentList Belonging to a specific patient",
+                "description": "Get all FacilityAppointments belonging to a specific patient",
+                "operationId": "0a541591231188d592621d5047b53016",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/FacilityAppointment"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/facility-appointments/{id}": {
+            "get": {
+                "tags": [
+                    "FacilityAppointment"
+                ],
+                "summary": "getFacilityAppointmentItem",
+                "description": "Get FacilityAppointment",
+                "operationId": "683123bacb3637b03e45cabfdc6fa2e0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of FacilityAppointment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/FacilityAppointment"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "FacilityAppointment"
+                ],
+                "summary": "updateFacilityAppointment",
+                "description": "Update FacilityAppointment",
+                "operationId": "0f2efb7dc65ae88187aea548360b6e50",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of FacilityAppointment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FacilityAppointment"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/FacilityAppointment"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "FacilityAppointment"
+                ],
+                "summary": "deleteFacilityAppointment",
+                "description": "Delete FacilityAppointment",
+                "operationId": "3122b55eb523b41df0a6e5f49f6f1165",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of FacilityAppointment",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -7528,6 +7881,66 @@
                 },
                 "type": "object"
             },
+            "FacilityAppointment": {
+                "required": [
+                    "patient_record_id",
+                    "appointment_date",
+                    "appointment_time",
+                    "facility_id",
+                    "appointment_status",
+                    "results"
+                ],
+                "properties": {
+                    "patient_record_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "facility_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "appointment_status": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "results": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "documents_url": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
             "HealthMetric": {
                 "required": [],
                 "properties": {
@@ -7898,7 +8311,6 @@
             },
             "PatientRecord": {
                 "required": [
-                    "patient_id",
                     "update_type",
                     "suspected_illness",
                     "findings",
@@ -7907,13 +8319,6 @@
                     "prescriptions"
                 ],
                 "properties": {
-                    "patient_id": {
-                        "description": "",
-                        "type": "integer",
-                        "format": "int32",
-                        "readOnly": false,
-                        "nullable": false
-                    },
                     "update_type": {
                         "description": "",
                         "type": "string",

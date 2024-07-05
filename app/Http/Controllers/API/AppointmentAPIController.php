@@ -61,6 +61,54 @@ class AppointmentAPIController extends AppBaseController
         return $this->sendResponse(AppointmentResource::collection($appointments), 'Appointments retrieved successfully');
     }
 
+        /**
+     * @OA\Get(
+     *      path="/appointments/by-patient",
+     *      summary="getAppointmentList for a patient",
+     *      tags={"Appointment"},
+     *      description="Get all Appointments for a specific patient",
+     *      security={ {"sanctum": {} }},
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/Appointment")
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function appointmentsByPatient(Request $request, $patientId): JsonResponse
+    {
+        $query = Appointment::query();
+        $query->whereHas('consultation', function ($q) use ($patientId) {
+            $q->where('patient_id', $patientId);
+        });
+
+        if ($request->get('skip')) {
+            $query->skip($request->get('skip'));
+        }
+        if ($request->get('limit')) {
+            $query->limit($request->get('limit'));
+        }
+
+        $appointments = $query->get();
+
+        return $this->sendResponse(AppointmentResource::collection($appointments), 'Appointments retrieved successfully');
+    }
+
     /**
      * @OA\Post(
      *      path="/appointments",
