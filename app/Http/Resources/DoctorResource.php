@@ -19,7 +19,7 @@ class DoctorResource extends JsonResource
             'doctor_id' => $this->doctor_id,
             'user_id' => $this->user_id,
             'specialization_id' => $this->specialization_id,
-            'experience_years' => $this->experience_years,
+            'years_practising' => $this->years_practising,
             'mdcn_license' => $this->mdcn_license,
             'cpd_annual_license' => $this->cpd_annual_license,
             'created_at' => $this->created_at,

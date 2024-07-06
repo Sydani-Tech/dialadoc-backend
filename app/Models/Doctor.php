@@ -125,7 +125,8 @@ class Doctor extends Model
         'bio',
         'healthcare_practitioner_type',
         'role_in_facility',
-        'years_practising'
+        'years_practising',
+        'experience_years'
     ];
 
     protected $casts = [
@@ -142,7 +143,8 @@ class Doctor extends Model
         'bio' => 'string',
         'healthcare_practitioner_type' => 'string',
         'role_in_facility' => 'string',
-        'years_practising' => 'integer'
+        'years_practising' => 'integer',
+        'experience_years' => 'integer'
     ];
 
     public static array $rules = [
@@ -161,7 +163,8 @@ class Doctor extends Model
         'bio' => 'nullable|string|max:65535',
         'healthcare_practitioner_type' => 'nullable|string|max:255',
         'role_in_facility' => 'nullable|string|max:255',
-        'years_practising' => 'nullable|integer|min:0'
+        'years_practising' => 'nullable|integer|min:0',
+        'experience_years' => 'nullable|integer|min:0'
     ];
 
     public function specialization(): \Illuminate\Database\Eloquent\Relations\BelongsTo
