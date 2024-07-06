@@ -21,15 +21,12 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'email_verified_at' => $this->email_verified_at,
-            'password' => $this->password,
             'remember_token' => $this->remember_token,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
             'role' => $this->roles()->first(),
             'permissions' => $this->getAllPermissions(),
             'is_profile_updated' => $this->is_profile_updated,
             'patient_profile' => new PatientResource($this->patientProfile),
-            // 'patient_consultation' => new ConsultationResource($this->consultation),
             'doctor_profile' => $this->doctorProfile
         ];
     }
