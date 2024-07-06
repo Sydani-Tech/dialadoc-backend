@@ -22,6 +22,7 @@ class FacilityAppointmentAPIController extends AppBaseController
      *      summary="getFacilityAppointmentList",
      *      tags={"FacilityAppointment"},
      *      description="Get all FacilityAppointments",
+     *      security={ {"sanctum": {} }},
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -66,6 +67,7 @@ class FacilityAppointmentAPIController extends AppBaseController
      *      summary="getFacilityAppointmentList Belonging to a specific facility",
      *      tags={"FacilityAppointment"},
      *      description="Get all FacilityAppointments belonging to a specific facility",
+     *      security={ {"sanctum": {} }},
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -111,6 +113,7 @@ class FacilityAppointmentAPIController extends AppBaseController
      *      summary="getFacilityAppointmentList Belonging to a specific patient",
      *      tags={"FacilityAppointment"},
      *      description="Get all FacilityAppointments belonging to a specific patient",
+     *      security={ {"sanctum": {} }},
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -158,6 +161,7 @@ class FacilityAppointmentAPIController extends AppBaseController
      *      summary="createFacilityAppointment",
      *      tags={"FacilityAppointment"},
      *      description="Create FacilityAppointment",
+     *      security={ {"sanctum": {} }},
      *      @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(ref="#/components/schemas/FacilityAppointment")
@@ -199,6 +203,7 @@ class FacilityAppointmentAPIController extends AppBaseController
      *      summary="getFacilityAppointmentItem",
      *      tags={"FacilityAppointment"},
      *      description="Get FacilityAppointment",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of FacilityAppointment",
@@ -247,6 +252,7 @@ class FacilityAppointmentAPIController extends AppBaseController
      *      summary="updateFacilityAppointment",
      *      tags={"FacilityAppointment"},
      *      description="Update FacilityAppointment",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of FacilityAppointment",
@@ -302,6 +308,7 @@ class FacilityAppointmentAPIController extends AppBaseController
      *      summary="deleteFacilityAppointment",
      *      tags={"FacilityAppointment"},
      *      description="Delete FacilityAppointment",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of FacilityAppointment",

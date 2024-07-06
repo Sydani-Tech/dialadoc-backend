@@ -22,6 +22,7 @@ class PatientRecordAPIController extends AppBaseController
      *      summary="getPatientRecordList",
      *      tags={"PatientRecord"},
      *      description="Get all PatientRecords",
+     *      security={ {"sanctum": {} }},
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -66,6 +67,7 @@ class PatientRecordAPIController extends AppBaseController
      *      summary="getPatientRecordList",
      *      tags={"PatientRecord"},
      *      description="Get all PatientRecords referred to facility",
+     *      security={ {"sanctum": {} }},
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -111,6 +113,7 @@ class PatientRecordAPIController extends AppBaseController
      *      summary="createPatientRecord",
      *      tags={"PatientRecord"},
      *      description="Create PatientRecord",
+     *      security={ {"sanctum": {} }},
      *      @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(ref="#/components/schemas/PatientRecord")
@@ -152,6 +155,7 @@ class PatientRecordAPIController extends AppBaseController
      *      summary="getPatientRecordItem",
      *      tags={"PatientRecord"},
      *      description="Get PatientRecord",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of PatientRecord",
@@ -200,6 +204,7 @@ class PatientRecordAPIController extends AppBaseController
      *      summary="getPatientRecordItem",
      *      tags={"PatientRecord"},
      *      description="Get PatientRecord By Appointment",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of Appointment",
@@ -248,6 +253,7 @@ class PatientRecordAPIController extends AppBaseController
      *      summary="updatePatientRecord",
      *      tags={"PatientRecord"},
      *      description="Update PatientRecord",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of PatientRecord",
@@ -303,6 +309,7 @@ class PatientRecordAPIController extends AppBaseController
      *      summary="deletePatientRecord",
      *      tags={"PatientRecord"},
      *      description="Delete PatientRecord",
+     *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
      *          name="id",
      *          description="id of PatientRecord",
