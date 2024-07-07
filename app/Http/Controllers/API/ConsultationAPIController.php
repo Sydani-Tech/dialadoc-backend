@@ -149,7 +149,7 @@ class ConsultationAPIController extends AppBaseController
     public function store(CreateConsultationAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-
+        $input['status'] = 'pending';
         /** @var Consultation $consultation */
         $consultation = Consultation::create($input);
 

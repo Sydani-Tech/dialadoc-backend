@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->dropColumn('notes');
             $table->dropForeign(['appointment_id']);
             $table->dropColumn('appointment_id');
-
             $table->foreignId('patient_id');
             $table->foreignId('doctor_id');
             $table->string('affected_body_part');
