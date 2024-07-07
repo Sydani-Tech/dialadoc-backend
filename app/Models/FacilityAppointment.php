@@ -100,4 +100,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     {
         return $this->belongsTo(\App\Models\PatientRecord::class, 'patient_record_id');
     }
+
+    public function facility(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Facility::class, 'id');
+    }
 }
