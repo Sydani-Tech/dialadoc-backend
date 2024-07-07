@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateAppointmentAPIRequest;
-use App\Http\Requests\API\UpdateAppointmentAPIRequest;
 use App\Models\Appointment;
-use Illuminate\Http\JsonResponse;
+use App\Models\Consultation;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\AppointmentResource;
+use App\Http\Requests\API\CreateAppointmentAPIRequest;
+use App\Http\Requests\API\UpdateAppointmentAPIRequest;
 
 /**
  * Class AppointmentController
@@ -61,7 +63,7 @@ class AppointmentAPIController extends AppBaseController
         return $this->sendResponse(AppointmentResource::collection($appointments), 'Appointments retrieved successfully');
     }
 
-        /**
+    /**
      * @OA\Get(
      *      path="/appointments/by-patient",
      *      summary="getAppointmentList for a patient",
@@ -143,10 +145,21 @@ class AppointmentAPIController extends AppBaseController
      */
     public function store(CreateAppointmentAPIRequest $request): JsonResponse
     {
+        $user = Auth::user();
+
         $input = $request->all();
+        $input['created_by'] = $user->id;
 
         /** @var Appointment $appointment */
         $appointment = Appointment::create($input);
+
+        if ($appointment) {
+            $consultation = $appointment->consultation;
+
+            if ($consultation) {
+                $consultation->update(['status' => 'scheduled']);
+            }
+        }
 
         return $this->sendResponse(new AppointmentResource($appointment), 'Appointment saved successfully');
     }
@@ -191,7 +204,7 @@ class AppointmentAPIController extends AppBaseController
     public function show($id): JsonResponse
     {
         /** @var Appointment $appointment */
-        $appointment = Appointment::find($id);
+        $appointment = Appointment::where('appointment_id', $id)->first();
 
         if (empty($appointment)) {
             return $this->sendError('Appointment not found');
@@ -246,6 +259,12 @@ class AppointmentAPIController extends AppBaseController
             return $this->sendError('Appointment not found');
         }
 
+        $consultation = $appointment->consultation;
+
+        if ($consultation) {
+            $consultation->update(['status' => 'cancelled']);
+        }
+
         return $this->sendResponse(new AppointmentResource($appointment), 'Appointment retrieved successfully');
     }
 
@@ -293,7 +312,7 @@ class AppointmentAPIController extends AppBaseController
     public function update($id, UpdateAppointmentAPIRequest $request): JsonResponse
     {
         /** @var Appointment $appointment */
-        $appointment = Appointment::find($id);
+        $appointment = Appointment::where('appointment_id', $id)->first();
 
         if (empty($appointment)) {
             return $this->sendError('Appointment not found');
@@ -345,7 +364,7 @@ class AppointmentAPIController extends AppBaseController
     public function destroy($id): JsonResponse
     {
         /** @var Appointment $appointment */
-        $appointment = Appointment::find($id);
+        $appointment = Appointment::where('appointment_id', $id)->first();
 
         if (empty($appointment)) {
             return $this->sendError('Appointment not found');

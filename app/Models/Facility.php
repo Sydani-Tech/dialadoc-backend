@@ -127,7 +127,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */ class Facility extends Model
+ */
+class Facility extends Model
 {
     use HasFactory;
     public $table = 'facilities';

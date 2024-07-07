@@ -60,6 +60,6 @@ class Appointment extends Model
 
     public function consultation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Consultation::class, 'consultation_id');
+        return $this->belongsTo(\App\Models\Consultation::class, 'consultation_id', 'consultation_id');
     }
 }
