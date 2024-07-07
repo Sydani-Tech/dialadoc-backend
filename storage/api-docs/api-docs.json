@@ -1998,7 +1998,7 @@
                                         "success": {
                                             "type": "boolean"
                                         },
-                                        
+                                        "data": {},
                                         "message": {
                                             "type": "string"
                                         }
@@ -2049,7 +2049,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -2090,7 +2095,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/facility-appointments/by-facility/{facility_id}": {
@@ -2126,7 +2136,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/facility-appointments/by-patient/{facility_id}": {
@@ -2162,7 +2177,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/facility-appointments/{id}": {
@@ -2206,7 +2226,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -2258,7 +2283,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -2300,7 +2330,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/health-metrics": {
@@ -4395,7 +4430,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -4477,7 +4517,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/patient-records/{id}": {
@@ -4521,7 +4566,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -4573,7 +4623,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -4615,7 +4670,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/patient-records/appointment-patient-records/{appointment_id}": {
@@ -4659,7 +4719,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/payments": {
@@ -8372,13 +8437,6 @@
                     "prescriptions"
                 ],
                 "properties": {
-                    "patient_id": {
-                        "description": "",
-                        "type": "integer",
-                        "format": "int32",
-                        "readOnly": false,
-                        "nullable": false
-                    },
                     "update_type": {
                         "description": "",
                         "type": "string",
