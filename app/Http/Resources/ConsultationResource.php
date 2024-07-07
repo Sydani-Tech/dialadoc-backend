@@ -24,7 +24,6 @@ class ConsultationResource extends JsonResource
             'type_of_appointment' => $this->type_of_appointment,
             'description' => $this->description,
             'status' => $this->status,
-
             'appointment' => new AppointmentResource($this->appointment)
         ];
     }
