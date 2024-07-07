@@ -23,9 +23,8 @@ class ConsultationResource extends JsonResource
             'nature_of_illness' => $this->nature_of_illness,
             'type_of_appointment' => $this->type_of_appointment,
             'description' => $this->description,
-            'status' => $this->patient_id,
-            'appointment' => new AppointmentResource($this->appointment),
-            'patient' => $this->patient
+            'status' => $this->status,
+            'appointment' => new AppointmentResource($this->appointment)
         ];
     }
 }

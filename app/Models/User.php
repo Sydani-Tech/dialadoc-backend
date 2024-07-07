@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Facility;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -112,5 +113,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function doctorProfile()
     {
         return $this->hasOne(Doctor::class, 'user_id');
+    }
+
+    public function facilityProfile()
+    {
+        return $this->hasOne(Facility::class, 'user_id');
     }
 }

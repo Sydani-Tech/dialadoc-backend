@@ -2,29 +2,26 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\User;
-use App\Models\Doctor;
-use App\Models\Patient;
-use Illuminate\Http\Request;
+use App\Http\Requests\API\CreatePatientRecordAPIRequest;
+use App\Http\Requests\API\UpdatePatientRecordAPIRequest;
+use App\Models\PatientRecord;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\PatientResource;
+use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\CreatePatientAPIRequest;
-use App\Http\Requests\API\UpdatePatientAPIRequest;
+use App\Http\Resources\PatientRecordResource;
 
 /**
- * Class PatientController
+ * Class PatientRecordController
  */
 
-class PatientAPIController extends AppBaseController
+class PatientRecordAPIController extends AppBaseController
 {
     /**
      * @OA\Get(
-     *      path="/patients",
-     *      summary="getPatientList",
-     *      tags={"Patient"},
-     *      description="Get all Patients",
+     *      path="/patient-records",
+     *      summary="getPatientRecordList",
+     *      tags={"PatientRecord"},
+     *      description="Get all PatientRecords",
      *      security={ {"sanctum": {} }},
      *      @OA\Response(
      *          response=200,
@@ -38,7 +35,7 @@ class PatientAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Patient")
+     *                  @OA\Items(ref="#/components/schemas/PatientRecord")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -50,7 +47,7 @@ class PatientAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $query = Patient::query();
+        $query = PatientRecord::query();
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -59,21 +56,67 @@ class PatientAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $patients = $query->get();
+        $patientRecords = $query->get();
 
-        return $this->sendResponse(PatientResource::collection($patients), 'Patients retrieved successfully');
+        return $this->sendResponse(PatientRecordResource::collection($patientRecords), 'Patient Records retrieved successfully');
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/patient-records/by-facility/{facility_id}",
+     *      summary="getPatientRecordList",
+     *      tags={"PatientRecord"},
+     *      description="Get all PatientRecords referred to facility",
+     *      security={ {"sanctum": {} }},
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/PatientRecord")
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function referredPatientRecordsForFacility(Request $request, $facilityId): JsonResponse
+    {
+        $query = PatientRecord::query();
+        $query->where('recommended_facility', $facilityId);
+
+        if ($request->get('skip')) {
+            $query->skip($request->get('skip'));
+        }
+        if ($request->get('limit')) {
+            $query->limit($request->get('limit'));
+        }
+
+        $patientRecords = $query->get();
+
+        return $this->sendResponse(PatientRecordResource::collection($patientRecords), 'Patient Records retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/patients",
-     *      summary="createPatient",
-     *      tags={"Patient"},
-     *      description="Create Patient",
+     *      path="/patient-records",
+     *      summary="createPatientRecord",
+     *      tags={"PatientRecord"},
+     *      description="Create PatientRecord",
      *      security={ {"sanctum": {} }},
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Patient")
+     *        @OA\JsonContent(ref="#/components/schemas/PatientRecord")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -86,7 +129,7 @@ class PatientAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Patient"
+     *                  ref="#/components/schemas/PatientRecord"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -96,40 +139,26 @@ class PatientAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreatePatientAPIRequest $request): JsonResponse
+    public function store(CreatePatientRecordAPIRequest $request): JsonResponse
     {
-
         $input = $request->all();
-        $user = Auth::user();
-        $patient = Patient::where('user_id', $user->id)->first();
 
-        if (empty($patient)) {
-            return $this->sendError('Patient not found');
-        }
+        /** @var PatientRecord $patientRecord */
+        $patientRecord = PatientRecord::create($input);
 
-        $patient->fill($input);
-
-        $doctor = $this->match_patient_with_doc($patient);
-
-        if ($doctor) {
-            $patient->doctor_id = $doctor->doctor_id;
-        }
-
-        $patient->save();
-        $user->update(['is_profile_updated' => 1]);
-        return $this->sendResponse(new PatientResource($patient), 'Patient saved successfully');
+        return $this->sendResponse(new PatientRecordResource($patientRecord), 'Patient Record saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/patients/{user_id}",
-     *      summary="getPatientItem",
-     *      tags={"Patient"},
-     *      description="Get Patient",
+     *      path="/patient-records/{id}",
+     *      summary="getPatientRecordItem",
+     *      tags={"PatientRecord"},
+     *      description="Get PatientRecord",
      *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
-     *          name="user_id",
-     *          description="id of User",
+     *          name="id",
+     *          description="id of PatientRecord",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -147,7 +176,7 @@ class PatientAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Patient"
+     *                  ref="#/components/schemas/PatientRecord"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -157,28 +186,28 @@ class PatientAPIController extends AppBaseController
      *      )
      * )
      */
-    public function show($user_id): JsonResponse
+    public function show($id): JsonResponse
     {
-        /** @var Patient $patient */
-        $patient = Patient::where('user_id', $user_id)->first();
+        /** @var PatientRecord $patientRecord */
+        $patientRecord = PatientRecord::find($id);
 
-        if (empty($patient)) {
-            return $this->sendError('Patient not found');
+        if (empty($patientRecord)) {
+            return $this->sendError('Patient Record not found');
         }
 
-        return $this->sendResponse(new PatientResource($patient), 'Patient retrieved successfully');
+        return $this->sendResponse(new PatientRecordResource($patientRecord), 'Patient Record retrieved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/patients/by-user/{user_id}",
-     *      summary="getPatientItem",
-     *      tags={"Patient"},
-     *      description="Get Patient By User ID",
+     *      path="/patient-records/appointment-patient-records/{appointment_id}",
+     *      summary="getPatientRecordItem",
+     *      tags={"PatientRecord"},
+     *      description="Get PatientRecord By Appointment",
      *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
-     *          name="user_id",
-     *          description="id of User",
+     *          name="id",
+     *          description="id of Appointment",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -196,7 +225,7 @@ class PatientAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Patient"
+     *                  ref="#/components/schemas/PatientRecord"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -206,28 +235,28 @@ class PatientAPIController extends AppBaseController
      *      )
      * )
      */
-    public function getByUserId($user_id): JsonResponse
+    public function patientRecordByAppointment($appointment_id): JsonResponse
     {
-        /** @var Patient $patient */
-        $patient = Patient::where('user_id', $user_id)->first();
+        /** @var PatientRecord $patientRecord */
+        $patientRecord = PatientRecord::where('appointment_id', $appointment_id)->first();
 
-        if (empty($patient)) {
-            return $this->sendError('Patient not found');
+        if (empty($patientRecord)) {
+            return $this->sendError('Patient Record not found');
         }
 
-        return $this->sendResponse(new PatientResource($patient), 'Patient retrieved successfully');
+        return $this->sendResponse(new PatientRecordResource($patientRecord), 'Patient Record retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/patients/{user_id}",
-     *      summary="updatePatient",
-     *      tags={"Patient"},
-     *      description="Update Patient",
+     *      path="/patient-records/{id}",
+     *      summary="updatePatientRecord",
+     *      tags={"PatientRecord"},
+     *      description="Update PatientRecord",
      *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
-     *          name="user_id",
-     *          description="id of User",
+     *          name="id",
+     *          description="id of PatientRecord",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -236,7 +265,7 @@ class PatientAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Patient")
+     *        @OA\JsonContent(ref="#/components/schemas/PatientRecord")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -249,7 +278,7 @@ class PatientAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Patient"
+     *                  ref="#/components/schemas/PatientRecord"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -259,45 +288,31 @@ class PatientAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($user_id, UpdatePatientAPIRequest $request): JsonResponse
+    public function update($id, UpdatePatientRecordAPIRequest $request): JsonResponse
     {
-        /** @var Patient $patient */
-        $patient = Patient::where('user_id', $user_id)->first();
+        /** @var PatientRecord $patientRecord */
+        $patientRecord = PatientRecord::find($id);
 
-        if (empty($patient)) {
-            return $this->sendError('Patient not found');
+        if (empty($patientRecord)) {
+            return $this->sendError('Patient Record not found');
         }
 
-        $user = $patient->user;
+        $patientRecord->fill($request->all());
+        $patientRecord->save();
 
-        $patient->fill($request->all());
-
-        $doctor = $this->match_patient_with_doc($patient);
-
-        if ($doctor) {
-            $patient->doctor_id = $doctor->doctor_id;
-        }
-
-        $patient->save();
-
-        if (!empty($user)) {
-            $user->is_profile_updated = 1;
-            $user->save();
-        }
-
-        return $this->sendResponse(new PatientResource($patient), 'Patient updated successfully');
+        return $this->sendResponse(new PatientRecordResource($patientRecord), 'PatientRecord updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/patients/{user_id}",
-     *      summary="deletePatient",
-     *      tags={"Patient"},
-     *      description="Delete Patient",
+     *      path="/patient-records/{id}",
+     *      summary="deletePatientRecord",
+     *      tags={"PatientRecord"},
+     *      description="Delete PatientRecord",
      *      security={ {"sanctum": {} }},
      *      @OA\Parameter(
-     *          name="user_id",
-     *          description="id of User",
+     *          name="id",
+     *          description="id of PatientRecord",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -325,21 +340,17 @@ class PatientAPIController extends AppBaseController
      *      )
      * )
      */
-    public function destroy($user_id): JsonResponse
+    public function destroy($id): JsonResponse
     {
-        /** @var Patient $patient */
-        $patient = Patient::where('user_id', $user_id)->first();
+        /** @var PatientRecord $patientRecord */
+        $patientRecord = PatientRecord::find($id);
 
-        if (empty($patient)) {
-            return $this->sendError('Patient not found');
+        if (empty($patientRecord)) {
+            return $this->sendError('Patient Record not found');
         }
 
-        if ($patient->appointments()->exists()) {
-            return $this->sendError('Cannot delete doctor because it has associated appointments.');
-        }
+        $patientRecord->delete();
 
-        $patient->delete();
-
-        return $this->sendSuccess('Patient deleted successfully');
+        return $this->sendSuccess('Patient Record deleted successfully');
     }
 }

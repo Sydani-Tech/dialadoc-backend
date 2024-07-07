@@ -107,7 +107,7 @@ class FacilityAppointmentAPIController extends AppBaseController
         return $this->sendResponse(FacilityAppointmentResource::collection($facilityAppointments), 'Facility Appointments retrieved successfully');
     }
 
-        /**
+    /**
      * @OA\Get(
      *      path="/facility-appointments/by-patient/{facility_id}",
      *      summary="getFacilityAppointmentList Belonging to a specific patient",
@@ -237,7 +237,7 @@ class FacilityAppointmentAPIController extends AppBaseController
     public function show($id): JsonResponse
     {
         /** @var FacilityAppointment $facilityAppointment */
-        $facilityAppointment = FacilityAppointment::find($id);
+        $facilityAppointment = FacilityAppointment::where('appointment_id', $id)->first();
 
         if (empty($facilityAppointment)) {
             return $this->sendError('Facility Appointment not found');
@@ -290,7 +290,7 @@ class FacilityAppointmentAPIController extends AppBaseController
     public function update($id, UpdateFacilityAppointmentAPIRequest $request): JsonResponse
     {
         /** @var FacilityAppointment $facilityAppointment */
-        $facilityAppointment = FacilityAppointment::find($id);
+        $facilityAppointment = FacilityAppointment::where('appointment_id', $id)->first();
 
         if (empty($facilityAppointment)) {
             return $this->sendError('Facility Appointment not found');
@@ -342,7 +342,7 @@ class FacilityAppointmentAPIController extends AppBaseController
     public function destroy($id): JsonResponse
     {
         /** @var FacilityAppointment $facilityAppointment */
-        $facilityAppointment = FacilityAppointment::find($id);
+        $facilityAppointment = FacilityAppointment::where('appointment_id', $id)->first();
 
         if (empty($facilityAppointment)) {
             return $this->sendError('Facility Appointment not found');

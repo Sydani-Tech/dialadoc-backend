@@ -44,6 +44,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('doctors', App\Http\Controllers\API\DoctorAPIController::class)
         ->except(['create', 'edit']);
+
+    Route::post('doctors/create-patient-record', [App\Http\Controllers\API\DoctorAPIController::class, 'createPatientRecord']);
     Route::post('doctors/upload-documents', [App\Http\Controllers\API\DoctorAPIController::class, 'uploadDocuments'])->name('doctors.upload-documents');
 
     Route::resource('reviews', App\Http\Controllers\API\ReviewAPIController::class)
@@ -127,11 +129,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('patient-records', App\Http\Controllers\API\PatientRecordAPIController::class)
         ->except(['create', 'edit']);
+
     Route::get('patient-records/by-facility/{facility_id}', [App\Http\Controllers\API\PatientRecordAPIController::class, 'referredPatientRecordsForFacility']);
     Route::get('appointments/appointment-patient-record/{appointment_id}', [App\Http\Controllers\API\PatientRecordAPIController::class, 'patientRecordByAppointment']);
 
     Route::resource('facilities', App\Http\Controllers\API\FacilityAPIController::class)
         ->except(['create', 'edit']);
+
+    Route::get('facility-referrals/{facility_id}', [App\Http\Controllers\API\FacilityAPIController::class, 'getReferrals']);
 
     Route::resource('facility-appointments', App\Http\Controllers\API\FacilityAppointmentAPIController::class)
         ->except(['create', 'edit']);

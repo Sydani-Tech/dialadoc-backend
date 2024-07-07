@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\DoctorResource;
 use App\Http\Resources\PatientResource;
 use App\Http\Resources\ConsultationResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -27,7 +28,8 @@ class UserResource extends JsonResource
             'permissions' => $this->getAllPermissions(),
             'is_profile_updated' => $this->is_profile_updated,
             'patient_profile' => new PatientResource($this->patientProfile),
-            'doctor_profile' => $this->doctorProfile
+            'doctor_profile' => new DoctorResource($this->doctorProfile),
+            'facility_profile' => new FacilityResource($this->facilityProfile),
         ];
     }
 }

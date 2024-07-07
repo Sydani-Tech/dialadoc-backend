@@ -1969,6 +1969,53 @@
                 ]
             }
         },
+        "/facility-referrals/{facility_id}": {
+            "get": {
+                "tags": [
+                    "Facility"
+                ],
+                "summary": "getFacilityReferrals",
+                "description": "Get Facility Referrals",
+                "operationId": "c6c7b7bc9949185a8b540ad381dbac0f",
+                "parameters": [
+                    {
+                        "name": "facility_id",
+                        "in": "path",
+                        "description": "id of Facility",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/facility-appointments": {
             "get": {
                 "tags": [
@@ -4389,7 +4436,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/patient-records/by-facility/{facility_id}": {
@@ -8311,6 +8363,7 @@
             },
             "PatientRecord": {
                 "required": [
+                    "patient_id",
                     "update_type",
                     "suspected_illness",
                     "findings",
@@ -8319,6 +8372,13 @@
                     "prescriptions"
                 ],
                 "properties": {
+                    "patient_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": false
+                    },
                     "update_type": {
                         "description": "",
                         "type": "string",
