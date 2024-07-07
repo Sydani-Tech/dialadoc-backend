@@ -17,6 +17,7 @@ class FacilityAppointmentResource extends JsonResource
         return [
             'id' => $this->id,
             'patient_record' => new PatientRecordResource($this->patientRecord),
+            'facility' => new FacilityResource($this->facility),
             'appointment_date' => $this->appointment_date,
             'appointment_time' => $this->appointment_time,
             'facility_id' => $this->facility_id,

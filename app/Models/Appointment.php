@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          readOnly=false,
  *          nullable=false,
  *          type="date",
- *          format="date"
+ *          format="time"
  *      ),
  * )
  */
