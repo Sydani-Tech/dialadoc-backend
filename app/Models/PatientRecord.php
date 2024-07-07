@@ -116,6 +116,11 @@ class PatientRecord extends Model
         'appointment_id' => 'required|integer|exists:appointments,id'
     ];
 
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
+    }
+
     public function appointment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Appointment::class, 'appointment_id');
