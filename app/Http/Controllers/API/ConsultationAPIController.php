@@ -61,7 +61,7 @@ class ConsultationAPIController extends AppBaseController
         return $this->sendResponse(ConsultationResource::collection($consultations), 'Consultations retrieved successfully');
     }
 
-        /**
+    /**
      * @OA\Get(
      *      path="/consultations/by-doctor/{doctor_id}",
      *      summary="getConsultationListByDoctor",
