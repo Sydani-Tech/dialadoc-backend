@@ -23,6 +23,7 @@ class PatientRecordResource extends JsonResource
             'prescriptions' => $this->prescriptions,
             'appointment' => new AppointmentResource($this->appointments),
             'recommended_facility' => new FacilityResource($this->facility),
+            'patient' => $this->patient,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
