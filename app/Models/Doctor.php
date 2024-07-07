@@ -177,15 +177,15 @@ class Doctor extends Model
         return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 
-    public function appointments()
-    {
-        return $this->hasManyThrough(Appointment::class, Consultation::class);
-    }
+    // public function appointments()
+    // {
+    //     return $this->hasManyThrough(Appointment::class, Consultation::class);
+    // }
 
-    public function consultations(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Consultation::class, 'doctor_id', 'doctor_id');
-    }
+    // public function consultations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    // {
+    //     return $this->hasMany(Consultation::class, 'doctor_id', 'doctor_id');
+    // }
 
     public function user1s(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

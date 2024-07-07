@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('nature_of_illness');
             $table->string('type_of_appointment');
             $table->text('description');
-            $table->enum('status', ['scheduled', 'completed', 'cancelled'])->default('scheduled');
+            $table->enum('status', ['pending', 'scheduled', 'completed', 'cancelled'])->default('pending');
         });
     }
 

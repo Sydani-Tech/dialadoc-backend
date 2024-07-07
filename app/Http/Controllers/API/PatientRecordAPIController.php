@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreatePatientRecordAPIRequest;
-use App\Http\Requests\API\UpdatePatientRecordAPIRequest;
+use App\Models\Appointment;
+use Illuminate\Http\Request;
 use App\Models\PatientRecord;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\PatientRecordResource;
+use App\Http\Requests\API\CreatePatientRecordAPIRequest;
+use App\Http\Requests\API\UpdatePatientRecordAPIRequest;
 
 /**
  * Class PatientRecordController
@@ -145,6 +146,14 @@ class PatientRecordAPIController extends AppBaseController
 
         /** @var PatientRecord $patientRecord */
         $patientRecord = PatientRecord::create($input);
+
+        if ($patientRecord) {
+            $appointment = $patientRecord->appointment;
+            $consultation = $appointment->consultation;
+            if ($consultation) {
+                $consultation->update(['status' => 'completed']);
+            }
+        }
 
         return $this->sendResponse(new PatientRecordResource($patientRecord), 'Patient Record saved successfully');
     }

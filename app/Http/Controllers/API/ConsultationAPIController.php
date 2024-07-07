@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateConsultationAPIRequest;
-use App\Http\Requests\API\UpdateConsultationAPIRequest;
 use App\Models\Consultation;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\ConsultationResource;
+use App\Http\Requests\API\CreateConsultationAPIRequest;
+use App\Http\Requests\API\UpdateConsultationAPIRequest;
 
 /**
  * Class ConsultationController
@@ -90,8 +92,13 @@ class ConsultationAPIController extends AppBaseController
      *      )
      * )
      */
-    public function getConsultationsByDoctor(Request $request, $doctorId): JsonResponse
+    public function getConsultationsByDoctor(Request $request, $doctorId = null): JsonResponse
     {
+        if ($doctorId === null) {
+            $doctor = Auth::user()->doctorProfile;
+            $doctorId = $doctor->doctor_id;
+        }
+
         $query = Consultation::query();
         $query->where('doctor_id', $doctorId);
 

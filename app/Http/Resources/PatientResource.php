@@ -44,8 +44,8 @@ class PatientResource extends JsonResource
             'condition_2' => $this->condition_2,
             'other_conditions' => $this->other_conditions,
             'doctor' => new DoctorResource($this->doctor),
-            'consultations' => ConsultationResource::collection($this->consultations),
-            'patient_records' => PatientRecordResource::collection($this->patient_records),
+            // 'consultations' => ConsultationResource::collection($this->consultations),
+            // 'patient_records' => PatientRecordResource::collection($this->patient_records),
             // 'appointment' => new AppointmentResource($this->appointments),
             // 'recommended_facility' => new FacilityResource($this->facility),
         ];

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
  *      schema="PatientRecord",
- *      required={"update_type","suspected_illness","findings","recommended_tests","appointment_id", "prescriptions"},
+ *      required={"patient_id","update_type","suspected_illness","findings","recommended_tests","appointment_id", "prescriptions"},
  *      @OA\Property(
  *          property="update_type",
  *          description="",
@@ -113,16 +113,21 @@ class PatientRecord extends Model
         'findings' => 'required',
         'recommended_tests' => 'required',
         'recommended_facility' => 'required|integer|exists:facilities,id',
-        'appointment_id' => 'required|integer|exists:appointments,id'
+        'appointment_id' => 'required|integer|exists:appointments,appointment_id'
     ];
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
+    }
 
     public function appointment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Appointment::class, 'appointment_id');
+        return $this->belongsTo(\App\Models\Appointment::class, 'appointment_id', 'appointment_id');
     }
 
     public function facility(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Facility::class, 'recommended_facility', 'id');
+        return $this->belongsTo(\App\Models\Facility::class, 'recommended_facility');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\User;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
+use App\Models\PatientRecord;
 use Illuminate\Http\JsonResponse;
 use illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -12,6 +13,7 @@ use App\Http\Resources\DoctorResource;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateDoctorAPIRequest;
 use App\Http\Requests\API\UpdateDoctorAPIRequest;
+use App\Http\Requests\API\CreatePatientRecordAPIRequest;
 
 /**
  * Class DoctorController
@@ -132,6 +134,28 @@ class DoctorAPIController extends AppBaseController
         } catch (\Throwable $th) {
             return $this->sendError('An error occured while trying to save profile');
         }
+    }
+
+    public function createPatientRecord(CreatePatientRecordAPIRequest $request)
+    {
+        $input = $request->all();
+        // CreatePatientRecordAPIRequest $request
+        // $patientRecord = PatientRecord::create($input);
+        dd($input);
+        // if ($patientRecord) {
+        //     $appointment = $patientRecord->appointment;
+        //     $consultation = $appointment->consultation;
+        //     // $consultation = Appointment::where(
+        //     //     'appointment_id',
+        //     //     $input['appointment_id']
+        //     // )->first()?->consultation();
+
+        //     // if ($consultation) {
+        //     //     $consultation->update(['status' => 'completed']);
+        //     // }
+        // }
+
+        // return $this->sendResponse(new PatientRecordResource($patientRecord), 'Patient Record saved successfully');
     }
 
     /**

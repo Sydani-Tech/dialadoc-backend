@@ -30,7 +30,7 @@ class DoctorResource extends JsonResource
             'state' => $this->state,
             'lga' => $this->lga,
             'bio' => $this->bio,
-            'consultations' => ConsultationResource::collection($this->consultations)
+            // 'consultations' => ConsultationResource::collection($this->consultations)
         ];
     }
 }

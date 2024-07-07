@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Helpers\FacilityReferral;
+use App\Models\Facility;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\FacilityResource;
+use App\Http\Controllers\AppBaseController;
+use Illuminate\Database\Eloquent\Collection;
 use App\Http\Requests\API\CreateFacilityAPIRequest;
 use App\Http\Requests\API\UpdateFacilityAPIRequest;
-use App\Models\Facility;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Resources\FacilityResource;
 
 /**
  * Class FacilityController
@@ -95,10 +99,21 @@ class FacilityAPIController extends AppBaseController
      */
     public function store(CreateFacilityAPIRequest $request): JsonResponse
     {
-        $input = $request->all();
+        $user = Auth::user();
 
-        /** @var Facility $facility */
-        $facility = Facility::create($input);
+        $facility = Facility::where('user_id', $user->id)->first();
+
+        $input = $request->all();
+        $facility->fill($input);
+
+        // /** @var Facility $facility */
+        // $facility = Facility::create($input);
+
+        $facility->fill($request->all());
+        $facility->save();
+
+        $user->is_profile_updated = 1;
+        $user->save();
 
         return $this->sendResponse(new FacilityResource($facility), 'Facility saved successfully');
     }
@@ -264,5 +279,48 @@ class FacilityAPIController extends AppBaseController
         $facility->delete();
 
         return $this->sendSuccess('Facility deleted successfully');
+    }
+
+    // get facilities referrals by facility id
+    /**
+     * @OA\Get(
+     *      path="/facility-referrals/{facility_id}",
+     *      summary="getFacilityReferrals",
+     *      tags={"Facility"},
+     *      description="Get Facility Referrals",
+     *      security={ {"sanctum": {} }},
+     *      @OA\Parameter(
+     *          name="facility_id",
+     *          description="id of Facility",
+     *           @OA\Schema(
+     *             type="integer"
+     *          ),
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data"
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getReferrals($facilityId): JsonResponse
+    {
+        $data = FacilityReferral::getFacilityReferral($facilityId);
+        return $this->sendResponse($data, 'Facility referrals retrieved successfully');
     }
 }
