@@ -26,6 +26,8 @@ class DoctorResource extends JsonResource
             'updated_at' => $this->updated_at,
             'bank_name' => $this->bank_name,
             'bank_account_number' => $this->bank_account_number,
+            'healthcare_practitioner_type' => $this->healthcare_practitioner_type,
+            'role_in_facility' => $this->role_in_facility,
             'country' => $this->country,
             'state' => $this->state,
             'lga' => $this->lga,
