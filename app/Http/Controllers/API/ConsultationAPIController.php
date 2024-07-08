@@ -49,6 +49,7 @@ class ConsultationAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
+
         $query = Consultation::query();
 
         if ($request->get('skip')) {

@@ -24,9 +24,9 @@ class ConsultationResource extends JsonResource
             'type_of_appointment' => $this->type_of_appointment,
             'description' => $this->description,
             'status' => $this->status,
-            'appointment' => new AppointmentResource($this->appointment),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'appointment' => $this->appointment,
             'patient' => $this->patient,
             'doctor' => $this->doctor
         ];
